@@ -52,13 +52,13 @@ return [
             'tablePrefix'=>''
         ],
 
-	'ucserver' => [
+	'english' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=192.168.0.168;dbname=ucserver',
-            'username' => 'jishubu',
-            'password' => '123456',
+            'dsn' => 'mysql:host=192.168.32.7;dbname=english',
+            'username' => 'root',
+            'password' => 'aaaaaa',
             'charset' => 'utf8',
-            'tablePrefix'=>'bluc_'
+            'tablePrefix'=>''
         ],
 
         'mailer' => [
