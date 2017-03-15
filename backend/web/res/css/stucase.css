@@ -1,0 +1,42 @@
+.stu-t h4{font-weight: bolder}
+.stu-s h4{font-weight: bolder;line-height: 40px;}
+/*border: 1px solid red*/
+.stu-t .stu-size div,.stu-s .stu-size div{height: 40px;margin:5px 0;}
+.stu-t .stu-size input{width: 140px;}
+.stu-t .stu-size label{width: 65px;font-weight: bolder;line-height: 40px;margin:0 0 0 3px; }
+
+.stu-t .stu-size .hr-t,.stu-s .stu-size .hr-t{height: 10px;}
+.stu-t .add-bg{margin: 0; padding: 0; width:800px;text-align: center;font-size: 16px}
+
+
+.stu-s .stu-size label{width: 130px;font-weight: bolder;line-height: 40px;margin: 0; }
+.stu-s .close ,.stu-t .close{ opacity:1;}
+.stu-s .icon-plus,.stu-t .icon-plus{ color: #ffffff;}
+
+
+.hr-t hr{ border-bottom: dashed 1px #a9a9a9;margin: 0; padding:0;}
+.stu-size .wenzi-ci{font-weight: bolder;font-size: 16px;line-height: 40px;}
+.stu-size .form-control{width: 150px;display: inline;}
+
+.stu-size input[type='radio']{  margin: 0 5px;}
+
+.mar5{margin:5px 0;}
+.quote{text-indent: 2em;}
+.wd{width: 500px;}
+.wd-top{width: 80px;}
+.hide{
+    display: none;
+}
+#major_select_chosen input,#domestic_select_chosen input,#foreign_select_chosen input,#univid_chosen input,#majorid_chosen input,#country_select_chosen input{
+    height: 30px;
+    padding: 0;
+}
+#major_select_chosen .chosen-drop,#domestic_select_chosen .chosen-drop,#foreign_select_chosen .chosen-drop,#univid_chosen .chosen-drop,#majorid_chosen .chosen-drop{
+    height: 250px;
+}
+#country_select_chosen .chosen-drop{
+    height: 150px;
+}
+#univid_chosen ,#majorid_chosen{
+    text-indent: 0;
+}

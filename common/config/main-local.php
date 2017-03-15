@@ -1,65 +1,24 @@
 <?php
 return [
     'components' => [
-       'db' => [
-           'class' => 'yii\db\Connection',
-           'dsn' => 'mysql:host=192.168.0.168;dbname=interface',
-           'username' => 'admin',
-           'password' => 'admin',
-           'charset' => 'utf8',
-           'tablePrefix' => '',
-       ],
-        'knowledge' => [
-                'class' => 'yii\db\Connection',
-                'dsn' => 'mysql:host=192.168.0.168;dbname=knowledge',
-                'username' => 'admin',
-                'password' => 'admin',
-                'charset' => 'utf8',
-                'tablePrefix'=>'kw_'
+
+        'db'=>[
+            'class'=>'yii\db\Connection',
+            'dsn'=>'mysql:host=192.168.32.7;dbname=func_count',// 注释提取数据库
+            'username'=>'root',
+            'password'=>'aaaaaa',
+            'charset'=>'utf8',
+            'tablePrefix' => 'bl_',
             ],
-        'bailitop' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=192.168.0.168;dbname=bailitop',
-            'username' => 'admin',
-            'password' => 'admin',
-            'charset' => 'utf8',
-            'tablePrefix'=>'site_'
-        ],
-        'bailidb' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=192.168.0.168;dbname=bailidb',
-            'username' => 'admin',
-            'password' => 'admin',
-            'charset' => 'utf8',
-            'tablePrefix'=>'bl_'
-        ],
 
-	'crm' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=192.168.0.168;dbname=crm',
-            'username' => 'admin',
-            'password' => 'admin',
-            'charset' => 'utf8',
-            'tablePrefix'=>'user_'
-        ],
-
-	'edusoho' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=192.168.0.168;dbname=edusoho',
-            'username' => 'esuser',
-            'password' => 'edusoho',
-            'charset' => 'utf8',
-            'tablePrefix'=>''
-        ],
-
-	'english' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=192.168.32.7;dbname=english',
-            'username' => 'root',
-            'password' => 'aaaaaa',
-            'charset' => 'utf8',
-            'tablePrefix'=>''
-        ],
+        'english' => [
+                'class' => 'yii\db\Connection',
+                'dsn' => 'mysql:host=192.168.32.7;dbname=english',
+                'username' => 'root',
+                'password' => 'aaaaaa',
+                'charset' => 'utf8',
+                'tablePrefix'=>''
+            ],
 
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',

@@ -1,0 +1,118 @@
+<html>
+	<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <title>上传图片</title>
+
+    <link rel="stylesheet" href="../../css/jquery-ui.css" type="text/css">
+    <link rel="stylesheet" href="../../css/jquery.ui.plupload.css" type="text/css">
+
+    <script  src="../jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../jquery-ui.min.js"></script>
+
+    <!-- production -->
+    <script type="text/javascript" src="../plupload.full.min.js"></script>
+    <script type="text/javascript" src="../jquery.ui.plupload.js"></script>
+    <script type="text/javascript" src="../zh_cn.js"></script>
+    <script type="text/javascript" src="../extension.js"></script>
+
+</head>
+<body>
+
+<form id="form" method="post" action="../test1.html">
+    <div id="uploader"><div class="plupload_wrapper"><div class="ui-widget-content plupload_container plupload_view_thumbs" id="uploader_container"><div class="ui-state-default ui-widget-header plupload_header"><div class="plupload_header_content"><div class="plupload_header_text">将文件添加到上传队列，然后点击”开始上传“按钮。</div><div class="plupload_view_switch ui-buttonset" style="display: block;"><input type="radio" id="uploader_view_list" name="view_mode_uploader" checked="checked" class="ui-helper-hidden-accessible"><label class="plupload_button ui-button ui-widget ui-state-default ui-button-icon-only ui-corner-left" for="uploader_view_list" data-view="list" role="button" title="List" aria-pressed="false"><span class="ui-button-text">List</span><span class="ui-button-icon-secondary ui-icon ui-icon-grip-dotted-horizontal"></span></label><input type="radio" id="uploader_view_thumbs" name="view_mode_uploader" class="ui-helper-hidden-accessible"><label class="plupload_button ui-button ui-widget ui-state-default ui-button-icon-only ui-corner-right ui-state-active" for="uploader_view_thumbs" data-view="thumbs" role="button" title="Thumbnails" aria-pressed="true"><span class="ui-button-text">Thumbnails</span><span class="ui-button-icon-secondary ui-icon ui-icon-image"></span></label></div></div></div><table class="plupload_filelist plupload_filelist_header ui-widget-header"><tbody><tr><td class="plupload_cell plupload_file_name">文件名</td><td class="plupload_cell plupload_file_status">状态</td><td class="plupload_cell plupload_file_size">大小</td><td class="plupload_cell plupload_file_action">&nbsp;</td></tr></tbody></table><div class="plupload_content plupload_dropbox" id="uploader_dropbox"><div class="plupload_droptext">把文件拖到这里。</div><ul class="plupload_filelist_content" id="uploader_filelist" unselectable="on"> </ul><div class="plupload_clearer">&nbsp;</div></div><table class="plupload_filelist plupload_filelist_footer ui-widget-header"><tbody><tr><td class="plupload_cell plupload_file_name"><div class="plupload_buttons" id="uploader_buttons"><!-- Visible --><a class="plupload_button plupload_add ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" id="uploader_browse" role="button" style="z-index: 1;"><span class="ui-button-icon-primary ui-icon ui-icon-circle-plus"></span><span class="ui-button-text">增加文件</span></a>&nbsp;<a class="plupload_button plupload_start ui-button ui-widget ui-state-default ui-corner-all ui-button-disabled ui-state-disabled ui-button-text-icon-primary" id="uploader_start" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-e"></span><span class="ui-button-text">开始上传</span></a>&nbsp;<a class="plupload_button plupload_stop plupload_hidden ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" id="uploader_stop" role="button"><span class="ui-button-icon-primary ui-icon ui-icon-circle-close"></span><span class="ui-button-text">停止上传</span></a>&nbsp;<div id="html5_19ocv497n6gk1neqfa61d8s1kag3_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 89px; height: 28px; overflow: hidden; z-index: 0;"><input id="html5_19ocv497n6gk1neqfa61d8s1kag3" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="image/jpeg,image/gif,image/png,application/zip,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"></div></div><div class="plupload_started plupload_hidden"><!-- Hidden --><div class="plupload_progress plupload_right"><div class="plupload_progress_container ui-progressbar ui-widget ui-widget-content ui-corner-all" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="ui-progressbar-value ui-widget-header ui-corner-left" style="display: none; width: 0%;"></div></div></div><div class="plupload_cell plupload_upload_status"></div><div class="plupload_clearer">&nbsp;</div></div></td><td class="plupload_file_status"><span class="plupload_total_status">0%</span></td><td class="plupload_file_size"><span class="plupload_total_file_size">0 kb</span></td><td class="plupload_file_action"></td></tr></tbody></table></div><input class="plupload_count" value="0" type="hidden" id="uploader_count" name="uploader_count"></div></div>
+
+</form>
+
+<script type="text/javascript">
+    // Initialize the widget when the DOM is ready
+    var uplodfiles = '';
+    $(function() {
+        $("#uploader").plupload({
+            // General settings
+            runtimes : 'html5,flash,silverlight,html4',
+            url : 'http://wuzhi.bailitop.com/index.php',
+
+            // User can upload no more then 20 files in one go (sets multiple_queues to false)
+            max_file_count: 20,
+                        chunk_size: '10mb',
+                        filters : {
+                            // Maximum file size
+                            max_file_size : '2mb',
+                                // Specify what files to browse for
+                                    mime_types: [
+                                {title : "Image files", extensions : "jpg,gif,png"},
+                                {title : "Zip files", extensions : "zip"},
+                                {title : "Word files", extensions : "docx"},
+                                {title : "pdf", extensions : "pdf"},
+                            ]
+                        },
+                        init: {
+                            FileUploaded: function(up, file, info) {
+
+                                myres = JSON.parse(info.response);
+                                if(myres['error']) {
+                                    alert(myres['error']['message']);
+                                    return ;
+                                }
+                                if(myres['result']) {
+                                    if(20 > 1) uplodfiles += myres['result']+','+myres['filename']+','+myres['id']+'|';
+                                    else uplodfiles += myres['result']+'|';
+                                }
+
+                            },
+                            UploadComplete: function() {
+                                if(uplodfiles!='') {
+                                    uplodfiles = uplodfiles.substring(0, uplodfiles.lastIndexOf('|'));
+                                }
+                                callback_more_dialog(uplodfiles,'duotu',0,'form[duotu]');
+                                console.info(uplodfiles);
+                                //console.info(file);
+                            },
+                        },
+                        // Rename files by clicking on their titles
+                        rename: true,
+
+                            // Sort files
+                                sortable: true,
+
+                        // Enable ability to drag'n'drop files onto the widget (currently only HTML5 supports that)
+                            dragdrop: true,
+
+                        // Views to activate
+                            views: {
+                        list: true,
+                                thumbs: true, // Show thumbs
+                                active: 'thumbs'
+                    },
+
+                        // Flash settings
+                        flash_swf_url : 'http://wuzhi.bailitop.com/res/js/html5upload/Moxie.swf',
+
+                            // Silverlight settings
+                                silverlight_xap_url : 'http://wuzhi.bailitop.com/res/js/html5upload/Moxie.xap'
+                    });
+                });
+
+                var dialog = '';
+                $(function () {
+                    try {
+                        dialog = top.dialog.get(window);
+                    } catch (e) {
+                        $('body').append(
+                                '<p><strong>Error:</strong> 跨域无法无法操作 iframe 对象</p>'
+                                +'<p>chrome 浏览器本地会认为跨域，请使用 http 方式访问当前页面</p>'
+                        );
+                        return;
+                    }
+
+                    dialog.title('上传附件');
+                    //dialog.width(550);
+                    //dialog.height($(document).height());
+                    dialog.reset();
+                })
+
+</script>
+
+
+</body></html>

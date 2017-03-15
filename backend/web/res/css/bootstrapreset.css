@@ -41,7 +41,7 @@
 input,textarea,select,button{outline:none !important;}
 .m-bot15 {margin-bottom: 15px;}
 .table-striped>tbody>tr:nth-child(odd)>td, .table-striped>tbody>tr:nth-child(odd)>th{background-color: #fcfcfd;}
-.table>tbody>tr>td i{margin: 0 0 0 5px;font-size: 14px;color: #BCBFC9;}
+.table>tbody>tr>td i{margin: 0 0 0 5px;font-size: 12px;color: #BCBFC9;}
 .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th{background-color: #FCFFE9;}
 .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{border-top: 1px dashed #EAEAEA;vertical-align: middle;}
 .input-group-addon, .input-group-addon:first-child,.input-group-btn:first-child>.btn, .input-group-btn:first-child>.btn-group,.input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group{border-radius: 0px;}
@@ -59,7 +59,7 @@ input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focu
 .pagination>li>a:hover, .pagination>li>span:hover{color: #3498DB;background-color: #F1F2F7;border-color: #ddd;}
 .pagination>li>a:focus, .pagination>li>span:focus, .pagination>li> .active, .pagination>li> .active:hover{color: #FFF;background-color: #3498DB;border-color: #3498DB;}
 .tablewarnings{color: #a0a0a0;display: inline-block;margin-top: 10px;}
-.btn-icon{border-radius: 3px;padding: 1px 5px 1px 0px;}
+.btn-icon{border-radius: 3px;padding: 1px 5px 1px 0px; }
 pre{border-radius: 0px;}
 #contenttable>tbody>tr>td{border-top: none}
 #contenttable>tbody>tr:hover>td{background-color: #FCFCFD;}

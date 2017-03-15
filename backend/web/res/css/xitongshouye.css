@@ -1,0 +1,13 @@
+.state-overview{margin-top:10px;}
+.state-overview .symbol,.state-overview .value{display:inline-block;text-align:center;}
+.state-overview .value{float:right;}
+.state-overview .value h1,.state-overview .value p{margin:0;padding:0;color:#c6cad6;font-family: Arial,Helvetica,sans-serif;}
+.state-overview .value:hover h1,.state-overview .value:hover p{color:#A7ACBB;}
+.state-overview .value h1{font-weight:300;font-family: "Microsoft YaHei UI","Microsoft YaHei", sans-serif;}
+.state-overview .symbol i{color:#fff;font-size:50px;}
+.state-overview .symbol{color: #fff;font-size: 25px;font-weight: bold;padding: 30px 40px;width: 58%;-webkit-border-radius:4px 0px 0px 4px;border-radius:4px 0px 0px 4px;}
+.state-overview .value{width:40%;padding-top:21px;}
+.state-overview .userblue{background:#54ade8;}
+.state-overview .commred{background:#ff6c60;}
+.state-overview .articlegreen{background:#4dccb3;}
+.state-overview .rsswet{background:#6385a7;}

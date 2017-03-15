@@ -1,225 +1,173 @@
 <?php
+/**
+ * 列表页控制器
+ 
+ */
 namespace backend\controllers;
 
 use Yii;
 use yii\web\Controller;
 use yii\data\Pagination;
-use backend\controllers\PublicFunction;
-
-/**
- * Roles Controller
- */
+use backend\models\Roles;
+use backend\models\Node_role;
+use backend\models\Nodes;
+use yii\helpers\VarDumper;
+use yii\filters\VerbFilter;
+use backend\controllers\BackendController;
+use backend\controllers\Tree;
+use yii\web\Cookie;
+use yii\data\ArrayDataProvider;
+use yii\helpers\ArrayHelper;
+use yii\web\MethodNotAllowedHttpException;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+use yii\filters\AccessControl;
 class RolesController extends BackendController
 {
-    public function actionIndex(){
-        $sql = "SELECT * FROM {{%roles}} ORDER BY roles_id";
-        $query =  Yii::$app->db->createCommand($sql)->queryAll();
+public $enableCsrfValidation = false;
+	public function actionIndex()
+	{
+	}
+	//角色管理控制器  
+	public function actionRole_manage()
+	{	
+		// 获取roles 表的的所有内容
+		$query = Roles::find();
+		
+		//进行分页操作
+		$pagination = new Pagination([
+				'defaultPageSize'=>10,
+				'totalCount' =>$query->count(),
+				]);
+		$roles=$query->offset($pagination->offset)
+				->limit($pagination->limit)
+				->all();
+		return $this->renderPartial('role_manage',[
+				'roles'=>$roles,
+				'pagination'=>$pagination,
+			]);			
+	}
+	
+	//角色添加控制器
+	public function actionRole_add()
+	{
+		$model = new Roles();
+		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+			$ifok=$model->save();
+			if($ifok){
+              return $this->redirect(['roles/role_manage']);		
+			}				
+		} else {
+             return $this->renderPartial('role_add',[
+				'model' => $model,		
+			]);	
+		}
+			
+	}
+	
+	
+	//角色管理控制器 
+	public function actionRole_delete()
+	{
+		 //防止误删
+		if(empty(Yii::$app->user->identity)){
+			 return $this->redirect(['site/login']);		 
+		}
+		$id = Yii::$app->request->get('id');
+		$sql="DELETE ".Yii::$app->components['db']['tablePrefix']."roles,".Yii::$app->components['db']['tablePrefix']."node_role from ".Yii::$app->components['db']['tablePrefix']."roles LEFT JOIN ".Yii::$app->components['db']['tablePrefix']."node_role ON ".Yii::$app->components['db']['tablePrefix']."roles.id=".Yii::$app->components['db']['tablePrefix']."node_role.roleid WHERE ".Yii::$app->components['db']['tablePrefix']."roles.id=:id;";
+		$command = Yii::$app->db->createCommand($sql,[":id"=>$id]);
+		$if_ok=$command->execute();
+		if($if_ok){
+            return $this->redirect(['roles/role_manage']);
+		}else{
+            echo "删除失败";exit;
+		}
+		
+	}
 
-        $count = count($query);
-        $pagesize = 5;
-        $pagination = new Pagination([
-            'defaultPageSize'=>$pagesize,
-            'totalCount' =>$count,
-        ]);
-        //var_dump($pagination);exit;
-        $all_pages =  ceil($count/$pagesize);
-        $list = Yii::$app->db->createCommand($sql." limit ".$pagination->limit." offset ".$pagination->offset."")->queryAll();
-
-        return $this->render('index',[
-            'list' => $list,
-            'pagination'=>$pagination,
-            'all_pages' => $all_pages,
-            //'query1'=>$query1
-        ]);
-
-    }
-    
-    public function actionCreate(){
-        $Public = new PublicFunction();
-        $post = Yii::$app->request->post();
-        //var_dump($post['role_name']);exit;
-        if(!empty($post)){
-            $array=[];
-            $array['role']=isset($post['role_name']) ? $post['role_name'] : '';
-            $array['description']=isset($post['role_description']) ? $post['role_description'] : '';
-            if(empty($post['role_name']) && empty($post['description'])){
-                $content = $Public->message('error', '参数为空，不允许添加', "index.php?r=roles/create");
-                return $this->renderContent($content);
+	//进行角色的修改
+	public function actionRole_update()
+	{
+		if(Yii::$app->request->post()) {
+		//获取角色对应的id号
+		$id= Yii::$app->request->post('id');
+		//获取用户的roleid号
+		$roleid= Yii::$app->request->post('roleid');
+		//获取权限描述
+		$remark = Yii::$app->request->post('remark');
+		//获取提交过来的名字
+		$name= Yii::$app->request->post('name');
+		$sql = "UPDATE ".Yii::$app->components['db']['tablePrefix']."roles SET role_name=:name,remark=:remark WHERE  id=:id";
+		$command = Yii::$app->db->createCommand($sql,[":id"=>$id,":name"=>$name,":remark"=>$remark]);
+		$if_ok = $command->execute();
+		if($if_ok){			
+			 return $this->redirect(['roles/role_manage']);		
+		}else{
+			echo "更新失败"; exit;
+		}		
+	    }else{
+		
+		//获取角色对应的id号
+		$id= Yii::$app->request->get('id');
+		if(!empty($id)){
+			$sql = "select id,role_name,remark from ".Yii::$app->components['db']['tablePrefix']."roles where id=".$id;
+			$rows = Yii::$app->db->createCommand($sql)->queryAll();
+				
+			return $this->renderPartial('role_update',[
+					'rows' => $rows,
+			]);
+		}
+	    }
+	}
+	
+	//权限设置控制器   by sasa
+	public function  actionRole_set(){
+		//获取角色对应的id号
+		$roleid = Yii::$app->request->get('role');
+		$role = Yii::$app->request->get('id');
+		$nodeid = Yii::$app->request->get('nid');
+		
+		if(isset($nodeid)) {
+            $chk = intval(Yii::$app->request->get('chk'));
+            $mc = Nodes::find()->where(['nodeid'=>$nodeid])->one();
+            $r = Node_role::find()->where(['nodeid'=>$nodeid,'roleid'=>$roleid])->one();
+            $keyid = substr(md5($roleid.$mc['c'].$mc['a']),0,16);
+            if($r) {
+                $r->chk=$chk;
+				$r->keyid=$keyid;
+				$r->save();
+            } else {
+				$r= new Node_role();
+				$r->nodeid=$nodeid;
+				$r->roleid=$roleid;
+				$r->chk=$chk;
+				$r->keyid=$keyid;
+				$r->save();
             }
-//            if(empty($post['role_name'])){
-//                $content = $Public->message('error', '角色名不能为空', "index.php?r=roles/create");
-//                return $this->renderContent($content);
-//            }
-//            if(empty($post['description'])){
-//                $content = $Public->message('error', '角色描述不能为空', "index.php?r=roles/create");
-//                return $this->renderContent($content);
-//            }
-            $array['create_time'] = time();
-//            查询数据库中是否已有此角色
-            $isset = Yii::$app->db->createCommand("SELECT roles_id FROM {{%roles}} WHERE role='"."$post[role_name]'")->queryOne();
-            //var_dump($array);//exit;
-            if(empty($isset)){
-                $isinsert = Yii::$app->db->createCommand()->insert('{{%roles}}',$array)->execute();
-                if($isinsert){
-                    $content = $Public->message('success', '添加成功', "index.php?r=roles/index");
-                    return $this->renderContent($content);
-                }else{
-                    $content = $Public->message('error', '添加失败', "index.php?r=roles/index");
-                    return $this->renderContent($content);
-                }
-            }else{
-                $content = $Public->message('error', '角色名重复，不允许添加', "index.php?r=roles/index");
-                return $this->renderContent($content);
+            exit('1');
+        } else {
+            $r_role =  Roles::find()->where(['id'=>$role])->one();
+            $parent_top = Nodes::find()->where(['pid'=>0])->all();
+
+            $result = Nodes::find()->all();
+            $privates_rs = Node_role::find()->where(['roleid'=>$role,'chk'=>1])->all();
+            $privates = array();
+            foreach($privates_rs as $rs) {
+               if($rs['chk']) $privates[] = $rs['nodeid'];
             }
+			return $this->renderPartial('role_set',[
+					'r_role' => $r_role,
+					'parent_top'=>$parent_top,
+					'result'=>$result,
+					'privates_rs'=>$privates_rs,
+					'privates'=>$privates,
+
+			]);
 
         }
-        return $this->render('create');
-    }
-    public function actionUpdate()
-    {
-        $Public = new PublicFunction();
-        $post = Yii::$app->request->post();
-        //var_dump($post);//exit;
-        if(!empty($post)){
-            $array=[];
-            $array['role']=isset($post['role_name']) ? $post['role_name'] : '';
-            $array['description']=isset($post['role_description']) ? $post['role_description'] : '';
-            $array['create_time'] = time();
-            //查询数据库中是否已有此角色
-            //$isset = Yii::$app->db->createCommand("SELECT roles_id FROM {{%roles}} WHERE role=".$post['role_name'])->queryOne();
-            $isset = Yii::$app->db->createCommand("SELECT roles_id FROM {{%roles}} WHERE role='"."$post[role_name]'")->queryOne();
-            //var_dump($array);//exit;
-            if(empty($isset)){
-                //var_dump($roles_id);exit;
-                $isupdate = Yii::$app->db->createCommand()->update('{{%roles}}',$array,"roles_id=".$post['rolesid'])->execute();
-                if($isupdate){
-                    $content = $Public->message('success', '修改成功', "index.php?r=roles/index");
-                    return $this->renderContent($content);
-                }else{
-                    $content = $Public->message('error', '修改失败', "index.php?r=roles/index");
-                    return $this->renderContent($content);
-                }
-            }else{
-                $content = $Public->message('error', '角色名重复，不允许修改', "index.php?r=roles/index");
-                return $this->renderContent($content);
-            }
-        }else{
-            $roles_id = Yii::$app->request->get('id');
-            //var_dump($roles_id);//exit;
-            if(isset($roles_id)){
-                $result = Yii::$app->db->createCommand("SELECT * FROM {{%roles}} WHERE roles_id=".$roles_id)->queryOne();
-            }
-
-        }
-
-        return $this->render('update',['result'=>$result]);
-    }
-    public function actionDelete ()
-    {
-        $Public = new PublicFunction();
-        $roles_id = Yii::$app->request->get('id');
-        if(!empty($roles_id)){
-            $isdel = Yii::$app->db->createCommand()->delete('{{%roles}}','roles_id='.$roles_id)->execute();
-            if($isdel){
-                $content = $Public->message('success', '删除成功', "index.php?r=roles/index");
-                return $this->renderContent($content);
-            }else{
-                $content = $Public->message('error', '删除失败', "index.php?r=roles/index");
-                return $this->renderContent($content);
-            }
-
-        }else{
-            $content = $Public->message('error', '参数不能为空', "index.php?r=roles/index");
-            return $this->renderContent($content);
-        }
-    }
-
-    public function actionRole_set()
-    {
-
-        $roleId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-        $Public = new PublicFunction();
-
-        if(empty($roleId)){
-            $content = $Public->message('error', '未获取到角色ID', "index.php?r=roles/index");
-            return $this->renderContent($content);
-        }
-
-        $bailitop = Yii::$app->db;
-        $roleInfo = $bailitop->createCommand('SELECT * FROM {{%roles}} WHERE `roles_id`=:roles_id',['roles_id'=>$roleId])->queryOne();
-
-        if(empty($roleInfo)){
-
-            $content = $Public->message('error', '角色不存在', "index.php?r=roles/index");
-            return $this->renderContent($content);
-        }
-
-        $nodesInfo = $bailitop->createCommand('SELECT * FROM {{%nodes}} WHERE `floor`=1 OR  `floor` = 0')->queryAll();
-        $sortNodesRes = $this->recursionSortNodes($nodesInfo);
-        $accessNodes = $this->getUserAccessNodes($roleId);
-
-        return $this->render('role_set',['nodes' => $sortNodesRes,'roleinfo' => $roleInfo,'accessNodes' => $accessNodes]);
-    }
-
-
-    public function actionRole_save()
-    {
-        /*
-         * 根据需求 点击父节点不统一改变其子节点的访问权限
-         * */
-        $interface = Yii::$app->db;
-        $nodeId = isset($_POST['nodeid']) ? intval($_POST['nodeid']) : 0 ;
-        $roleId = isset($_POST['roleid']) ? intval($_POST['roleid']) : 0 ;
-        $isSelected = isset($_POST['isSelected']) ? intval($_POST['isSelected']) : 9999 ;
-        $errorCode = 0;
-
-        if(!empty($nodeId) || !empty($roleId) || $isSelected !== 9999){
-
-            $filerData = [
-                'roles_id'=> $roleId,
-                'nodes_id' => $nodeId
-            ];
-            $isExist = $interface->createCommand('SELECT COUNT(1) AS `count` FROM {{%nodes_roles}} WHERE `roles_id`=:roles_id AND `nodes_id`=:nodes_id',$filerData)->queryOne();
-
-            if($isSelected == 1){
-
-                if(empty($isExist['count'])){
-
-                    $isInsert = $interface->createCommand()->insert('{{%nodes_roles}}',$filerData)->execute();
-                }
-
-            } elseif($isSelected == 0) {
-
-                $isdel = $interface->createCommand()->delete('{{%nodes_roles}}',$filerData)->execute();
-            }
-
-        }
-
-        echo $errorCode;
-        exit;
-    }
-
-    /**
-     * @param array $data  需要进行分类排序的数组
-     * @param int $pid 需要寻找子集的父id
-     * @return array
-     */
-    public function recursionSortNodes($data, $pid = 0)
-    {
-
-        $arr = $tem = array();
-
-        foreach ($data as $v) {
-            if ($v['pid'] == $pid) {
-                $tem = $this->recursionSortNodes($data, $v['nodes_id']);
-
-                // 判断是否存在子数组
-                $tem && $v['submenu'] = $tem;
-                $arr[] = $v;
-            }
-        }
-
-        return $arr;
-    }
-
+	}
+	
+	
 }
+	
+	

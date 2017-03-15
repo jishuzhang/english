@@ -10,7 +10,7 @@ $this->title = 'My Yii Application';
     <div class="jumbotron">
         <h1>英语只需三步</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">You have taken the most courageous step.</p>
 
         <p>
             <a class="btn btn-lg btn-success" href="javascript:void(0);">

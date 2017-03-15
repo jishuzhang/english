@@ -13,7 +13,6 @@ use yii\web\IdentityInterface;
  * @property integer $id
  * @property string $username
  * @property string $password_hash
- * @property string $password_
  * @property string $password_reset_token
  * @property string $email
  * @property string $auth_key
@@ -25,13 +24,15 @@ use yii\web\IdentityInterface;
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
-//    const STATUS_ACTIVE = 10;
+    const STATUS_ACTIVE = 10;
+
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%users}}';
+        return '{{%user}}';
     }
 
     /**
@@ -50,11 +51,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-//            TimestampBehavior::className(),
-            [['username','email'], 'required'],
-            [['username', 'email'], 'string', 'max' => 255],
-            [['username'], 'unique'],
-            [['email'], 'unique'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
     }
 
@@ -63,8 +61,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-//        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
-        return static::findOne(['users_id' => $id]);
+        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -83,8 +80,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findByUsername($username)
     {
-//        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-        return static::findOne(['username' => $username]);
+        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -101,7 +97,7 @@ class User extends ActiveRecord implements IdentityInterface
 
         return static::findOne([
             'password_reset_token' => $token,
-//            'status' => self::STATUS_ACTIVE,
+            'status' => self::STATUS_ACTIVE,
         ]);
     }
 
@@ -109,7 +105,7 @@ class User extends ActiveRecord implements IdentityInterface
      * Finds out if password reset token is valid
      *
      * @param string $token password reset token
-     * @return boolean
+     * @return bool
      */
     public static function isPasswordResetTokenValid($token)
     {
@@ -150,11 +146,11 @@ class User extends ActiveRecord implements IdentityInterface
      * Validates password
      *
      * @param string $password password to validate
-     * @return boolean if password provided is valid for current user
+     * @return bool if password provided is valid for current user
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password);
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
     /**
@@ -164,8 +160,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function setPassword($password)
     {
-//        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
-          $this->password = Yii::$app->security->generatePasswordHash($password);
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
 
     /**

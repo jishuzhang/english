@@ -1,84 +1,100 @@
 <?php
+use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\Url;
-
+use yii\widgets\LinkPager;
 ?>
-
-<div class="wrapper">
-    <div class="shezhiWrap">
-        <div class="shezhi_btn">
-            <div class="ccc"><a href="<?=Url::to(['roles/index'])?>" style="">角色管理</a></div>
-            <div><a href="javascript:void(0);">权限设置</a></div>
-        </div>
-        <div class="guanli">
-            <span>所属角色：</span><p><?=$roleinfo['role']?></p>
-        </div>
-        <?php $form = ActiveForm::begin(['action' => ['roles/role_save'],'method'=>'post','id'=>'php_save_node']); ?>
-            <ul class="ce shezhi_ce">
-                <?php foreach($nodes as $node):?>
-
-                    <?php if($node['pid'] == 0):?>
-                        <li>
-<!--                            一级菜单-->
-                            <a href="javascript:void(0);" class="a_01"><input type="checkbox" name="nodes[]" value="<?=$node['nodes_id'];?>" <?=in_array($node['nodes_id'],$accessNodes) ? 'checked': '';?>/>&nbsp;&nbsp;&nbsp;&nbsp;<?=$node['title']?></a>
-                        <?php if(!empty($node['submenu'])):?>
-                            <ul class="er shezhi">
-                            <?php foreach($node['submenu'] as $subNode):?>
-                                <li class="e_li she_li">
-<!--                                    二级菜单-->
-                                    <div class="bak"><input type="checkbox" name="nodes[]" value="<?=$subNode['nodes_id'];?>" <?=in_array($subNode['nodes_id'],$accessNodes) ? 'checked': '';?>/><?=$subNode['title']?></div>
-                                <?php if(!empty($subNode['submenu'])):?>
-                                    <div class="yingyong">
-                                    <?php foreach($subNode['submenu'] as $actionNode):?>
-<!--                                        三级菜单-->
-                                        <input type="checkbox" name="nodes[]" value="<?=$actionNode['nodes_id'];?>" <?=in_array($actionNode['nodes_id'],$accessNodes) ? 'checked': '';?>/><?=$actionNode['title']?>
-                                    <?php endforeach;?>
-                                    </div>
-
-                                <?php endif;?>
-                                </li>
-                            <?php endforeach;?>
-                            </ul>
-                        <?php endif;?>
-                        </li>
-                    <?php endif;?>
-
-                <?php endforeach;?>
-
-                <div class="clear"></div>
-            </ul>
-        <?php ActiveForm::end(); ?>
-    </div>
-
+<!DOCTYPE html>
+<html lang="zh-cn" class="no-js sidebar-large">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta title="viewport" content="width=device-width, initial-scale=1">
+	<title>百利天下教育管理系统</title>
+	<link href="res/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="res/css/bootstrapreset.css" rel="stylesheet" />
+	<link href="res/css/pxgridsicons.min.css" rel="stylesheet" />
+	<link href="res/css/style.css" rel="stylesheet" />
+	<link href="res/css/responsive.css" rel="stylesheet" media="screen"/>
+	<link href="res/css/animation.css" rel="stylesheet" />
+</head>
+<body>
+<section class="wrapper">
+<div class="row">
+<div class="col-lg-12">
+<section class="panel">
+    <header class="panel-heading">
+    <div>
+				
+		<?= Html::a('<i class="icon-gears btn-icon"></i>权限管理', ['admin/index'], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('<i class="icon-gears btn-icon"></i>管理员添加', ['admin/add_admin'], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('<i class="icon-gears btn-icon"></i>角色管理', ['roles/role_manage'], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('<i class="icon-plus btn-icon"></i>角色添加', ['roles/role_add'], ['class' => 'btn btn-info']) ?>
 </div>
 
+    </header>
+            <div class="panel-body" id="panel-bodys">
+                <table class="table table-striped table-advance table-hover">
+                    <thead>
+                    <tr>
+                        <th class="tablehead" colspan="2">设置权限：<?php echo $r_role['role_name'];?></th>
+						<th class="tablehead" colspan="2" id="alert-warning"><span id="warning-tips"></span></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+	function check_in($id,$ids,$returnstr = 'checked') {
+		if(in_array($id,$ids)) return $returnstr;
+	}
+                    foreach($parent_top AS $r) {
+                        echo '<tr>';
+                        echo '<td><label><input type="checkbox"  value="'.$r['nodeid'].'" onclick="st(this);" '.check_in($r['nodeid'],$privates,'checked').'> '.$r['title'].'</label></td>
+                            <td></td>
+                        </tr>';
+                        foreach($result as $rs) {
+                            if($rs['pid']!=$r['nodeid']) continue;
+                            echo '<tr>
+                            <td style="padding-left: 50px;"><label><input type="checkbox" value="' . $rs['nodeid'] . '" onclick="st(this);" '.check_in($rs['nodeid'],$privates,'checked').'> ' . $rs['title'] . '</label></td>
+                            <td>';
+                            foreach($result as $r2) {
+                                if($rs['nodeid'] == $r2['pid']) {
+                                    echo '<label><input type="checkbox" value="' . $r2['nodeid'] . '" onclick="st(this);" '.check_in($r2['nodeid'],$privates,'checked').'> ' . $r2['title'] . '</label>';
+                                }
+                            }
+                            echo '</td>
+                            </tr>';
+                        }
+                    }
+                    ?>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+<!-- page end-->
+</section>
+<script type="text/javascript" src="http://statics.bailitop.com/js/jquery-1.10.2.min.js"></script>
 <script>
-    var nodeForm = $('#php_save_node');
-    var roleId = <?=$roleinfo['roles_id']?>;
-    $('#php_save_node input').click(function (){
-
-        var _csrf = $('input[name="_csrf"]').val();
-        var nodeId = $(this).val();
-        var isSelected = $(this).is(':checked') ? 1 : 0 ;
-        var data = {_csrf:_csrf,nodeid:nodeId,roleid:roleId,isSelected:isSelected};
-
-        $.ajax({
-            url:nodeForm.attr('action'),
-            data:data,
-            type:nodeForm.attr('method'),
-            success:function (errorCode){
-                if(errorCode == 1){
-                    // success
-                }else{
-                    // error
-                }
-            },
-            error:function (e){
-                alert(e.responseText);
-            },
-            dataType:'html'
+	function set_timer() {
+       var t=setTimeout(function(){$('#alert-warning').addClass('hide');clearInterval(t);},3000);
+    }	
+	function st(obj) {
+        if($(obj).is(':checked')) {
+            var chk=1;
+        } else {
+            var chk=0;
+        }
+        $.get("index.php?r=roles/role_set",{nid:obj.value,chk:chk,role:<?php echo Yii::$app->request->get('id') ?>}, function(data){
+            //alert("Data Loaded: " + data);
+            $('#alert-warning').removeClass('alert-warning');
+            $('#alert-warning').addClass('alert-success');
+            $('#alert-warning').removeClass('hide');
+            $('#warning-tips').html('<strong>更新成功</strong>');
+            set_timer();
         });
-    });
+    }
+		 
 </script>
-
 

@@ -1,121 +1,76 @@
 <?php
 namespace backend\controllers;
 
-use backend\models\Users;
 use Yii;
-use common\library\MenuCache;
+use yii\captcha\CaptchaAction;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use backend\models\LoginForm;
+use backend\models\Admin;
+use backend\models\Logintime;
 use yii\filters\VerbFilter;
+use yii\widgets\InputWidget;
 
 /**
  * Site controller
  */
 class SiteController extends Controller
 {
-
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => 'yii\filters\PageCache',
-                'only' => ['index'],
-//                'duration' => 60,
-                'variations' => [
-                    \Yii::$app->language,
-                ],
-                'dependency' => [
-                    'class' => 'yii\caching\DbDependency',
-                    'sql' => 'SELECT COUNT(*) FROM {{%interface}}',
-                ],
-            ],
-        ];
-    }
-
-
-
-    /*
-     * 重写验证码方法
-     * */
+    /**
+     * @inheritdoc
+     */
     public function actions()
     {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-                'height'=>34,
+        	'captcha' => [
+        		'class' => 'yii\captcha\CaptchaAction',
+        		'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'height'=>40,
                 'width'=>80,
-                'maxLength' => 4,
-                'minLength' => 4
-            ],
+        		'maxLength' => 4,
+        		'minLength' => 4
+        		],
         ];
     }
 
-    /*
-     * 登录后的首页
-     * */
+
+
     public function actionIndex()
     {
-
-        if(isset(Yii::$app->user->identity->users_id)) {
-            $users_id = Yii::$app->user->identity->users_id;
-            $user_info = Yii::$app->db->createCommand("select `roleid` from {{%users}} WHERE users_id=".$users_id)->queryOne();
-
-
-            if ($user_info['roleid'] == 1) {
-
-                $info_member = Yii::$app->db->createCommand("select * from {{%application}} WHERE isstutas=1")->queryAll();
-            }else if ($user_info['roleid'] != 1){
-                $info_member = Yii::$app->db->createCommand("select `app_id` from {{%app_member}} WHERE users_id=" . $users_id)->queryAll();
-            }
-
-            if (!empty($info_member)) {
-                foreach ($info_member as $key => $val) {
-                    $apps_id = $val['app_id'];
-                    $aaa[] = Yii::$app->db->createCommand("select * from {{%application}} WHERE isstutas=1 AND app_id=" . $apps_id)->queryAll();
-                    if($aaa == false){
-                        $res = "";
-                    }else{
-                        $res = $aaa;
-                    }
-                }
-
-            }else{
-                $res = "";
-            }
-        }
-
-        if(!empty($res)){
-            $info_application = $res;
-        }else{
-            $info_application = "";
-        }
-
-        //判断用户验证信息
-        if (isset(Yii::$app->user->identity)) {
-            return $this->render('index',[
-                'info_application' => $info_application,
-            ]);
-        }else{
-            return $this->redirect(['site/login']);
-        }
+		
+		$session = Yii::$app->getSession();		     
+          if (isset(Yii::$app->user->identity)) {
+            $sql = "select portrait from ".Yii::$app->components['db']['tablePrefix']."admin where userid=".Yii::$app->user->identity->userid;
+            $arr_portrait =  Yii::$app->db->createCommand($sql)->queryOne();
+    		return $this->renderPartial('index',['arr_portrait'=>$arr_portrait,]);
+    	}else{
+              return $this->redirect(['site/login']);
+          }
     }
-    /*
-     * 执行登录动作
-     * */
+
+
+	
+	
+    public function actionSiteindex()
+    {
+		//防止误删
+		if(empty(Yii::$app->user->identity)){
+			 return $this->redirect(['site/login']);		 
+		}
+        return $this->renderPartial('siteindex');
+    }
+
     public function actionLogin()
     {
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
-        //实例化登陆的表单模型
         $model = new LoginForm();
-        $this->layout = false; //不使用布局
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             $username = Yii::$app->user->identity->username;
             $this->after($username);
@@ -127,20 +82,33 @@ class SiteController extends Controller
         }
     }
 
-    /*
-     * 退出动作
-     * */
+
     public function actionLogout()
     {
         Yii::$app->user->logout();
-        return $this->goHome();
-    }
 
-    public function after($username){
-        $value=[];
-        $value['logintime']=time();
-        $logintime = yii::$app->db->createCommand()->update('{{%users}}',$value,"username='".$username."'")->execute();
-        return true;
+         return $this->goHome();
     }
+	public function after($username){
+        $user = Admin::findByUsername($username);
+		$session = Yii::$app->getSession();
+        $ip  = Yii::$app->getRequest()->getUserIP();
+		$session['u'] = [
+         'uid' => $user->userid,
+         'uname' => $user->username,
+		 'role' => $user->roleid,
+		 'ip' => $ip,
+        ];
+		//写入用户登陆
+		$lmodel = new Logintime();
+		$lmodel->uid = $user->userid;
+		$lmodel->status  = 1;
+        date_default_timezone_set('PRC'); // 中国时区
+		$lmodel->logintime  = time();
+		$lmodel->ip  = $ip ;
+		$lmodel->insert();
+		return true;
+	}
+
 
 }

@@ -1,17 +1,71 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrator
- * Date: 2016/7/13
- * Time: 10:56
- */
+use backend\assets\AppAsset;
+use yii\helpers\Html;
+use yii\bootstrap\Nav;
+use yii\bootstrap\NavBar;
+use yii\widgets\Breadcrumbs;
+
 /* @var $this \yii\web\View */
 /* @var $content string */
-use yii\widgets\ContentDecorator;
+
+AppAsset::register($this);
 ?>
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
+<head>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title = '百利天下教育管理系统') ?></title>
+    <?php $this->head() ?>
+</head>
+<body>
+    <?php $this->beginBody() ?>
+    <div class="wrap">
+<!--        --><?php
+//            NavBar::begin([
+//                'brandLabel' => 'My Company',
+//                'brandUrl' => Yii::$app->homeUrl,
+//                'options' => [
+//                    'class' => 'navbar-inverse navbar-fixed-top',
+//                ],
+//            ]);
+//            $menuItems = [
+//                ['label' => 'Home', 'url' => ['/site/index']],
+//            ];
+//            if (Yii::$app->user->isGuest) {
+//                $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+//            } else {
+//                $menuItems[] = [
+//                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+//                    'url' => ['/site/logout'],
+//                    'linkOptions' => ['data-method' => 'post']
+//                ];
+//            }
+//            echo Nav::widget([
+//                'options' => ['class' => 'navbar-nav navbar-right'],
+//                'items' => $menuItems,
+//            ]);
+//            NavBar::end();
+//        ?>
 
-<?php ContentDecorator::begin(['viewFile'=>'@app/views/layouts/column.php'])?>
+        <div class="container">
+<!--        --><?php //echo Breadcrumbs::widget([
+//            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+//        ]) ?>
+        <?= $content ?>
+        </div>
+    </div>
 
-        <?=$content?>
+<!--    <footer class="footer">-->
+<!--        <div class="container">-->
+<!--        <p class="pull-left">&copy; My Company --><?//= date('Y') ?><!--</p>-->
+<!--        <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
+<!--        </div>-->
+<!--    </footer>-->
 
-<?php ContentDecorator::end();?>
+    <?php $this->endBody() ?>
+</body>
+</html>
+<?php $this->endPage() ?>
