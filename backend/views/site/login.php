@@ -53,6 +53,7 @@ use common\models\LoginForm;
                         <div  class="form-control">{input}</div><div class="input-group-addon" id="logincode">{image}</div></div>',
             'imageOptions'=>['alt'=>'验证码','title'=>'换一个'],'captchaAction'=>'site/captcha'
         ])?>
+
         <?php $this->endBody() ?>
         <?php $this->endPage() ?>
 
@@ -93,4 +94,3 @@ use common\models\LoginForm;
         }
     });
 </script>
-

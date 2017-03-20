@@ -44,19 +44,23 @@ use yii\widgets\LinkPager;
     .panel-heading .sr-input {
         border-radius: 0;
     }
-    .survey{
-        padding: 3px;
-        margin: 0 2px;
-        border: 1px solid #a9a9a9;
+    .table th, .table td {
+
+        text-align: center;
+
+        height:38px;
+
     }
+
 </style>
 <body>
+
 <section class="wrapper">
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    <?= Html::a('<i class="icon-plus btn-icon"></i>执行记录', ['note/list'], ['class' =>'btn btn-info']) ?>
+                    <?= Html::a('<i class="icon-plus btn-icon"></i>添加视频', ['player/create'], ['class' =>'btn btn-info']) ?>
                 </header>
                 <?php $form = ActiveForm::begin()?>
 
@@ -64,24 +68,28 @@ use yii\widgets\LinkPager;
                 <div class="panel-body" id="panel-bodys">
                     <table class="table table-striped table-advance table-hover">
                         <thead>
-                        <tr>
-                            <th style="width: 50px;"></th>
-                            <th>ID</th>
-                            <th>执行时间</th>
-                        </tr>
+                            <tr>
+                                <th style="width: 50px;"></th>
+                                <th style="width: 200px;">标题</th>
+                                <th style="width: 300px;">描述</th>
+                                <th>添加时间</th>
+                                <th>操作</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <?php if(isset($execList)): ?>
-                            <?php foreach ($execList as $evMethod):?>
+                        <?php if(isset($model)): ?>
+                            <?php foreach ($model as $evModel):?>
                                 <tr>
-                                    <td><input type="checkbox" name="ids[]" value="<?=$evMethod['id']?>"></td>
-                                    <td><?=$evMethod['id']?></td>
-                                    <td><?= date('Y-m-d H:i:s',$evMethod['time'])?></td>
+                                    <td><input type="checkbox" name="ids[]" value="<?=$evModel['id']?>"></td>
+                                    <td><?=$evModel['title']?></td>
+                                    <td><?= mb_substr($evModel['description'],0,20,'utf-8')?></td>
+                                    <td><?= date('Y-m-d H:i:s',$evModel['ctime'])?></td>
+                                    <td>删除</td>
                                 </tr>
                             <?php endforeach;?>
                         <?php else:?>
                             <tr>
-                                <td colspan="7">没有搜索结果</td>
+                                <td colspan="7">您还没有添加视频</td>
                             </tr>
                         <?php endif;?>
 
