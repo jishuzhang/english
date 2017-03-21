@@ -1,86 +1,38 @@
 <?php
-use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
+
 use yii\widgets\ActiveForm;
+use yii\bootstrap\Html;
 
 ?>
-<!DOCTYPE html>
-<html lang="zh-cn" class="no-js sidebar-large">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>百利天下教育管理系统</title>
-    <link href="res/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="res/css/bootstrapreset.css" rel="stylesheet" />
-    <link href="res/css/pxgridsicons.min.css" rel="stylesheet" />
-    <link href="res/css/style.css" rel="stylesheet" />
-    <link href="res/css/responsive.css" rel="stylesheet" media="screen"/>
-
-</head>
+<link href="res/css/style.css" rel="stylesheet" />
+<style>
+    textarea{resize:none}
+</style>
 <body>
 <section class="wrapper">
     <div class="row">
         <div class="col-lg-12">
             <section class="panel">
-                <header class="panel-heading">
-                    <div>
-                        <?= Html::a('<i class="icon-gears btn-icon"></i>添加目录', ['note/add'], ['class' => 'btn btn-info']) ?>
-                    </div>
-                </header>
-
 
                 <div  class="panel-body"  id="panel-bodys">
-                    <table  class="table table-striped table-advance table-hover"  id="contenttable">
-                        <tbody>
+                    <?php $form = ActiveForm::begin(['action' => ['note/edit'],
+                        'class'=>['form-horizontal'],
+                        'method'=>'post',
+                    ]); ?>
 
-                        <?php $form = ActiveForm::begin(['action' => ['note/edit'],
-                            'class'=>['form-horizontal tasi-form'],
-                            'method'=>'post',
-                        ]); ?>
+                    <?php echo $form->field($model, 'title')->textInput(['maxlength' => 20])->label('视频标题'); ?>
 
-                        <tr>
-                            <td>
-                                <span>
-                                    <label class="col-sm-4 input-group" for="roles-role_name">项目别名(英文字母)</label>
-                                </span>
-                            </td>
-                            <td class="hidden-phone">
-                                <div class="col-sm-12 input-group">
-                                    <input type="text" class="form-control" value="<?= $model['project_alias']?>" name="project_alias" style="width:300px">
-                                    <input type="hidden" class="form-control" value="<?= $model['id']?>" name="id" style="width:300px">
-                                </div>
-                            </td>
-                        </tr>
+                    <?php echo $form->field($model, 'title')->textInput(['maxlength' => 200])->label('视频外链'); ?>
 
-                        <tr>
-                            <td>
-                                <span>
-                                    <label class="col-sm-4 input-group"  for="roles-role_name">项目路径(绝对路径)</label>
-                                </span>
-                            </td>
-                            <td class="hidden-phone">
-                                <div class="col-sm-12 input-group">
-                                    <input type="text" name="path" value="<?= $model['path']?>" class="form-control" style="width:300px">
-                                </div>
-                            </td>
-                        </tr>
+                    <?php echo $form->field($model, 'description')->textarea(['rows'=>3,'resize'=>'none'])->label('视频描述'); ?>
 
-                        <tr>
-                            <td colspan="2">
-                                <?= Html::submitButton('提交', ['class' => 'btn btn-info btn-sm']) ?>
-                            </td>
-                        </tr>
+                    <?php echo $form->field($model, 'id')->hiddenInput(['value'=>3])->label(false); ?>
 
-                        <?php ActiveForm::end(); ?>
-                        </tbody>
+                    <?php echo Html::submitButton('提交', ['class'=>'btn btn-primary pull-right','name' =>'submit-button']) ?>
 
-                    </table>
-                </div>
-
+                    <?php ActiveForm::end(); ?>
+                    </div>
             </section>
         </div>
     </div>
 </section>
-</body>
-</html>

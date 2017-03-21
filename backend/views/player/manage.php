@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 /**
  * Created by PhpStorm.
@@ -10,50 +9,59 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
+use yii\web\View;
 
+$viewJs =<<<JS
+
+    // select all 、cancel select all
+    document.getElementById('check-all').onclick = function (){
+
+        var videoInputs = document.getElementsByClassName('video-ids');
+        var selStatus = this.checked;
+
+        for(var i in videoInputs){
+           videoInputs[i].checked = selStatus;
+        }
+    };
+
+    $('.ajax').click(function(){
+
+        var action = this.getAttribute('aria-label');
+        var data = {'vid':this.getAttribute('data-ajid')}
+
+        $.ajax({
+            url:action,
+            method:'post',
+            data:data,
+            success:function(e){
+                if(e.code == true){
+                    $(this).parents('tr').remove();
+                }
+            },
+            sync:false,
+            dataType:'json'
+        });
+
+    });
+
+
+
+JS;
+
+$this->registerJs($viewJs,View::POS_END);
 ?>
-<title>百利天下教育管理系统</title>
-<link href="res/css/bootstrap.min.css" rel="stylesheet" />
+
 <link href="res/css/bootstrapreset.css" rel="stylesheet" />
-<link href="res/css/pxgridsicons.min.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
-<link href="res/css/responsive.css" rel="stylesheet" media="screen"/>
-<script  src="/res/js/jquery-2.0.3.min.js"></script>
 
 <style type="text/css">
-    .table>tbody>tr>td{
-        padding: 10px 13px;
-    }
-    .table>thead>tr>th {
-        padding: 10px 10px;
-    }
-    .panel-heading .type-input {
-        border: 1px solid #eaeaea;
-        border-radius: 4px 0 0 4px;
-        box-shadow: none;
-        color: #797979;
-        float: left;
-        height: 35px;
-        padding: 0 10px;
-        transition: all 0.3s ease 0s;
-        width: 80px;
-        appearance:none;
-        /*-moz-appearance:none;*/
-        /*-webkit-appearance:none;*/
-    }
-    .panel-heading .sr-input {
-        border-radius: 0;
-    }
     .table th, .table td {
-
         text-align: center;
-
         height:38px;
-
     }
 
 </style>
-<body>
+
 
 <section class="wrapper">
     <div class="row">
@@ -69,22 +77,27 @@ use yii\widgets\LinkPager;
                     <table class="table table-striped table-advance table-hover">
                         <thead>
                             <tr>
-                                <th style="width: 50px;"></th>
-                                <th style="width: 200px;">标题</th>
-                                <th style="width: 300px;">描述</th>
-                                <th>添加时间</th>
-                                <th>操作</th>
+                                <th style="width: 100px;">
+                                    全选 <input type="checkbox" name="check-all"  id="check-all" value="">
+                                </th>
+                                <th style="width: 200px;">视频标题</th>
+                                <th >视频描述</th>
+                                <th style="width: 150px;">添加时间</th>
+                                <th style="width: 300px;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php if(isset($model)): ?>
                             <?php foreach ($model as $evModel):?>
                                 <tr>
-                                    <td><input type="checkbox" name="ids[]" value="<?=$evModel['id']?>"></td>
+                                    <td><input class="video-ids" type="checkbox" name="ids[]" value="<?=$evModel['id']?>"></td>
                                     <td><?=$evModel['title']?></td>
                                     <td><?= mb_substr($evModel['description'],0,20,'utf-8')?></td>
-                                    <td><?= date('Y-m-d H:i:s',$evModel['ctime'])?></td>
-                                    <td>删除</td>
+                                    <td><?= date('Y-m-d H:i',$evModel['ctime'])?></td>
+                                    <td>
+                                        <a title="编辑" href="<?php echo Url::toRoute(['player/edit','id'=>$evModel->id])?>"  class="btn btn-primary btn-xs">编辑</a>
+                                        <a data-ajid="<?=$evModel['id']?>" aria-label="index/?r=player/delete" title="删除" href="javascript:void(0);" class="ajax btn btn-primary btn-xs">删除</a>
+                                    </td>
                                 </tr>
                             <?php endforeach;?>
                         <?php else:?>
@@ -114,4 +127,4 @@ use yii\widgets\LinkPager;
         </div>
     </div>
 </section>
-</body>
+

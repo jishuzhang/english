@@ -7,9 +7,12 @@
  */
 namespace backend\controllers;
 
+use Yii;
 use yii\web\Controller;
 use yii\data\Pagination;
 use backend\models\Movies;
+use yii\helpers\Json;
+use yii\web\Response;
 
 class PlayerController extends Controller
 {
@@ -25,5 +28,33 @@ class PlayerController extends Controller
         ]);
     }
 
+    public function actionDelete()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $id = Yii::$app->request->post('vid');
+        $v = true;
+
+        if($id){
+
+            if(Movies::deleteAll(['id' => $id])){
+                $v = 1;
+            }
+        }
+
+        return ['code'=>$v,'message'=>''];
+    }
+
+    public function actionEdit()
+    {
+        $id = Yii::$app->request->post('vid');
+
+        $model = new Movies();
+        $edit = Movies::findOne(['id'=>$id]);
+
+        return $this->render('edit',[
+            'model' => $model,
+            'default-value' => empty($edit) ? '' : $edit,
+        ]);
+    }
 
 }

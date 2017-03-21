@@ -47,7 +47,7 @@ $top_navs = Nodes::find()->where('pid = 0 and display = 1')->orderBy('listorder 
 
 
 
-                    <img  style="height: 41px; width: 41px;"  src="<?php if($arr_portrait['portrait']){echo $arr_portrait['portrait'];}else{echo 'Uploads/2015/1012/14446198495330.jpg';} ?>" class="userimg">
+                    <img  style="height: 41px; width: 41px;"  src="" class="userimg">
 
                     <span class="username"><?= $username ?></span>
                     <b class="caret"></b>
