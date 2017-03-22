@@ -54,6 +54,7 @@ class PlayerController extends Controller
     public function actionEdit()
     {
         $model = new VideoForm();
+        $model->setScenario('edit');
 
         if($model->load(Yii::$app->request->post()) && $model->validate()){
 
@@ -84,6 +85,7 @@ class PlayerController extends Controller
     public function actionCreate()
     {
         $model = new VideoForm();
+        $model->setScenario('create');
 
         if($model->load(Yii::$app->request->post()) && $model->validate()){
 
@@ -100,6 +102,7 @@ class PlayerController extends Controller
             }
 
         }else{
+
 
             return $this->render('create',[
                 'model' => $model,

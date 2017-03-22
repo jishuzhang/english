@@ -20,8 +20,8 @@ class VideoForm extends Model
     public function rules()
     {
         return [
-            // username and password are both required
-            [['title', 'description','src'], 'required','{attributes}不能为空'],
+
+            [['title', 'description','src'], 'required','message'=>'该选项不能为空'],
             ['id', 'integer'],
 
             ['title', 'string', 'min' => 4,'max'=>'24','tooLong'=>'标题过长','tooShort'=>'标题过短'],
@@ -30,6 +30,18 @@ class VideoForm extends Model
             ['src','url','message' => '无效的视频地址']
 
         ];
+    }
+
+    public function scenarios()
+
+    {
+        $scenarios = parent::scenarios();
+
+        $scenarios['create'] = ['title','description','src'];
+        $scenarios['edit'] = ['title','description','src','id'];
+
+
+        return $scenarios;
     }
 
     /**
