@@ -36,8 +36,8 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => '首页', 'url' => ['/site/index']],
-        ['label' => '电影台词', 'url' => ['/site/about']],
-        ['label' => '练习', 'url' => ['/site/contact']],
+        ['label' => '视频中心', 'url' => ['/player/list']],
+        ['label' => '联系我们', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
@@ -68,7 +68,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; yii2.0 <?= date('Y') ?></p>
 
         <p class="pull-right">
             Powered by

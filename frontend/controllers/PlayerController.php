@@ -11,6 +11,8 @@ use yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use common\models\Movies;
+use yii\data\Pagination;
 
 class PlayerController extends Controller
 {
@@ -52,7 +54,13 @@ class PlayerController extends Controller
 
     public function actionList()
     {
-        return $this->render('list',[]);
+        $data =Movies::find();
+
+        $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
+        $model = $data->offset($pages->offset)->limit($pages->limit)->all();
+        return $this->render('list',[
+            'model' => $model
+        ]);
     }
 }
 
