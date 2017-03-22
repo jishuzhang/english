@@ -7,6 +7,7 @@
  */
 namespace backend\controllers;
 
+use backend\models\VideoForm;
 use Yii;
 use yii\web\Controller;
 use yii\data\Pagination;
@@ -30,31 +31,80 @@ class PlayerController extends Controller
 
     public function actionDelete()
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        $id = Yii::$app->request->post('vid');
-        $v = true;
+
+        $id = Yii::$app->request->get('id');
+        $v = false;
 
         if($id){
 
             if(Movies::deleteAll(['id' => $id])){
-                $v = 1;
+                $v = true;
             }
         }
 
-        return ['code'=>$v,'message'=>''];
+        if($v){
+            Yii::$app->getSession()->setFlash('success', '操作成功');
+        }else{
+            Yii::$app->getSession()->setFlash('error', '操作失败');
+        }
+
+        $this->redirect(Yii::$app->request->getReferrer());
     }
 
     public function actionEdit()
     {
-        $id = Yii::$app->request->post('vid');
+        $model = new VideoForm();
 
-        $model = new Movies();
-        $edit = Movies::findOne(['id'=>$id]);
+        if($model->load(Yii::$app->request->post()) && $model->validate()){
 
-        return $this->render('edit',[
-            'model' => $model,
-            'default-value' => empty($edit) ? '' : $edit,
-        ]);
+            if($model->updateVideo()){
+
+                Yii::$app->getSession()->setFlash('success', '编辑成功');
+                $this->redirect(Yii::$app->request->getReferrer());
+            }else{
+
+                $error = current($model->getFirstErrors());
+                Yii::$app->getSession()->setFlash('error', $error);
+                $this->redirect(Yii::$app->request->getReferrer());
+            }
+
+        }else{
+
+            $id = Yii::$app->request->get('id');
+            $edit = Movies::findOne(['id'=>$id]);
+
+            return $this->render('edit',[
+                'model' => $model,
+                'default_value' => empty($edit) ? '' : $edit,
+            ]);
+        }
+
+    }
+
+    public function actionCreate()
+    {
+        $model = new VideoForm();
+
+        if($model->load(Yii::$app->request->post()) && $model->validate()){
+
+            if($model->createVideo()){
+
+                Yii::$app->getSession()->setFlash('success', '添加成功');
+                $this->redirect(Yii::$app->request->getReferrer());
+
+            }else{
+
+                $error = current($model->getFirstErrors());
+                Yii::$app->getSession()->setFlash('error', $error);
+                $this->redirect(Yii::$app->request->getReferrer());
+            }
+
+        }else{
+
+            return $this->render('create',[
+                'model' => $model,
+            ]);
+        }
     }
 
 }

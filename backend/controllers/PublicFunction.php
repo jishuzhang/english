@@ -74,14 +74,7 @@ class PublicFunction{
         return $str;
     }
 
-    /**
-	 * 页面提示信息
-	 * @param string $action
-	 * @param string $content
-	 * @param string $redirect
-	 * @param number $timeout
-	 * @param string $stop
-	 */
+
 	public function message( $action = 'success', $content = '', $redirect = 'javascript:history.back(-1);', $is_close=false, $timeout = 3 , $stop=false) {
 	
 		switch ( $action ) {
@@ -187,10 +180,8 @@ class PublicFunction{
                 </div>';
 	    if(!$stop){
                 return $header . $body . $footer;
-//		exit( $header . $body . $footer );
 	    }else{
                 return $header . $body2 . $footer;
-//	    	exit( $header . $body2 . $footer );
 	    }
 	}
 	

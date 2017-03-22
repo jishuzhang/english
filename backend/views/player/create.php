@@ -16,23 +16,22 @@ use common\widgets\Alert;
             <section class="panel">
 
                 <div  class="panel-body"  id="panel-bodys">
-                    <?php $form = ActiveForm::begin(['action' => ['player/edit'],
+                    <?php $form = ActiveForm::begin(['action' => ['player/add'],
                         'class'=>['form-horizontal'],
                         'method'=>'post',
                     ]); ?>
 
-                    <?php echo $form->field($model, 'title')->textInput(['value' => $default_value['title']])->label('视频标题'); ?>
+                    <?php echo $form->field($model, 'title')->textInput(['placeholder' => '视频标题'])->label('视频标题'); ?>
 
-                    <?php echo $form->field($model, 'src')->textInput(['value' => $default_value['src']])->label('视频外链'); ?>
+                    <?php echo $form->field($model, 'src')->textInput()->label('视频外链'); ?>
 
-                    <?php echo $form->field($model, 'description')->textarea(['rows'=>6,'value' => $default_value['description']])->label('视频简介'); ?>
-
-                    <?php echo $form->field($model, 'id')->hiddenInput(['value'=>$default_value['id']])->label(false); ?>
+                    <?php echo $form->field($model, 'description')->textarea(['rows'=>6])->label('视频简介'); ?>
 
                     <?php echo Html::submitButton('提交', ['class'=>'btn btn-primary pull-right','name' =>'submit-button']) ?>
 
                     <?php ActiveForm::end(); ?>
-                    </div>
+
+                </div>
             </section>
         </div>
     </div>
