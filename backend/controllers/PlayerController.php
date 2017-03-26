@@ -20,7 +20,7 @@ class PlayerController extends Controller
 {
     public function actionManage()
     {
-        $data =Movies::find()->orderBy('ctime DESC');
+        $data =Movies::find()->orderBy('id DESC');
 
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
         $model = $data->offset($pages->offset)->limit($pages->limit)->all();

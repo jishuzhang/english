@@ -51,6 +51,7 @@ $this->registerJs($viewJs,View::POS_END);
                     <table class="table table-striped table-advance table-hover table-bordered">
                         <thead>
                             <tr>
+                                <th >视频ID</th>
                                 <th style="width: 300px;">视频标题</th>
                                 <th >视频描述</th>
                                 <th >封面</th>
@@ -62,6 +63,7 @@ $this->registerJs($viewJs,View::POS_END);
                         <?php if(isset($model)): ?>
                             <?php foreach ($model as $evModel):?>
                                 <tr>
+                                    <td><?=$evModel['id']?></td>
                                     <td><?=$evModel['title']?></td>
                                     <td><?= mb_substr($evModel['description'],0,30,'utf-8')?>...</td>
                                     <td>

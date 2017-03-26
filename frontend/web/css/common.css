@@ -5,6 +5,7 @@ body {
     color: rgb(97, 97, 97);
 }
 a{
+    color: #313131;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;

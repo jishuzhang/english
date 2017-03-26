@@ -49,7 +49,16 @@ class PlayerController extends Controller
 
     public function actionScreen()
     {
-        return $this->render('screen',[]);
+        $videoId = Yii::$app->request->get('videoid');
+        if(empty($videoId)){
+           $this->redirect(Yii::$app->request->getReferrer());
+        }
+
+        $model = Movies::findOne(['id' => $videoId]);
+
+        return $this->render('screen',[
+            'model' => $model,
+        ]);
     }
 
     public function actionList()
@@ -62,5 +71,7 @@ class PlayerController extends Controller
             'pages' => $pages
         ]);
     }
+
+
 }
 

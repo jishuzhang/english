@@ -8,6 +8,7 @@
 use frontend\assets\AppAsset;
 use yii\web\View;
 use yii\widgets\LinkPager;
+use yii\helpers\Url;
 
 $this->title = '视频列表';
 $this->params['breadcrumbs'][] = $this->title;
@@ -21,10 +22,10 @@ AppAsset::addScript($this,'/js/video.js',View::POS_END);
     <?php if(!empty($model)):?>
         <?php foreach($model as $evModel):?>
             <div class="col-lg-3">
-                <div class="video_item" link="<?php $evModel->poster?>">
-                    <img src="<?=$evModel->poster;?>" alt="">
+                <div class="video_item" link="<?php echo Url::toRoute(['player/screen','videoid'=>$evModel->id])?>">
+                    <img src="<?=$evModel->poster;?>" alt="视屏封面">
                     <section class="video_info">
-                        <a class="video_link" href="<?php $evModel->poster?>"><?=mb_substr($evModel->title,0,10).'...';?></a>
+                        <a class="video_link" href="<?php echo Url::toRoute(['player/screen','videoid'=>$evModel->id])?>"><?=mb_substr($evModel->title,0,10).'...';?></a>
                         <span class="pull-right"><?=date('Y/m/d');?></span>
                     </section>
                 </div>

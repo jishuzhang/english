@@ -22,4 +22,9 @@ CREATE TABLE `user` (
 英汉互译
 
 配置
+
+更新项目目录权限
+
 common/config params.php  frontend_url
+
+后台的未登录用户访问权限没有做

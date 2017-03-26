@@ -1,0 +1,7 @@
+.login_bg{
+    height:600px;
+    width:100%;
+    background:url('./../images/login/login_bg.jpg') no-repeat;
+    background-size: contain;
+    margin-left:0px;
+}
