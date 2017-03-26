@@ -54,12 +54,12 @@ class PlayerController extends Controller
 
     public function actionList()
     {
-        $data =Movies::find();
-
+        $data =Movies::find()->orderBy('ctime DESC');
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
         $model = $data->offset($pages->offset)->limit($pages->limit)->all();
         return $this->render('list',[
-            'model' => $model
+            'model' => $model,
+            'pages' => $pages
         ]);
     }
 }

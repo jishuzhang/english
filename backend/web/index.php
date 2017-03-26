@@ -2,6 +2,7 @@
 //开发环境
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'dev');
+defined('FRONTEND_PATH') or define('FRONTEND_PATH', str_replace('/backend/','/frontend/',__DIR__.DIRECTORY_SEPARATOR.'upload'));
 
 //生产环境
 //defined('YII_DEBUG') or define('YII_DEBUG', false);

@@ -11,7 +11,8 @@ use backend\models\VideoForm;
 use Yii;
 use yii\web\Controller;
 use yii\data\Pagination;
-use backend\models\Movies;
+use common\models\Movies;
+use yii\web\UploadedFile;
 use yii\helpers\Json;
 use yii\web\Response;
 
@@ -19,7 +20,7 @@ class PlayerController extends Controller
 {
     public function actionManage()
     {
-        $data =Movies::find();
+        $data =Movies::find()->orderBy('ctime DESC');
 
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
         $model = $data->offset($pages->offset)->limit($pages->limit)->all();
@@ -87,14 +88,24 @@ class PlayerController extends Controller
         $model = new VideoForm();
         $model->setScenario('create');
 
-        if($model->load(Yii::$app->request->post()) && $model->validate()){
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
 
-            if($model->createVideo()){
+            $model->poster = UploadedFile::getInstance($model, 'poster');
 
-                Yii::$app->getSession()->setFlash('success', '添加成功');
-                $this->redirect(Yii::$app->request->getReferrer());
+            if ($model->poster && $model->validate()) {
 
-            }else{
+                if($model->encryptFileSave() && $model->createVideo()){
+
+                    Yii::$app->getSession()->setFlash('success', '添加成功');
+                    $this->redirect(Yii::$app->request->getReferrer());
+
+                }else{
+
+                    $error = current($model->getFirstErrors());
+                    Yii::$app->getSession()->setFlash('error', $error);
+                    $this->redirect(Yii::$app->request->getReferrer());
+                }
+            } else {
 
                 $error = current($model->getFirstErrors());
                 Yii::$app->getSession()->setFlash('error', $error);
@@ -103,11 +114,12 @@ class PlayerController extends Controller
 
         }else{
 
-
             return $this->render('create',[
                 'model' => $model,
             ]);
         }
+
     }
+
 
 }

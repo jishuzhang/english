@@ -4,7 +4,7 @@ return [
 
         'db'=>[
             'class'=>'yii\db\Connection',
-            'dsn'=>'mysql:host=192.168.32.7;dbname=func_count',// 注释提取数据库
+            'dsn'=>'mysql:host=localhost;dbname=func_count',// 注释提取数据库
             'username'=>'root',
             'password'=>'aaaaaa',
             'charset'=>'utf8',
@@ -13,7 +13,7 @@ return [
 
         'english' => [
                 'class' => 'yii\db\Connection',
-                'dsn' => 'mysql:host=192.168.32.7;dbname=english',
+                'dsn' => 'mysql:host=localhost;dbname=english',
                 'username' => 'root',
                 'password' => 'aaaaaa',
                 'charset' => 'utf8',
@@ -30,7 +30,7 @@ return [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.vip.163.com',  //每种邮箱的host配置不一样
                 'username' => 'bailitop@vip.163.com',
-                'password' => 'bailitop2016',
+                'password' => '',
                 'port' => '994',
                 'encryption' => 'ssl',
             ],

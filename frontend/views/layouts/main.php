@@ -28,7 +28,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => '阳光课堂',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -68,11 +68,11 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; yii2.0 <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Sunshine <?= date('Y') ?></p>
 
         <p class="pull-right">
             Powered by
-            <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a>
+            <a href="http://www.passport.bailitop.com/" rel="external">programmer mood</a>
         </p>
     </div>
 </footer>

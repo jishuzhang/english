@@ -4,7 +4,6 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-
 /**
  * This is the model class for table "{{%movies}}".
  *
@@ -13,10 +12,11 @@ use yii\db\ActiveRecord;
  * @property string $src
  * @property integer $ctime
  * @property string $description
+ * @property integer $mtime
+ * @property string $poster
  */
 class Movies extends ActiveRecord
 {
-
     /**
      * @inheritdoc
      */
@@ -39,9 +39,9 @@ class Movies extends ActiveRecord
     public function rules()
     {
         return [
-            [['ctime'], 'integer'],
+            [['ctime', 'mtime'], 'integer'],
             [['title'], 'string', 'max' => 32],
-            [['src', 'description'], 'string', 'max' => 255],
+            [['src', 'description', 'poster'], 'string', 'max' => 255],
         ];
     }
 
@@ -56,6 +56,8 @@ class Movies extends ActiveRecord
             'src' => 'Src',
             'ctime' => 'Ctime',
             'description' => 'Description',
+            'mtime' => 'Mtime',
+            'poster' => 'Poster',
         ];
     }
 }

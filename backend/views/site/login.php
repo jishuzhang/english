@@ -94,3 +94,4 @@ use common\models\LoginForm;
         }
     });
 </script>
+http://www.yiichina.com/login

@@ -33,15 +33,9 @@ $this->registerJs($viewJs,View::POS_END);
 
 <link href="res/css/bootstrapreset.css" rel="stylesheet" />
 <link href="res/css/style.css" rel="stylesheet" />
-
-<style type="text/css">
-    .table th, .table td {
-        text-align: center;
-        height:38px;
-    }
-
+<style>
+    .video_poster{height:100px;width:160px;border-radius:4px;}
 </style>
-
 
 <section class="wrapper">
     <div class="row">
@@ -54,13 +48,14 @@ $this->registerJs($viewJs,View::POS_END);
 
 
                 <div class="panel-body" id="panel-bodys">
-                    <table class="table table-striped table-advance table-hover">
+                    <table class="table table-striped table-advance table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th style="width: 200px;">视频标题</th>
+                                <th style="width: 300px;">视频标题</th>
                                 <th >视频描述</th>
+                                <th >封面</th>
                                 <th style="width: 150px;">更新时间</th>
-                                <th style="width: 300px;">操作</th>
+                                <th style="width: 150px;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,6 +64,9 @@ $this->registerJs($viewJs,View::POS_END);
                                 <tr>
                                     <td><?=$evModel['title']?></td>
                                     <td><?= mb_substr($evModel['description'],0,30,'utf-8')?>...</td>
+                                    <td>
+                                        <img class="video_poster" src="<?=Yii::$app->params['frontend_url'].$evModel['poster']?>" alt="">
+                                    </td>
                                     <td><?= date('Y-m-d H:i',$evModel['ctime'])?></td>
                                     <td>
                                         <a title="编辑" href="<?php echo Url::toRoute(['player/edit','id'=>$evModel->id])?>"  class="btn btn-primary btn-xs">编辑</a>
