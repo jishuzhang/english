@@ -20,3 +20,6 @@ CREATE TABLE `user` (
 翻译
 
 英汉互译
+
+配置
+common/config params.php  frontend_url

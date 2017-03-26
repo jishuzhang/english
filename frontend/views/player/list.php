@@ -24,7 +24,7 @@ AppAsset::addScript($this,'/js/video.js',View::POS_END);
                 <div class="video_item" link="<?php $evModel->poster?>">
                     <img src="<?=$evModel->poster;?>" alt="">
                     <section class="video_info">
-                        <a class="video_link" href="<?php $evModel->poster?>"><?=mb_substr($evModel->title,0,12).'...';?></a>
+                        <a class="video_link" href="<?php $evModel->poster?>"><?=mb_substr($evModel->title,0,10).'...';?></a>
                         <span class="pull-right"><?=date('Y/m/d');?></span>
                     </section>
                 </div>

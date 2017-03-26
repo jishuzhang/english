@@ -18,6 +18,7 @@ class VideoForm extends Model
     public $description;
     public $poster;
     public $_posterUrl;
+    public $old;
     public $uploadRootPath = 'upload';
 
 
@@ -37,11 +38,11 @@ class VideoForm extends Model
             ['src','url','message' => '无效的视频地址'],
 
             ['poster', 'file'],
-            ['poster', 'file', 'skipOnEmpty' => false],
+            ['poster', 'file', 'skipOnEmpty' => false,'on' =>'create'],
 
             // mimeType  安全机制
-            ['poster', 'file', 'extensions' => 'jpg, png','checkExtensionByMimeType'=>false,'maxSize'=>1024000],
-            //['poster', 'file', 'extensions' => 'jpg, png', 'mimeTypes' => 'image/jpeg, image/png',],
+            ['poster', 'file', 'extensions' => 'jpg, png','checkExtensionByMimeType'=>false,'maxSize'=>1024000,'message'=>'请上传封面图'],
+            ['old', 'string','message'=>'非法的封面地址'],
 
         ];
     }
@@ -52,7 +53,7 @@ class VideoForm extends Model
         $scenarios = parent::scenarios();
 
         $scenarios['create'] = ['title','description','src','poster'];
-        $scenarios['edit'] = ['title','description','src','id','poster'];
+        $scenarios['edit'] = ['title','description','src','id','poster','old'];
 
         return $scenarios;
     }
@@ -63,15 +64,18 @@ class VideoForm extends Model
      */
     public function updateVideo()
     {
+
+        $this->updateVideoPoster();
+
         $video = Movies::findOne(['id' => $this->id]);
 
         $video->title = $this->title;
         $video->src = $this->src;
         $video->description = $this->description;
         $video->mtime = time();
+        $video->poster = empty($this->_posterUrl) ? $this->old : $this->_posterUrl;
 
         return $video->save() ? true : false;
-
     }
 
     /**
@@ -141,6 +145,28 @@ class VideoForm extends Model
 
         return true;
 
+    }
+
+    /**
+     * update video poster  
+     * @author su
+     */
+    public function updateVideoPoster()
+    {
+        if(!empty($this->poster)){
+            $this->encryptFileSave();
+            $this->deleteOldPoster();
+        }
+
+    }
+
+    /**
+     * delete old poster
+     * @return bool
+     */
+    public function deleteOldPoster()
+    {
+        // TODO
     }
 
 }

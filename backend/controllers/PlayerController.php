@@ -57,9 +57,13 @@ class PlayerController extends Controller
         $model = new VideoForm();
         $model->setScenario('edit');
 
-        if($model->load(Yii::$app->request->post()) && $model->validate()){
+        //  上传图片的数据加载流程必须是 先 load 然后 获取上传对象  然后验证 不可更改
 
-            if($model->updateVideo()){
+        if($model->load(Yii::$app->request->post())){
+
+            $model->poster = UploadedFile::getInstance($model, 'poster');
+
+            if($model->validate() && $model->updateVideo()){
 
                 Yii::$app->getSession()->setFlash('success', '编辑成功');
                 $this->redirect(Yii::$app->request->getReferrer());

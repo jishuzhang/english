@@ -30,7 +30,7 @@ use common\widgets\Alert;
 
                     <?php echo $form->field($model, 'description')->textarea(['rows'=>6,'placeholder' => '请输入视频简介'])->label('视频简介'); ?>
 
-                    <?php echo $form->field($model, 'poster')->fileInput() ?>
+                    <?php echo $form->field($model, 'poster')->fileInput()->label('请上传封面 建议长宽比例为 1.6 : 1 '); ?>
 
                     <?php echo Html::submitButton('提交', ['class'=>'btn btn-primary pull-right','name' =>'submit-button']) ?>
 
