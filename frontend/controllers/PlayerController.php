@@ -12,7 +12,9 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use common\models\Movies;
+use common\models\Translate;
 use yii\data\Pagination;
+use yii\web\Response;
 
 class PlayerController extends Controller
 {
@@ -55,9 +57,10 @@ class PlayerController extends Controller
         }
 
         $model = Movies::findOne(['id' => $videoId]);
-
+        $translate = Translate::findOne(['vid' => $videoId]);
         return $this->render('screen',[
             'model' => $model,
+            'translate' => $translate,
         ]);
     }
 
@@ -72,6 +75,11 @@ class PlayerController extends Controller
         ]);
     }
 
-
+    public function actionSearch()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $str = Yii::$app->request->get('str');
+        return array('3344','33333');
+    }
 }
 
