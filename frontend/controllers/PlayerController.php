@@ -13,6 +13,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use common\models\Movies;
 use common\models\Translate;
+use common\models\Words;
 use yii\data\Pagination;
 use yii\web\Response;
 
@@ -57,7 +58,8 @@ class PlayerController extends Controller
         }
 
         $model = Movies::findOne(['id' => $videoId]);
-        $translate = Translate::findOne(['vid' => $videoId]);
+        $translate = Translate::find()->select('*')->where(['vid' => $videoId])->orderBy('tid DESC')->one();
+
         return $this->render('screen',[
             'model' => $model,
             'translate' => $translate,
@@ -78,8 +80,17 @@ class PlayerController extends Controller
     public function actionSearch()
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $str = Yii::$app->request->get('str');
-        return array('3344','33333');
+        $str = Yii::$app->request->get('str','ok');
+        $tid = Yii::$app->request->get('tid',0);
+
+        // $dSearchRes = Words::find()->select('wid,tid,word,explain')->where(['like','word',$str])->andWhere(['tid'=>0])->asArray()->one();
+        $dSearchRes = Words::find()->select('wid,tid,word,explain')->where(['word' => $str])->andWhere(['tid'=>$tid])->asArray()->one();
+
+        return [
+            'success' => empty($dSearchRes) ? 0 : 1,
+            'data' => $dSearchRes
+        ];
+
     }
 }
 

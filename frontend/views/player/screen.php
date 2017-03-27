@@ -14,11 +14,15 @@ $this->title = '视频学习';
 $this->params['breadcrumbs'][] = $this->title;
 
 $viewJs =<<<JS
-    $('.video_language strong').mousemove(function(){
+
+    $('.video_language strong').mousemove(function(event){
+
+        // 阻止事件冒泡
+        window.event.cancelBubble = true;
         $.ajax({
-            url:'player/search',
+            url:'index.php?r=player/search',
             method:'get',
-            data:{str:$(this).text()},
+            data:{str:$(this).text(),tid:tid},
             success:function(e){
                 console.info(e);
             },
@@ -56,8 +60,13 @@ $this->registerJs($viewJs,View::POS_END);
         cursor:pointer;
     }
 
+    nav{display:none;}
+    h3{display:none;}
+    .breadcrumb{
+        display:none;
+    }
 </style>
-<div class="row">
+<div class="row" style="display:none">
 
     <div class="col-lg-9"  style="height:500px;padding:0px;">
         <embed
@@ -96,7 +105,7 @@ $this->registerJs($viewJs,View::POS_END);
 
 </div>
 
-<div class="row">
+<div class="row" style="display:none">
     <h3>电影台词翻译</h3>
 
     <div class="col-lg-12 video_language">
@@ -109,4 +118,7 @@ $this->registerJs($viewJs,View::POS_END);
 
 </div>
 
+<script>
+    var tid = <?php echo isset($translate['tid']) ? $translate['tid'] : 0;?>;
+</script>
 
