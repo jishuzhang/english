@@ -35,9 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </section>
 </div>
-<div class="container-fluid login_bg">
+<div class="container-fluid signup_bg">
     <div class="row">
-        <div class="col-lg-4 col-lg-offset-7" id="site-user-form" >
+        <div class="col-lg-3 col-lg-offset-7" id="site-user-form" >
 
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 

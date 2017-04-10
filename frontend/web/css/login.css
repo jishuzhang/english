@@ -3,7 +3,12 @@
     width:100%;
     background:url('./../images/login/login_bg.jpg') no-repeat;
     background-size: contain;
-    margin-left:0px;
+}
+.signup_bg{
+    height:600px;
+    width:100%;
+    background:url('./../images/login/signup_bg.jpg') no-repeat;
+    background-size: contain;
 }
  .btn-self-define{
      font-size:16px;
@@ -20,7 +25,6 @@
     border: 1px solid white;
     padding-top: 30px;
     background-color: #fff;
-    width: 400px;
     margin-top: 130px;
     border-radius: 3px;
 }
