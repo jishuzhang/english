@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $viewJs =<<<JS
 
-    $('.video_language strong').mousemove(function(event){
+    $('.video_language strong').mouseenter(function(event){
 
         // 阻止事件冒泡
         window.event.cancelBubble = true;
@@ -23,8 +23,19 @@ $viewJs =<<<JS
             url:'index.php?r=player/search',
             method:'get',
             data:{str:$(this).text(),tid:tid},
-            success:function(e){
-                console.info(e);
+            success:function(search){
+            console.info(search);
+                if(search.success){
+
+                    $('#translate_word').text('注释: '+search.data.word);
+                    $('#translate_explain').text(search.data.explain);
+                    $('#translate_word_detail').fadeIn();
+
+                }else{
+                    $('#translate_word').text('');
+                    $('#translate_explain').text('未搜索到注释');
+                    $('#translate_word_detail').fadeIn();
+                }
             },
             error:function(e){
                 console.error(e);
@@ -33,40 +44,22 @@ $viewJs =<<<JS
         })
 
     });
+
+    $('.video_language strong').mouseleave(function(event){
+          $('#translate_word_detail').fadeOut();
+    });
+
 JS;
 
+AppAsset::addCss($this,'/css/video.css');
 $this->registerJs($viewJs,View::POS_END);
 ?>
 
-<style>
-    .video_language{
-        display: block;
-        padding: 9.5px;
-        margin: 0 0 10px;
-        font-size: 15px;
-        line-height: 1.42857143;
-        color: #333;
-        word-break: break-all;
-        word-wrap: break-word;
-        background-color: #f5f5f5;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
-    }
-    .video_description{
-        margin-top:20px;
-    }
-    .video_language strong{
-        cursor:pointer;
-    }
-
-    nav{display:none;}
-    h3{display:none;}
-    .breadcrumb{
-        display:none;
-    }
-</style>
-<div class="row" style="display:none">
+<div id="translate_word_detail">
+    <div id="translate_word"></div>
+    <div id="translate_explain"></div>
+</div>
+<div class="row">
 
     <div class="col-lg-9"  style="height:500px;padding:0px;">
         <embed
@@ -92,9 +85,9 @@ $this->registerJs($viewJs,View::POS_END);
         </section>
     </div>
 </div>
+
 <div class="row">
     <h3>电影台词</h3>
-
     <div class="col-lg-12 video_language">
         <?php if(isset($translate['en_content']) && !empty($translate['en_content'])):?>
             <?=$translate['en_content']?>
@@ -105,7 +98,7 @@ $this->registerJs($viewJs,View::POS_END);
 
 </div>
 
-<div class="row" style="display:none">
+<div class="row">
     <h3>电影台词翻译</h3>
 
     <div class="col-lg-12 video_language">

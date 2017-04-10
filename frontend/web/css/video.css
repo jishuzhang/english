@@ -33,4 +33,55 @@ a:hover{
     color: #70d445 !important;
 }
 
+/** player_screen page**/
+.video_language{
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 15px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+.video_description{
+    margin-top:20px;
+}
+.video_language strong{
+    cursor:pointer;
+}
+
+#translate_word_detail{
+    padding:5px;
+    min-height:100px;
+    width:300px;
+    border:2px solid #CCCCCC;
+    position: fixed;
+    right:10%;
+    top:249px;
+    z-index: 999;
+    border-radius: 3px;
+    display:none;
+    overflow: hidden;
+    background: #fff;
+    cursor:pointer;
+}
+#translate_word{
+    height:30px;
+    line-height: 30px;
+    overflow: hidden;
+    font-weight: bold;
+    color:#c7254e;
+}
+
+#translate_explain{
+    overflow: hidden;
+    text-indent: 1em;
+    /*color:#268bd2;*/
+}
+
 

@@ -90,7 +90,7 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
-            return $this->render('login', [
+            return $this->renderPartial('login', [
                 'model' => $model,
             ]);
         }
@@ -157,7 +157,7 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('signup', [
+        return $this->renderPartial('signup', [
             'model' => $model,
         ]);
     }

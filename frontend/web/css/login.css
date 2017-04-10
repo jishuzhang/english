@@ -5,3 +5,22 @@
     background-size: contain;
     margin-left:0px;
 }
+ .btn-self-define{
+     font-size:16px;
+     font-weight: bold;
+     color:#fff;
+     width:100%;
+     background-color: #FFB000;
+ }
+.btn-self-define:hover{
+    color:#fff;
+    background-color: #e77c00;
+}
+#site-user-form{
+    border: 1px solid white;
+    padding-top: 30px;
+    background-color: #fff;
+    width: 400px;
+    margin-top: 130px;
+    border-radius: 3px;
+}
