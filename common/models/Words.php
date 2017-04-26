@@ -50,10 +50,10 @@ class Words extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'wid' => 'Wid',
-            'tid' => 'Tid',
-            'word' => 'Word',
-            'explain' => 'Explain',
+            'wid' => '单词ID',
+            'tid' => '台词文本ID',
+            'word' => '单词',
+            'explain' => '单词注释',
         ];
     }
 

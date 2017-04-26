@@ -1,115 +1,124 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: su
- * Date: 2017-3-18
- * Time: 16:43
- */
+
 namespace backend\controllers;
 
-use backend\models\DialogueForm;
 use Yii;
+use common\models\Words;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
-use yii\data\Pagination;
-use common\models\Movies;
-use common\models\Translate;
+use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 
-
+/**
+ * WordController implements the CRUD actions for Words model.
+ */
 class WordController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Lists all Words models.
+     * @return mixed
+     */
     public function actionIndex()
     {
-        $data = Translate::find()->orderBy('ctime DESC');
-
-        $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
-        $model = $data->offset($pages->offset)->limit($pages->limit)->all();
-
-        return $this->render('index',[
-            'model' => $model,
-            'pages' => $pages
+        $dataProvider = new ActiveDataProvider([
+            'query' => Words::find(),
         ]);
 
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
+    /**
+     * Displays a single Words model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionView($id)
+    {
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
 
+    /**
+     * Creates a new Words model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @return mixed
+     */
     public function actionCreate()
     {
-        $model = new DialogueForm();
+        $model = new Words();
 
-        if($model->load(Yii::$app->request->post()) && $model->validate()){
-
-            if($model->translate()){
-                Yii::$app->getSession()->setFlash('success', '操作成功');
-            }else{
-
-                $error = current($model->getFirstErrors());
-                Yii::$app->getSession()->setFlash('error', $error);
-
-            }
-
-            $this->redirect(Yii::$app->request->getReferrer());
-
-        }else{
-
-            return $this->render('create',[
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->wid]);
+        } else {
+            return $this->render('create', [
                 'model' => $model,
             ]);
         }
-
-
     }
 
-    public function actionEdit()
+    /**
+     * Updates an existing Words model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionUpdate($id)
     {
-        $model = new DialogueForm();
+        $model = $this->findModel($id);
 
-        if($model->load(Yii::$app->request->post()) && $model->validate()){
-
-            if($model->updateTranslate()){
-                Yii::$app->getSession()->setFlash('success', '操作成功');
-            }else{
-
-                $error = current($model->getFirstErrors());
-                Yii::$app->getSession()->setFlash('error', $error);
-
-            }
-
-            $this->redirect(Yii::$app->request->getReferrer());
-
-        }else{
-
-            $tid = Yii::$app->request->get('tid');
-            $default_value = Translate::findOne(['tid' => $tid]);
-
-            return $this->render('edit',[
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->wid]);
+        } else {
+            return $this->render('update', [
                 'model' => $model,
-                'default_value' => $default_value,
             ]);
         }
-
-
     }
 
-    public function actionDelete()
+    /**
+     * Deletes an existing Words model.
+     * If deletion is successful, the browser will be redirected to the 'index' page.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionDelete($id)
     {
+        $this->findModel($id)->delete();
 
-        $id = Yii::$app->request->get('tid');
-        $v = false;
-
-        if($id){
-
-            if(Translate::deleteAll(['tid' => $id])){
-                $v = true;
-            }
-        }
-
-        if($v){
-            Yii::$app->getSession()->setFlash('success', '操作成功');
-        }else{
-            Yii::$app->getSession()->setFlash('error', '操作失败');
-        }
-
-        $this->redirect(Yii::$app->request->getReferrer());
+        return $this->redirect(['index']);
     }
 
+    /**
+     * Finds the Words model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     * @param integer $id
+     * @return Words the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($id)
+    {
+        if (($model = Words::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 }
