@@ -100,7 +100,7 @@ $this->registerJs($viewJs,\yii\web\View::POS_END);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="">设计模式</a>
+                <a class="navbar-brand" href="<?=Yii::$app->homeUrl?>">阳光课堂</a>
             </div>
             <div id="w0-collapse" class="collapse navbar-collapse">
                 <ul id="w1" class="navbar-nav navbar-right nav">
@@ -113,13 +113,18 @@ $this->registerJs($viewJs,\yii\web\View::POS_END);
 
     <div class="container">
         <div class="row text-center">
-            <h3>设计模式</h3>
+            <h3><?=$test['name']?></h3>
         </div>
         <div class="row text-left">
-            <p>在 HTML5 中可以放心使用  和  标签。 用于高亮单词或短语，不带有任何着重的意味；而 标签主要用于发言、技术词汇等。</p>
+            <p><?=$test['introduce']?></p>
         </div>
         <div class="row">
-            <h4>英汉互译</h4>
+            <?php if($test['time_lock']):?>
+                <h4>英译汉</h4>
+            <?php else:?>
+                <h4>汉译英</h4>
+            <?php endif;?>
+
         </div>
         <div class="row">
             <div class="col-lg-10">
@@ -140,7 +145,7 @@ $this->registerJs($viewJs,\yii\web\View::POS_END);
                                data-qnum="<?=$q['q_number']?>"
                                class="form-control"
                                name="exam[qid_<?=$q['id']?>]"
-                               value="thank you"
+                               value=""
                         >
 
                         <p class="help-block help-block-error"></p>

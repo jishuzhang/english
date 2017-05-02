@@ -62,7 +62,7 @@ AppAsset::addScript($this,'/js/video.js',View::POS_END);
                             <?php echo $n+1;?>
                         </div>
                         <div class="col-md-9">
-                            <a href="<?=Url::to(['strategy/view','id'=> $evModel['id']])?>"><?=$evModel['name']?></a>
+                            <a href="<?=Url::to(['exam/show','tid'=> $evModel['id']])?>"><?=$evModel['name']?></a>
                         </div>
                         <div class="col-md-2">
                             作者: admin

@@ -85,12 +85,14 @@ class ExamController extends Controller
 
         if(empty($examId))
         {
+            Yii::$app->getSession()->setFlash('error', '未检索到该试卷的相关信息');
             return $this->redirect(Yii::$app->request->getReferrer());
         }
+
         Yii::$app->session->open();
         Yii::$app->session->set('exam_id',$examId);
-        $test = Test::findOne(['tid'=>$examId,'status' => 1]);
-        $questions = ExamQuestions::find()->where(['tid'=>$examId,'status' => 1])->orderBy('id')->asArray()->all();
+        $test = Test::findOne(['id'=>$examId,'status' => 1]);
+        $questions = ExamQuestions::find()->where(['tid'=>$examId])->orderBy('id')->asArray()->all();
 
         if(empty($test))
         {
@@ -114,9 +116,14 @@ class ExamController extends Controller
 
         $uid = Yii::$app->user->id;
         Yii::$app->session->open();
-        // $tid = Yii::$app->session->get('exam_id');
-        $tid =1;
+        $tid = Yii::$app->session->get('exam_id');
         Yii::$app->session->remove('exam_id');
+
+        if(empty($tid))
+        {
+            throw new yii\web\BadRequestHttpException('参数缺失');
+        }
+
         $answers = Yii::$app->request->post('exam');
 
         if(Yii::$app->request->isPost && !empty($tid))
@@ -173,6 +180,10 @@ class ExamController extends Controller
                 $scoreModel->save();
             }
 
+        }
+        else
+        {
+            return $this->redirect(['exam/list']);
         }
 
         // show mark
