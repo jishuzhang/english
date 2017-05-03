@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="nodes-index">
 
         <p>
-            <?= Html::a('<i class="icon-plus btn-icon"></i>添加台词', ['create'], ['class' => 'btn btn-info']) ?>
+            <?= Html::a('<i class="icon-plus btn-icon"></i>添加试卷', ['create'], ['class' => 'btn btn-info']) ?>
         </p>
 
         <?php $form = ActiveForm::begin([
@@ -54,8 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>视频ID</th>
-                        <th>添加时间</th>
+                        <th>试卷ID</th>
+                        <th>试卷名称</th>
+                        <th>试卷作者</th>
                         <th>更新时间</th>
                         <th>管理操作</th>
                     </tr>
@@ -64,12 +65,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 <tbody>
                     <?php foreach($model as $evModel):?>
                         <tr>
-                            <td><?php echo $evModel['vid']?></td>
-                            <td><?php echo date('Y-m-d H:i',$evModel['ctime'])?></td>
-                            <td><?php echo date('Y-m-d H:i',$evModel['utime'])?></td>
+                            <td><?php echo $evModel['id']?></td>
+                            <td><?php echo $evModel['name']?></td>
+                            <td><?php echo $evModel['author']?></td>
+                            <td><?php echo date('Y-m-d H:i',$evModel['last_modfiy_time'])?></td>
                             <td>
-                                <a href="<?php echo Url::toRoute(['dialogue/edit','tid'=>$evModel['tid']])?>" class="btn btn-primary btn-xs">编辑</a>
-                                <a href="<?php echo Url::toRoute(['dialogue/delete','tid'=>$evModel['tid']])?>" title="删除" class="btn btn-danger btn-xs">删除</a>
+                                <a href="<?php echo Url::toRoute(['exam/update','id'=>$evModel['id']])?>" class="btn btn-primary btn-xs">编辑</a>
+                                <a href="<?php echo Url::toRoute(['exam/','tid'=>$evModel['id']])?>" title="启用" class="btn btn-danger btn-xs">启用</a>
+                                <a href="<?php echo Url::toRoute(['dialogue/delete','tid'=>$evModel['id']])?>" title="删除" class="btn btn-danger btn-xs">关闭</a>
+                                <a href="<?php echo Url::toRoute(['dialogue/delete','tid'=>$evModel['id']])?>" title="删除" class="btn btn-danger btn-xs">删除</a>
                             </td>
                         </tr>
                     <?php endforeach;?>

@@ -195,7 +195,7 @@ class ExamController extends Controller
      * @param int $id
      * @throws \yii\db\Exception
      */
-    public function actionActivate($id = 0)
+    public function actionActivate($id)
     {
         $tid = $id;
 

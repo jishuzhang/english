@@ -21,30 +21,28 @@ use common\widgets\Alert;
         <div class="col-lg-10">
             <section class="panel">
                 <div  class="panel-body"  id="panel-bodys">
-                    <h3 style="font-weight: bold;">添加台词</h3>
+                    <h3 style="font-weight: bold;"></h3>
                     <br>
 
-                    <?php $form = ActiveForm::begin(['action' => ['dialogue/create'],
+                    <?php $form = ActiveForm::begin(['action' => ['exam/create'],
                         'class'=>['form-horizontal'],
                         'method'=>'post',
                     ]); ?>
 
-                    <section class="title">请输入要关联的视频ID</section>
-                    <?php echo $form->field($model, 'vid')->textInput(['placeholder'=>'请输入要关联的视频ID'])->label(false); ?>
+                    <?php echo $form->field($model, 'name')->textInput(['placeholder'=>'']); ?>
+                    <?php echo $form->field($model, 'time_lock')->dropDownList(['0'=>'英译汉','1'=>'汉译英'], ['prompt'=>'请选择','style'=>'width:120px']) ?>
+                    <?php echo $form->field($model, 'full_score')->textInput(['placeholder'=>'']); ?>
+                    <?php echo $form->field($model, 'minute_time')->textInput(['placeholder'=>'']); ?>
+                    <?php echo $form->field($model, 'introduce')->textarea(['rows'=>3,'placeholder'=>'']); ?>
 
-                    <section class="title">请输入英文台词 <span style="color:red;">(温馨提醒:请对需要加批注的单词或者短语进行加粗处理)</span> </section>
 
-                    <script id="english" name="DialogueForm[english]" type="text/plain"></script>
-
-                    <section class="title">请输入汉语译文</section>
-
-                    <script id="chinese" name="DialogueForm[chinese]" type="text/plain"></script>
-
-                    <br/>
                     <?php echo Html::submitButton('提交', ['class'=>'btn btn-primary pull-right','name' =>'submit-button']) ?>
 
                     <?php ActiveForm::end(); ?>
 
+                    <?php if(!empty($isNew)):?>
+                        <button class="btn btn-primary">添加试题</button>
+                    <?php endif;?>
                 </div>
             </section>
         </div>
