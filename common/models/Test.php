@@ -72,7 +72,7 @@ class Test extends \yii\db\ActiveRecord
         $user = Admin::findOne(['userid'=>Yii::$app->user->id]);
         $this->author = $user->username;
 
-        $this->time_lock = empty($this->status) ? 0 : 1 ;
+        $this->time_lock = empty($this->time_lock) ? 0 : $this->time_lock  ;
         $this->status = 0;
         $this->last_modfiy_time = time();
 

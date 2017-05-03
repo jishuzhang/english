@@ -24,7 +24,7 @@ use common\widgets\Alert;
                     <h3 style="font-weight: bold;"></h3>
                     <br>
 
-                    <?php $form = ActiveForm::begin(['action' => ['exam/create'],
+                    <?php $form = ActiveForm::begin(['action' => ['exam/update','id' =>$model->id],
                         'class'=>['form-horizontal'],
                         'method'=>'post',
                     ]); ?>
@@ -39,7 +39,10 @@ use common\widgets\Alert;
                     <?php echo Html::submitButton('更新', ['class'=>'btn btn-primary pull-right','name' =>'submit-button']) ?>
 
                     <?php ActiveForm::end(); ?>
-                    <button class="btn btn-primary" id="add_question">添加试题</button>
+
+                    <?php if(empty($model->status)):?>
+                        <button class="btn btn-primary" id="add_question">添加试题</button>
+                    <?php endif;?>
 
                     <table class="table" style="margin-top:20px;">
                         <tr>

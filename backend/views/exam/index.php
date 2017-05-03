@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
-
+use common\widgets\Alert;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\NodesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -36,14 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <![endif]-->
 </head>
 <body>
-
+<?= Alert::widget() ?>
 <section class="wrapper">
     <div class="nodes-index">
 
         <p>
             <?= Html::a('<i class="icon-plus btn-icon"></i>添加试卷', ['create'], ['class' => 'btn btn-info']) ?>
         </p>
-
+        <p>温馨提醒:试卷启用状态下无法更改试卷内题目相关设置,需在试卷关闭状态下才可以使用该功能</p>
         <?php $form = ActiveForm::begin([
             'action' => ['nodes/listorder'],
             'method'=>'post',
@@ -70,10 +70,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td><?php echo $evModel['author']?></td>
                             <td><?php echo date('Y-m-d H:i',$evModel['last_modfiy_time'])?></td>
                             <td>
-                                <a href="<?php echo Url::toRoute(['exam/update','id'=>$evModel['id']])?>" class="btn btn-primary btn-xs">编辑</a>
-                                <a href="<?php echo Url::toRoute(['exam/','tid'=>$evModel['id']])?>" title="启用" class="btn btn-danger btn-xs">启用</a>
-                                <a href="<?php echo Url::toRoute(['dialogue/delete','tid'=>$evModel['id']])?>" title="删除" class="btn btn-danger btn-xs">关闭</a>
-                                <a href="<?php echo Url::toRoute(['dialogue/delete','tid'=>$evModel['id']])?>" title="删除" class="btn btn-danger btn-xs">删除</a>
+                                <?php if($evModel['status']):?>
+                                    <a href="<?php echo Url::toRoute(['exam/deactivate','id'=>$evModel['id']])?>" title="关闭" class="btn btn-warning btn-xs">关闭</a>
+                                    <a href="<?php echo Url::toRoute(['exam/update','id'=>$evModel['id']])?>" class="btn btn-primary btn-xs">编辑</a>
+                                <?php else:?>
+                                    <a href="<?php echo Url::toRoute(['exam/activate','id'=>$evModel['id']])?>" title="启用" class="btn btn-warning btn-xs">启用</a>
+                                    <a href="<?php echo Url::toRoute(['exam/delete','id'=>$evModel['id']])?>" title="删除" class="btn btn-danger btn-xs">删除</a>
+                                <?php endif;?>
+
                             </td>
                         </tr>
                     <?php endforeach;?>
