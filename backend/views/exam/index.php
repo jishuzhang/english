@@ -72,12 +72,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             <td>
                                 <?php if($evModel['status']):?>
                                     <a href="<?php echo Url::toRoute(['exam/deactivate','id'=>$evModel['id']])?>" title="关闭" class="btn btn-warning btn-xs">关闭</a>
-                                    <a href="<?php echo Url::toRoute(['exam/update','id'=>$evModel['id']])?>" class="btn btn-primary btn-xs">编辑</a>
                                 <?php else:?>
                                     <a href="<?php echo Url::toRoute(['exam/activate','id'=>$evModel['id']])?>" title="启用" class="btn btn-warning btn-xs">启用</a>
+                                    <a href="<?php echo Url::toRoute(['exam/update','id'=>$evModel['id']])?>" class="btn btn-primary btn-xs">编辑</a>
                                     <a href="<?php echo Url::toRoute(['exam/delete','id'=>$evModel['id']])?>" title="删除" class="btn btn-danger btn-xs">删除</a>
                                 <?php endif;?>
-
+                                <a href="<?php echo Url::toRoute(['exam/view','id'=>$evModel['id']])?>" title="查看" class="btn btn-info btn-xs">查看</a>
                             </td>
                         </tr>
                     <?php endforeach;?>

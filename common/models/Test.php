@@ -55,15 +55,15 @@ class Test extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'full_score' => 'Full Score',
-            'answer_table' => 'Answer Table',
-            'status' => 'Status',
-            'minute_time' => 'Minute Time',
+            'name' => '试卷标题',
+            'full_score' => '试卷满分',
+            'answer_table' => '答案表名',
+            'status' => '试卷状态',
+            'minute_time' => '考试时长',
             'author' => 'Author',
-            'last_modfiy_time' => 'Last Modfiy Time',
-            'time_lock' => 'Time Lock',
-            'introduce' => 'Introduce',
+            'last_modfiy_time' => '最后修改时间',
+            'time_lock' => '试卷类型',
+            'introduce' => '试卷介绍',
         ];
     }
 

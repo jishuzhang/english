@@ -49,7 +49,7 @@ AppAsset::addScript($this,'/js/video.js',View::POS_END);
 <div class="container">
 
     <div class="row php-filter">
-        <div class="col-md-2"><h3>全部攻略</h3></div>
+        <div class="col-md-2"><h3>全部试卷</h3></div>
 
     </div>
 
@@ -58,14 +58,18 @@ AppAsset::addScript($this,'/js/video.js',View::POS_END);
             <?php foreach($model as $n => $evModel):?>
                 <div class="col-lg-10 col-lg-offset-1" style="margin-top:10px;">
                     <div class="row">
-                        <div class="col-md-1">
-                            <?php echo $n+1;?>
+                        <div class="col-md-6">
+                            <b><i><?php echo $n+1;?>.</i></b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?=Url::to(['exam/show','id'=> $evModel['id']])?>"><?=$evModel['name']?></a>
                         </div>
-                        <div class="col-md-9">
-                            <a href="<?=Url::to(['exam/show','tid'=> $evModel['id']])?>"><?=$evModel['name']?></a>
+                        <div class="col-md-3">
+                            试卷类型: <?if($evModel->time_lock == 1):?>
+                                        汉译英
+                                     <?php elseif($evModel->time_lock == 0):?>
+                                        英译汉
+                                     <?php endif;?>
                         </div>
-                        <div class="col-md-2">
-                            作者: admin
+                        <div class="col-md-3">
+                            发布时间: <?= date('Y-m-d');?>
                         </div>
                     </div>
                 </div>

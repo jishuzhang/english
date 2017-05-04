@@ -69,7 +69,7 @@ class ExamController extends Controller
 
     public function actionList()
     {
-        $data = Test::find()->orderBy('id DESC');
+        $data = Test::find()->where(['status'=>1])->orderBy('id DESC');
         $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
         $model = $data->offset($pages->offset)->limit($pages->limit)->all();
 
@@ -79,9 +79,9 @@ class ExamController extends Controller
         ]);
     }
 
-    public function actionShow()
+    public function actionShow($id)
     {
-        $examId = Yii::$app->request->get('tid');
+        $examId = $id;
 
         if(empty($examId))
         {
@@ -96,6 +96,7 @@ class ExamController extends Controller
 
         if(empty($test))
         {
+            Yii::$app->getSession()->setFlash('error', '该试卷未投入使用,敬请期待');
             return $this->redirect(Yii::$app->request->getReferrer());
         }
 
@@ -121,7 +122,7 @@ class ExamController extends Controller
 
         if(empty($tid))
         {
-            throw new yii\web\BadRequestHttpException('参数缺失');
+            return $this->redirect('exam/list');//throw new yii\web\BadRequestHttpException('参数缺失');
         }
 
         $answers = Yii::$app->request->post('exam');
@@ -150,8 +151,10 @@ class ExamController extends Controller
             $commonCol['uid'] = $uid;
             $commonCol['username'] = $user->username;
             $commonCol['submit_time'] = time();
-            $commonCol['mark_time'] = time();
-            $commonCol['m_state'] = 1;
+
+            // 汉译英 立即判卷 试卷状态、阅卷时间 可立即得出
+            $commonCol['mark_time'] = $test->time_lock == 1 ? time() : 0 ;
+            $commonCol['m_state'] = $test->time_lock == 1 ? 1 : 0 ;
 
             $inserts = array_merge($columns,$commonCol);
             $valueName = implode(',',array_keys($inserts));
@@ -167,97 +170,54 @@ class ExamController extends Controller
 
             $answerRecord = Yii::$app->english->createCommand('INSERT INTO '.$this->addTablePrefix($tableName).' ('.$valueName.') VALUES('.$valueStr.')')->execute();
             $aid = Yii::$app->english->getLastInsertID();
+
             // 记录分数
             if($answerRecord)
             {
-                $scoreModel = new Score();
+                // 汉译英立即判卷 显示分数
+                if($test->time_lock == 1)
+                {
+                    $scoreModel = new Score();
 
-                $scoreModel->tid = $tid;
-                $scoreModel->uid = $uid;
-                $scoreModel->score = $scoreCount;
-                $scoreModel->aid = $aid;
+                    $scoreModel->tid = $tid;
+                    $scoreModel->uid = $uid;
+                    $scoreModel->score = $scoreCount;
+                    $scoreModel->aid = $aid;
 
-                $scoreModel->save();
+                    if($scoreModel->save())
+                    {
+                        Yii::$app->getSession()->setFlash('success','您的客观题成绩为'.$scoreCount.'分');
+                        return $this->redirect(['exam/list']);
+                    }
+                    else
+                    {
+                        Yii::$app->getSession()->setFlash('error','答案保存失败,请重新提交答案 101');
+                        return $this->redirect(['exam/list']);
+                    }
+                }
+                else
+                {
+                    // 英译汉 存档待手动判卷
+                    Yii::$app->getSession()->setFlash('success','试卷提交成功');
+                    return $this->redirect(['exam/list']);
+                }
+
             }
+            else
+            {
+                Yii::$app->getSession()->setFlash('error','答案保存失败,请重新提交答案 102');
+                return $this->redirect(['exam/list']);
+            }
+
 
         }
         else
         {
+            Yii::$app->getSession()->setFlash('error','未获取到提交信息,请重新考试');
             return $this->redirect(['exam/list']);
         }
 
         // show mark
-    }
-
-
-    /**
-     * 启用调查
-     * @param int $id
-     * @throws \yii\db\Exception
-     */
-    public function actionActivate($id)
-    {
-        $tid = $id;
-
-        // 查询该调查的配置信息
-        $test = Test::findOne($tid);
-
-        if(empty($test) || $test->status == 1){
-            $this->returnPromptInfo(1);
-        }
-
-        // 查询该调查中包含的问题
-        $questionList = ExamQuestions ::find()->where(['tid' => $tid])->indexBy('id')->asArray()->all();
-
-        if(empty($questionList)){
-            $this->returnPromptInfo(3);
-        }
-
-        // 先更新该调查启用状态 禁止其它与该表相关的操作 预防并发
-        $answer_table = 'answer_'.$tid;
-        $test->status = 1;
-        $test->answer_table = $answer_table;
-        $test->save();
-
-        $tableName = $this->addTablePrefix($answer_table);
-
-        $sql = 'CREATE TABLE IF NOT EXISTS '.$tableName.'(';
-
-        // 添加常规字段
-        foreach($this->getCommonField() as $commonFieldName => $typeDescription){
-            $sql .= $commonFieldName.' '.$typeDescription.',';
-        }
-
-        foreach($questionList as $evQuestion){
-            // $fieldName = '`'.$tid.'X'.$evQuestion['gid'].'X'.$evQuestion['id'].'`';  添加问题分组的时候可以使用
-            $fieldName = '`t'.$tid.'Xq'.$evQuestion['id'].'`';
-            $sql .= $fieldName.' VARCHAR(255) NULL DEFAULT NULL,';
-        }
-
-        // 去除最后一行多余的 逗号
-        $sql = rtrim($sql,',');
-        $sql .= ") COLLATE='utf8_general_ci' ENGINE=MyISAM;";
-
-        try{
-            Yii::$app->get('english')->createCommand($sql)->execute();
-        }catch(yii\db\Exception $e){
-            throw new yii\db\Exception('答案表无法创建,请联系技术人员');
-        }
-
-        // 启用成功
-        $this->returnPromptInfo(0);
-    }
-
-    public function actionDealsurvey()
-    {
-        $surveyId = Yii::$app->request->post("sid");
-        $isActivate = Yii::$app->request->post("activate");
-
-        if($isActivate  == 1){
-            $this->actionActivate($surveyId);
-        } elseif($isActivate  == 0) {
-            $this->actionDeactivate($surveyId);
-        }
     }
 
     public function getCommonField()
@@ -276,60 +236,7 @@ class ExamController extends Controller
 //        echo $lcs->getSimilar("吉林禽业公司火灾已致112人遇难","吉林宝源丰禽业公司火灾已致112人遇难"); //返回相似度
     }
 
-    /**
-     * 禁止调查
-     */
-    public function actionDeactivate($id = 0)
-    {
-        $surveyId = $id;
 
-        // 查询该调查的配置信息
-        $surveyConfig = Surveys::findOne($surveyId);
-
-
-        if(empty($surveyConfig) || $surveyConfig->survey_status == 0){
-            $this->returnPromptInfo(4);
-        }
-
-        // 检查该调查是否为多项调查
-        if($surveyConfig->more_surveys == 1){
-            $subSurvey = Surveystype::find()->where(['sid' => $surveyId])->asArray()->all();
-        }else{
-            $subSurvey = array();
-        }
-
-        // 先更新该调查的启用状态 禁止其它与该调查相关的操作
-        Yii::$app->db->createCommand()->update('{{%surveys}}', ['survey_status' => 0], 'sid = '.$surveyId)->execute();
-
-
-        $dataSuffixes = date('YmdHis',time());
-
-        if(!empty($subSurvey)){
-
-            foreach($subSurvey as $evSubSurvey){
-
-                // 为多项调查的子调查表进行单独存档
-                $oldTableName = 'survey_'.$surveyId.'_'.$evSubSurvey['stid'];
-                $newTableName = 'old_'.$oldTableName.'_'.$dataSuffixes;
-                $res = $this->renameTable($this->addTablePrefix($oldTableName),$this->addTablePrefix($newTableName));
-                $this->recordEndUsing($oldTableName,$newTableName);
-            }
-
-        }else{
-
-            $oldTableName = 'survey_'.$surveyId;
-            $newTableName = 'old_'.$oldTableName.'_'.$dataSuffixes;
-            $res = $this->renameTable($this->addTablePrefix($oldTableName),$this->addTablePrefix($newTableName));
-            $this->recordEndUsing($oldTableName,$newTableName);
-        }
-
-
-        if($res){
-            $this->returnPromptInfo(0);
-        } else {
-            $this->returnPromptInfo(5);
-        }
-    }
 
     /**
      * 为表名添加前缀

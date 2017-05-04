@@ -33,6 +33,13 @@ class ExamController extends Controller
 
     }
 
+    public function actionView($id)
+    {
+        $model = $this->findModel($id);
+        return $this->render('view',[
+            'model' => $model,
+        ]);
+    }
 
     public function actionCreate()
     {
@@ -48,12 +55,9 @@ class ExamController extends Controller
         else
         {
             return $this->render('create',[
-                'model' => $model,
-                'isNew' => isset($model->id) ? true : false ,
+                'model' => $model
             ]);
         }
-
-
 
     }
 

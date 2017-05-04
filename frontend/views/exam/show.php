@@ -50,9 +50,14 @@ $viewJs =<<<JS
             $('#myModal .modal-footer').hide();
             $('#myModal').modal('show');
         }
+        else
+        {
+            $('.modal-body').html('<p>题目已全部作答</p>');
+            $('#myModal .modal-footer').hide();
+            $('#myModal').modal('show');
+        }
 
     });
-
 
 
 JS;
@@ -100,7 +105,14 @@ $this->registerJs($viewJs,\yii\web\View::POS_END);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="<?=Yii::$app->homeUrl?>">阳光课堂</a>
+                <a class="navbar-brand" id="home_href" href="javascript:void(0);">阳光课堂</a>
+                <script>
+                    document.getElementById('home_href').onclick = function(){
+                        if(confirm('您正在考试,确定离开?')){
+                            window.location.href = '<?php echo Yii::$app->homeUrl;?>';
+                        }
+                    }
+                </script>
             </div>
             <div id="w0-collapse" class="collapse navbar-collapse">
                 <ul id="w1" class="navbar-nav navbar-right nav">
