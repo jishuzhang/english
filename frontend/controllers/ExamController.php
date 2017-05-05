@@ -116,10 +116,10 @@ class ExamController extends Controller
         }
 
         $uid = Yii::$app->user->id;
-        Yii::$app->session->open();
-        $tid = Yii::$app->session->get('exam_id');
-        Yii::$app->session->remove('exam_id');
-
+//        Yii::$app->session->open();
+//        $tid = Yii::$app->session->get('exam_id');
+//        Yii::$app->session->remove('exam_id');
+        $tid = 11;
         if(empty($tid))
         {
             return $this->redirect('exam/list');//throw new yii\web\BadRequestHttpException('参数缺失');
@@ -133,6 +133,7 @@ class ExamController extends Controller
             $test = Test::findOne(['id' => $tid]);
             $tableName = $test->answer_table;
             $columns = array();
+            $isRight = array();
             $scoreCount = 0;
 
             foreach($answers as $i => $v) {
@@ -142,7 +143,10 @@ class ExamController extends Controller
                 $columns[$columnName] = $v;
 
                 // 打分
-                $scoreCount += (ExamQuestions::generateIndexCode($v) == $questions[$r[0]]['q_answer_code']) ? $questions[$r[0]]['q_score'] : 0 ;
+                if(ExamQuestions::generateIndexCode($v) == $questions[$r[0]]['q_answer_code']){
+                    $scoreCount += $questions[$r[0]]['q_score'];
+                    $isRight[] = $r[0];
+                }
 
             }
 
@@ -155,20 +159,12 @@ class ExamController extends Controller
             // 汉译英 立即判卷 试卷状态、阅卷时间 可立即得出
             $commonCol['mark_time'] = $test->time_lock == 1 ? time() : 0 ;
             $commonCol['m_state'] = $test->time_lock == 1 ? 1 : 0 ;
+            $commonCol['m_record'] = empty($isRight) ? array() : serialize($isRight);
 
             $inserts = array_merge($columns,$commonCol);
-            $valueName = implode(',',array_keys($inserts));
-            $values = array_values($inserts);
-
-            $valueStr = '';
-            foreach($values as $v)
-            {
-                $valueStr .= "'".$v."',";
-            }
-
-            $valueStr = trim($valueStr,',');
-
-            $answerRecord = Yii::$app->english->createCommand('INSERT INTO '.$this->addTablePrefix($tableName).' ('.$valueName.') VALUES('.$valueStr.')')->execute();
+            $answerRecord = Yii::$app->english->createCommand()
+                ->insert($tableName,$inserts)
+                ->execute();
             $aid = Yii::$app->english->getLastInsertID();
 
             // 记录分数
@@ -220,23 +216,6 @@ class ExamController extends Controller
         // show mark
     }
 
-    public function getCommonField()
-    {
-        return [
-            'id' => 'INT UNSIGNED AUTO_INCREMENT PRIMARY KEY',//  新建表后 主键id 都是从新增长
-            'uid' => 'INT UNSIGNED DEFAULT 0',
-            'username' => 'CHAR(64) NULL DEFAULT NULL',
-            'submit_time' => 'INT(11) NULL DEFAULT NULL', // 提交时间
-            'mark_time' => 'INT(11) NULL DEFAULT NULL', // 判卷时间
-            'm_state' => 'TINYINT UNSIGNED NULL DEFAULT 0', // 答卷审核状态  0 未审核 1 已审核
-        ];
-
-        //        $lcs = new LCS();
-//        echo $lcs->getLCS("hello word","hello china word"); //返回最长公共子序列
-//        echo $lcs->getSimilar("吉林禽业公司火灾已致112人遇难","吉林宝源丰禽业公司火灾已致112人遇难"); //返回相似度
-    }
-
-
 
     /**
      * 为表名添加前缀
@@ -250,101 +229,6 @@ class ExamController extends Controller
         }
 
         return "{{%$tableName}}";
-    }
-
-    /**
-     * 重命名表
-     * @param $old 现有表名
-     * @param $new 需要更新成为的表名
-     * @return bool
-     * @throws \yii\db\Exception
-     */
-    public function renameTable($old,$new)
-    {
-        if(empty($old) || empty($new)){
-            return false;
-        } else {
-            $sql = 'RENAME TABLE '.$old.' TO '.$new;
-            Yii::$app->db->createCommand($sql)->execute();
-        }
-
-        return true;
-    }
-
-    /**
-     * 问题类型 与 建表语句映射关系表
-     * @return array
-     */
-    public function getQuestionTypeList()
-    {
-        return [
-            // 整型
-            'tinyint' => ' TINYINT UNSIGNED   DEFAULT 0',
-            'smallint' => ' SMALLINT UNSIGNED   DEFAULT 0',
-            'mediumint' => ' MEDIUMINT UNSIGNED   DEFAULT 0',
-            'int'=> ' INT UNSIGNED   DEFAULT 0',
-            'bigint' => ' BIGINT UNSIGNED   DEFAULT 0',
-
-            // 浮点型
-            'float'=> 'FLOAT   DEFAULT 0.00',
-            'decimal'=> 'DECIMAL(10,2)   DEFAULT 0.00',
-
-            // 字符型
-            'char' => 'CHAR(255)   DEFAULT 0',
-            'varchar' => 'CHAR(50)   DEFAULT 0',
-            'text'=> 'TEXT  ',
-        ];
-    }
-
-    public function returnPromptInfo($num = 0)
-    {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        $infoArr = [
-            '更新成功',
-            '调查不存在或者已启用',
-            '已禁止',
-            '该调查下还未添加问题,无法启用',
-            '该调查不存在或者已被禁止',
-            '发生未知错误,请联系管理员'
-        ];
-
-        $message = [
-            'errorCode' => $num,
-            'errorMessage' => $infoArr[$num]
-        ];
-
-        var_dump($message);exit;
-    }
-
-    public function recordStartUsing($surveyId,$stid = '')
-    {
-        $recordModel = new Survey_Model();
-
-        $tableName = 'survey_'.$surveyId;
-        $tableName .= empty($stid) ? '' : '_'.$stid;
-
-        $recordModel->sid = $surveyId;
-        $recordModel->stid = $stid;
-        $recordModel->starttablename = $tableName;
-        $recordModel->endtablename = '';
-        $recordModel->starttime = time();
-        $recordModel->endtime = 0;
-        $recordModel->userid = Yii::$app->user->identity->userid;
-        $recordModel->username = Yii::$app->user->identity->username;
-
-        $recordModel->save();
-    }
-
-    public function recordEndUsing($oldName,$newName)
-    {
-        //  以最新启用 调查 为更新对象
-        $recordModel = Survey_Model::find()->where("starttablename='$oldName'")->andWhere("endtablename=0")->andWhere("endtime=0")->orderby('id DESC')->one();
-
-        $recordModel->endtablename = $newName;
-        $recordModel->endtime = time();
-        $recordModel->userid = Yii::$app->user->identity->userid;
-        $recordModel->username = Yii::$app->user->identity->username;
-        $recordModel->update();
     }
 }
 

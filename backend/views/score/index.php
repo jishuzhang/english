@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="grid-view">
 
-            <table class="table table-hover text-center">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>试卷名称</th>

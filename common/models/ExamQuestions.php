@@ -77,6 +77,12 @@ class ExamQuestions extends \yii\db\ActiveRecord
             $nStr = implode('_',$r[0]);
         }
 
+        // 当未能生成有效索引码时、加入匹配中文模式
+        if(empty($nStr)){
+            preg_match_all('/^[\x{4e00}-\x{9fa5}a-zA-z0-9_.·]+$/u', $str,$zn);
+            $nStr = implode('_',$zn[0]);
+        }
+
         return $nStr;
     }
 

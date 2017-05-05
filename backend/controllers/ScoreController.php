@@ -62,10 +62,18 @@ class ScoreController extends Controller
 
     public function actionViewAnswer($aid,$tid)
     {
+
         $model = $this->findModel($tid);
         $answers = Yii::$app->english->createCommand('SELECT * FROM {{%'.$model->answer_table.'}} WHERE id=:aid ORDER BY id DESC',[':aid' => $aid])->queryOne();
         $standardAnswer = ExamQuestions::find()->where(['tid' => $tid])->indexBy('id')->asArray()->all();
         $userAnswer = array();
+        $rightAnswer = empty($answers['m_record']) ? array() : unserialize($answers['m_record']);
+        $userScore = $this->getScore($tid,$aid,$answers['uid']);
+
+        if(empty($answers)){
+            Yii::$app->getSession()->setFlash('error','未检索到该用户答案');
+            return $this->redirect(Yii::$app->request->getReferrer());
+        }
 
         foreach($answers as $key => $val)
         {
@@ -82,7 +90,52 @@ class ScoreController extends Controller
             'answer' => $answers,
             'standardAnswer' => $standardAnswer,
             'userAnswer' => $userAnswer,
+            'rightAnswer' => $rightAnswer,
+            'userScore' => $userScore,
         ]);
+    }
+
+    public function actionResetAnswer($tid,$aid)
+    {
+        if(Yii::$app->request->isPost)
+        {
+            $model = $this->findModel($tid);
+            $question = ExamQuestions::find()->where(['tid'=>$tid])->indexBy('id')->asArray()->all();
+            $answers = Yii::$app->english->createCommand('SELECT * FROM {{%'.$model->answer_table.'}} WHERE id=:aid ORDER BY id DESC',[':aid' => $aid])->queryOne();
+
+            if(!empty($model) && !empty($answers))
+            {
+                $userScore = Score::findOne(['tid'=>$tid,'aid'=>$aid,'uid'=>$answers['uid']]);
+                $post = Yii::$app->request->post();
+                $scoreCount = 0;
+                $scoreRecord = array();
+
+                foreach($post as $key => $val)
+                {
+                    $qid = 0;
+                    if(preg_match('/^qid_([1-9]+)$/',$key,$qid))
+                    {
+                        if($val == 1)
+                        {
+                            $scoreRecord[] = $qid[1];
+                            $scoreCount += $question[$qid[1]]['q_score'];
+                        }
+                    }
+
+                }
+
+                //  更新分数 更新正确答案存储
+                $userScore->score = $scoreCount;
+                $userScore->save();
+
+                Yii::$app->english->createCommand()
+                    ->update($model->answer_table,['id'=>$aid],'m_record = :m_record',[':m_record'=>serialize($scoreRecord)])
+                    ->execute();
+            }
+        }
+
+        Yii::$app->getSession()->setFlash('success','更新成功');
+        return $this->redirect(Yii::$app->request->getReferrer());
     }
 
     /**

@@ -161,6 +161,7 @@ class ExamController extends Controller
             'submit_time' => 'INT(11) NULL DEFAULT NULL', // 提交时间
             'mark_time' => 'INT(11) NULL DEFAULT NULL', // 判卷时间
             'm_state' => 'TINYINT UNSIGNED NULL DEFAULT 0', // 答卷审核状态  0 未审核 1 已审核
+            'm_record' => 'TEXT', // 序列化存储 题目正确记录
         ];
 
         //        $lcs = new LCS();

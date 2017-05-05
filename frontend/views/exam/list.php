@@ -69,7 +69,7 @@ AppAsset::addScript($this,'/js/video.js',View::POS_END);
                                      <?php endif;?>
                         </div>
                         <div class="col-md-3">
-                            发布时间: <?= date('Y-m-d');?>
+                            发布时间: <?= date('Y-m-d',$evModel->last_modfiy_time);?>
                         </div>
                     </div>
                 </div>
