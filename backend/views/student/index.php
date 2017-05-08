@@ -40,43 +40,35 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="wrapper">
     <div class="nodes-index">
 
-        <p>
-            <?= Html::a('<i class="icon-plus btn-icon"></i>添加试卷', ['create'], ['class' => 'btn btn-info']) ?>
-        </p>
         <p>温馨提醒:试卷启用状态下无法更改试卷内题目相关设置,需在试卷关闭状态下才可以使用该功能</p>
+
 
         <div class="grid-view">
 
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th>试卷ID</th>
-                        <th>试卷名称</th>
-                        <th>试卷作者</th>
-                        <th>更新时间</th>
-                        <th>管理操作</th>
-                    </tr>
+                <tr>
+                    <th>学生ID</th>
+                    <th>学生姓名</th>
+                    <th>注册邮箱</th>
+                    <th>最后登录时间</th>
+                    <th>管理操作</th>
+                </tr>
                 </thead>
 
                 <tbody>
-                    <?php foreach($model as $evModel):?>
-                        <tr>
-                            <td><?php echo $evModel['id']?></td>
-                            <td><?php echo $evModel['name']?></td>
-                            <td><?php echo $evModel['author']?></td>
-                            <td><?php echo date('Y-m-d H:i',$evModel['last_modfiy_time'])?></td>
-                            <td>
-                                <?php if($evModel['status']):?>
-                                    <a href="<?php echo Url::toRoute(['exam/deactivate','id'=>$evModel['id']])?>" title="关闭" class="btn btn-warning btn-xs">关闭</a>
-                                <?php else:?>
-                                    <a href="<?php echo Url::toRoute(['exam/activate','id'=>$evModel['id']])?>" title="启用" class="btn btn-warning btn-xs">启用</a>
-                                    <a href="<?php echo Url::toRoute(['exam/update','id'=>$evModel['id']])?>" class="btn btn-primary btn-xs">编辑</a>
-                                    <a href="<?php echo Url::toRoute(['exam/delete','id'=>$evModel['id']])?>" title="删除" class="btn btn-danger btn-xs">删除</a>
-                                <?php endif;?>
-                                <a href="<?php echo Url::toRoute(['exam/view','id'=>$evModel['id']])?>" title="查看" class="btn btn-info btn-xs">查看</a>
-                            </td>
-                        </tr>
-                    <?php endforeach;?>
+                <?php foreach($model as $evModel):?>
+                    <tr>
+                        <td><?php echo $evModel['id']?></td>
+                        <td><?php echo $evModel['username']?></td>
+                        <td><?php echo $evModel['email']?></td>
+                        <td><?php echo date('Y-m-d H:i',$evModel['updated_at'])?></td>
+                        <td>
+                            <a href="<?php echo Url::toRoute(['student/update','uid'=>$evModel['id']])?>" title="编辑" class="btn btn-info btn-xs">编辑</a>
+                            <a href="<?php echo Url::toRoute(['student/view','uid'=>$evModel['id']])?>" title="查看成绩" class="btn btn-info btn-xs">查看成绩</a>
+                        </td>
+                    </tr>
+                <?php endforeach;?>
                 </tbody>
             </table>
 

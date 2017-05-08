@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div style="color:#999;margin:1em 0" class="pull-right">
                 <?= Html::a('已有账号 立即登录 ?', ['site/login']) ?>
             </div>
-
+            <?php ActiveForm::end();?>
         </div>
     </div>
 </div>
