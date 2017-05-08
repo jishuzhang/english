@@ -15,7 +15,7 @@ date_default_timezone_set('PRC'); // 中国时区
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>百利天下教育管理系统</title>
+	<title>教育管理系统</title>
     <link href="res/css/bootstrap.min.css" rel="stylesheet">
     <link href="res/css/bootstrapreset.css" rel="stylesheet">
     <link href="res/css/pxgridsicons.min.css" rel="stylesheet" />
@@ -32,40 +32,41 @@ date_default_timezone_set('PRC'); // 中国时区
 <body>
 <section class="wrapper">
     <!--state overview start-->
-    <div class="row state-overview">
+    <div class="row state-overview" style="display:none;">
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
                 <div class="symbol userblue">
-                    院校数
+                   试卷数
                 </div>
                 <div class="value">
                     <h1 id="count1">100</h1>
-                    <p>院校总数</p>
+                    <p>试卷总数</p>
                 </div>
             </section>
         </div>
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
                 <div class="symbol commred">
-                    专业数
+                    视频数
                 </div>
                 <div class="value">
                     <h1 id="count2">200</h1>
-                    <p>专业总数</p>
+                    <p>视频总数</p>
                 </div>
             </section>
         </div>
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
                 <div class="symbol articlegreen">
-                    案例数
+                    学生数
                 </div>
                 <div class="value">
                     <h1 id="count3">300</h1>
-                    <p>案例总数</p>
+                    <p>学生总数</p>
                 </div>
             </section>
         </div>
+
         <div class="col-lg-3 col-sm-6">
             <section class="panel">
                 <div class="symbol rsswet">
@@ -77,6 +78,7 @@ date_default_timezone_set('PRC'); // 中国时区
                 </div>
             </section>
         </div>
+
     </div>
     <!--state overview end-->
 
@@ -85,7 +87,7 @@ date_default_timezone_set('PRC'); // 中国时区
         <div class="col-lg-6">
             <section class="panel">
                 <header class="panel-heading bm0">
-                    <span>我的状态及网站信息</span>
+                    <span>网站信息</span>
                 </header>
                 <div class="panel-body" id="panel-bodys">
                     <table class="table table-hover personal-task">
@@ -101,49 +103,8 @@ date_default_timezone_set('PRC'); // 中国时区
                             <td class="col-md-4">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td>登录次数：</td>
-                            <td><a><?= Logintime::find()->where(['uid'=>$userid])->count() ?> 次</a></td>
-                            <td class="col-md-4">&nbsp;</td>
-                        </tr>
-                        <tr>
                             <td>本次登录IP：</td>
                             <td><a><?= $_SERVER["REMOTE_ADDR"] ?></a></td>
-                            <td class="col-md-4">&nbsp;</td>
-                        </tr>
-
-                        <tr>
-                            <td>上次登录IP：</td>
-                            <td><a><?php $logdata = Logintime::find()->where(['uid'=>$userid])->orderBy('logintime DESC')->offset('1')->one();if($logdata){echo $logdata->ip;}else{echo "未知";} ?></a></td>
-                            <td class="col-md-4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>上次登录时间：</td>
-                            <td><a><?php $logtime = Logintime::find()->where(['uid'=>$userid])->orderBy('logintime DESC')->offset('1')->one();if($logtime){echo date('Y-m-d H:i:s', $logtime->logintime); }else{echo "未知";} ?></a></td>
-                            <td class="col-md-4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>最新评估数：</td>
-                            <td><a>**（共计评估数**）</a></td>
-                            <td class="col-md-4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>排名数：</td>
-                            <td><a>**</a></td>
-                            <td class="col-md-4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>社会实践产品数：</td>
-                            <td><a>***</a></td>
-                            <td class="col-md-4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>管理员总数：</td>
-                            <td><a><?= Admin::find()->count() ?> 个</a></td>
-                            <td class="col-md-4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>过期广告数：</td>
-                            <td><a>***</a></td>
                             <td class="col-md-4">&nbsp;</td>
                         </tr>
 
@@ -158,7 +119,7 @@ date_default_timezone_set('PRC'); // 中国时区
         <div class="col-lg-6">
             <section class="panel">
                 <header class="panel-heading bm0">
-                    <span>团队及系统环境</span>
+                    <span>系统环境</span>
                 </header>
                 <div class="panel-body" id="panel-bodys">
                     <table class="table table-hover personal-task" style="color:#797979;">
@@ -213,19 +174,7 @@ date_default_timezone_set('PRC'); // 中国时区
                         </tr>
                         <tr>
                             <td>
-                                <strong>架构设计</strong>：百利天下技术部
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>开发团队</strong>：百利天下技术部
-                            </td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>项目测试</strong>：百利天下技术部
+                                <strong>技术支持</strong>：光速机枪
                             </td>
                             <td></td>
                         </tr>

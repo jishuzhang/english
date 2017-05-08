@@ -61,7 +61,7 @@ $this->title = $name;
                 <p class="norsTitle2">温馨提示：</p>
                 <ol>
                     <li>请检查您访问的网址是否正确</li>
-                    <li>如果您不能确认访问的网址，请浏览<a href="http://yuanxiao.bailitop.com/">百利天下全球院校库</a>页面查看更多内容。</li>
+                    <li>如果您不能确认访问的网址，请浏览页面查看更多内容。</li>
                     <li>回到顶部重新发起搜索</li>
                 </ol>
             </div>

@@ -19,7 +19,7 @@ $id = Yii::$app->request->get('id') ? Yii::$app->request->get('id') : '';
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>百利天下教育管理系统</title>
+    <title>教育管理系统</title>
     <link href="res/css/bootstrap.min.css" rel="stylesheet" />
     <link href="res/css/bootstrapreset.css" rel="stylesheet" />
     <link href="res/css/pxgridsicons.min.css" rel="stylesheet" />

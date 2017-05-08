@@ -25,7 +25,7 @@ use common\models\LoginForm;
 <div class="form-signin" id="form_login" >
     <div class="form-signin-heading"></div>
     <div class="login-wrap">
-        <div class="loginlogo center"><img src="res/images/login_logo.png" style="height: 58px; width: 218px;"></div>
+        <h3 class="text-center" style="font-weight: bolder">教育管理系统</h3>
 
         <?php $form = ActiveForm::begin([
             'id' => 'login-form',
@@ -57,10 +57,10 @@ use common\models\LoginForm;
         <?php $this->endBody() ?>
         <?php $this->endPage() ?>
 
-        <?= Html::submitButton('login', ['class' => 'btn btn-shadow btn-danger btn-block btn-login', 'name' => 'login-button']) ?>
+        <?= Html::submitButton('登录', ['class' => 'btn  btn-info btn-block btn-login', 'name' => 'login-button']) ?>
     </div>
     <?php ActiveForm::end(); ?>
-    <div class="form-signin-bottom center">Copyright &copy; 2004-2016 Bailitop Education. All Right Reserved</div>
+    <div class="form-signin-bottom center">Copyright &copy; 2004-2017 Education. All Right Reserved</div>
 </div>
 
 <script src="res/js/bootstrap.min.js"></script>
@@ -94,4 +94,3 @@ use common\models\LoginForm;
         }
     });
 </script>
-http://www.yiichina.com/login

@@ -37,7 +37,14 @@ class AdminController extends BackendController
 		$rows =  Yii::$app->db->createCommand($sql)->queryAll();
 		//$now_role_id = $rows[0]['roleid'];
 		$now_role_name = $rows[0]['username'];
-        $query = Admin::find()->select([Yii::$app->components['db']['tablePrefix'].'admin.userid',Yii::$app->components['db']['tablePrefix'].'admin.username',Yii::$app->components['db']['tablePrefix'].'admin.roleid',Yii::$app->components['db']['tablePrefix'].'admin.realname',Yii::$app->components['db']['tablePrefix'].'roles.id',Yii::$app->components['db']['tablePrefix'].'roles.role_name'])->innerJoinWith('roles');
+        $query = Admin::find()
+            ->select(['admin.userid',
+			'admin.username',
+			'admin.roleid',
+			'admin.realname',
+			'roles.id',
+			'roles.role_name'])
+            ->innerJoinWith('roles.id');
 			$pagination = new Pagination([
 				'defaultPageSize'=>10,
 				'totalCount' =>$query->count(),

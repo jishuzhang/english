@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use common\models\Movies;
 use Yii;
 use yii\captcha\CaptchaAction;
 use yii\filters\AccessControl;
@@ -41,13 +42,16 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-		
-		$session = Yii::$app->getSession();		     
+        Yii::$app->session->open();
           if (isset(Yii::$app->user->identity)) {
             $sql = "select portrait from ".Yii::$app->components['db']['tablePrefix']."admin where userid=".Yii::$app->user->identity->userid;
             $arr_portrait =  Yii::$app->db->createCommand($sql)->queryOne();
             $model = Website::findOne(1);
-    		return $this->renderPartial('index',['arr_portrait'=>$arr_portrait,'model'=>$model]);
+
+    		return $this->renderPartial('index',[
+                'arr_portrait'=>$arr_portrait,
+                'model'=>$model
+            ]);
     	}else{
               return $this->redirect(['site/login']);
           }
@@ -62,6 +66,7 @@ class SiteController extends Controller
 		if(empty(Yii::$app->user->identity)){
 			 return $this->redirect(['site/login']);		 
 		}
+
         return $this->renderPartial('siteindex');
     }
 

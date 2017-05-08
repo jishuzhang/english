@@ -12,7 +12,7 @@ use yii\helpers\Url;
 use yii\widgets\LinkPager;
 
 ?>
-<title>百利天下教育管理系统</title>
+<title>教育管理系统</title>
 <link href="res/css/bootstrap.min.css" rel="stylesheet" />
 <link href="res/css/bootstrapreset.css" rel="stylesheet" />
 <link href="res/css/pxgridsicons.min.css" rel="stylesheet" />

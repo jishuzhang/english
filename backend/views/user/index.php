@@ -12,7 +12,7 @@ use backend\controllers\PublicFunction;
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>百利天下教育管理系统</title>
+        <title>管理系统</title>
         <link  href="./res/css/bootstrap.min.css"  rel="stylesheet">
         <link  href="./res/css/bootstrapreset.css"  rel="stylesheet">
         <link rel="stylesheet" href="./res/css/font-awesome.min.css" />
@@ -64,32 +64,10 @@ use backend\controllers\PublicFunction;
                                     </td>
                                     <td  class="hidden-phone">
                                         <div  class="col-sm-8 input-group">
-                                            <span style="margin-right:5px;line-height:30px;">留空，则使用前台密码</span>
                                         </div>
                                     </td>
                                 </tr>
                                 <?= $form->field($model, 'realname')->textInput(['maxlength' => true, 'style' => 'width:300px', 'value' => $arr_user[0]['realname']])->label('真实姓名　　') ?>
-                                <?= $form->field($model, 'department')->textInput(['maxlength' => true, 'style' => 'width:300px', 'value' => $arr_user[0]['department']])->label('所在部门　　') ?>
-
-
-                                <tr><td>
-                                        <span style="font-weight: bold">上传头像</span>
-                                    </td>
-                                    <td  class="hidden-phone">
-                                        <div  class="col-sm-12 input-group">
-                                            <input type="text" value="<?= $arr_user['0']['portrait'] ?>" size="47" id="thumb" name="portrait" readonly="readonly">
-
-                                            <button type="button" class="btn btn-white" onclick="openiframe('./res/js/images/image_upload.html', 'thumb', '上传附件', 810, 400, 1)">上传文件</button>
-                                            <?php
-                                                if(!empty($arr_user['0']['portrait'])){
-                                                    echo "<img class='userimg' src='".$arr_user['0']['portrait']."' style='height:41px; width:41px;'>";
-                                                }
-                                            ?>
-                                            
-                                        </div>
-                                    </td>
-                                </tr>
-
 
                                 <tr>
                                     <td colspan='2'>
