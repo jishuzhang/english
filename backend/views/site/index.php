@@ -9,7 +9,7 @@ $top_navs = Nodes::find()->where('pid = 0 and display = 1')->orderBy('listorder 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>百利天下教育管理系统</title>
+    <title>管理系统</title>
     <link href="res/css/bootstrap.min.css" rel="stylesheet" />
     <link href="res/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="res/css/main.css" />
@@ -23,7 +23,9 @@ $top_navs = Nodes::find()->where('pid = 0 and display = 1')->orderBy('listorder 
 </head>
 <body>
 <header class="header pxgrids-bg">
-    <a href="javascript:void(0);" class="logo pull-left"><img src="res/images/logo.png"></a>
+    <a href="javascript:void(0);" class="logo pull-left">
+        <h3 style="color:white;" class="text-center">管理系统</h3>
+    </a>
     <div class="pull-left topmenunav" id="menu">
         <ul class="pull-left top_menu" id="top_menu">
             <?php
@@ -45,27 +47,12 @@ $top_navs = Nodes::find()->where('pid = 0 and display = 1')->orderBy('listorder 
             <li class="dropdown userinfo">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0);">
 
-
-
                     <img  style="height: 41px; width: 41px;"  src="" class="userimg">
-
                     <span class="username"><?= $username ?></span>
                     <b class="caret"></b>
                 </a>
-
-
-
-                <ul class="dropdown-menu extended userullist" id="userullist">
-                    <div class="log-arrow-up"><i class="icon-sort-up"></i></div>
-                    <li class="usersettitle"><h5>个人信息</h5></li>
-                    <li><a href="javascript:void(1);">本次登陆IP:<?= $_SERVER["REMOTE_ADDR"] ?></a></li>
-                    <li><a href="javascript:void(1);">上次登陆IP:127.0.0.1</a></li>
-                    <li><a href="javascript:void(1);">上次登陆时间:1分钟前</a></li>
-                    <li><a href="javascript:void(0);" target="iframeid">个人信息设置/密码修改</a></li>
-                </ul>
             </li>
             <!-- userinfo dropdown end -->
-            <li><a href="javascript:void(1);" id="lock"><i class="icon-lock"></i><span>锁屏</span></a></li>
             <li><a data-method="post" href="index.php?r=site/logout"><i class="icon-power-off"></i><span>退出</span></a></li>
         </ul>
     </div>
@@ -161,8 +148,6 @@ $top_navs = Nodes::find()->where('pid = 0 and display = 1')->orderBy('listorder 
                 </ul><!-- .breadcrumb -->
                 <div class="pull-right crumbsbutton">
                     <a href="http://yuanxiao.bailitop.com/" target="_blank">站点首页</a>
-                    <a href="javascript:void(0);" target="iframeid">更新缓存</a>
-                    <a href="javascript:void(0);" target="iframeid">生成首页</a>
                 </div>
             </div>
             <section id="iframecontent">

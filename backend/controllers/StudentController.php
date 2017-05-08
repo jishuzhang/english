@@ -34,6 +34,45 @@ class StudentController extends Controller
 
     }
 
+    public function actionUpdate($uid)
+    {
+        if(Yii::$app->request->isPost)
+        {
+            $post = Yii::$app->request->post('User');
+            $user = User::findOne(['id'=>$uid]);
+
+            $newPwd = $post['password'];
+            $email = $post['email'];
+            $username = $post['username'];
+
+            $user->email = $email;
+            $user->username = $username;
+
+            if(!empty($newPwd)){
+                $user->setPassword($newPwd);
+            }
+
+            if($user->save())
+            {
+                Yii::$app->getSession()->setFlash('success','修改成功');
+            }
+            else
+            {
+                Yii::$app->getSession()->setFlash('error','修改失败');
+            }
+            return $this->redirect(['student/update','uid' => $uid]);
+        }
+        else
+        {
+            $model = User::findOne(['id' => $uid]);
+            return $this->render('update',[
+                'model' => $model,
+            ]);
+        }
+
+
+
+    }
     protected function getTestName($tid)
     {
         return Test::find()->where(['id'=>$tid])->asArray()->one();

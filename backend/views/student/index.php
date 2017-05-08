@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <section class="wrapper">
     <div class="nodes-index">
 
-        <p>温馨提醒:试卷启用状态下无法更改试卷内题目相关设置,需在试卷关闭状态下才可以使用该功能</p>
+        <p>温馨提醒:最后修改时间意指针对该用户敏感信息修改操作时间记录,例如上一次修改密码、修改用户名等</p>
 
 
         <div class="grid-view">
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <th>学生ID</th>
                     <th>学生姓名</th>
                     <th>注册邮箱</th>
-                    <th>最后登录时间</th>
+                    <th>最后修改</th>
                     <th>管理操作</th>
                 </tr>
                 </thead>
