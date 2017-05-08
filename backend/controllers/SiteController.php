@@ -10,6 +10,7 @@ use backend\models\Admin;
 use backend\models\Logintime;
 use yii\filters\VerbFilter;
 use yii\widgets\InputWidget;
+use backend\models\Website;
 
 /**
  * Site controller
@@ -45,7 +46,8 @@ class SiteController extends Controller
           if (isset(Yii::$app->user->identity)) {
             $sql = "select portrait from ".Yii::$app->components['db']['tablePrefix']."admin where userid=".Yii::$app->user->identity->userid;
             $arr_portrait =  Yii::$app->db->createCommand($sql)->queryOne();
-    		return $this->renderPartial('index',['arr_portrait'=>$arr_portrait,]);
+            $model = Website::findOne(1);
+    		return $this->renderPartial('index',['arr_portrait'=>$arr_portrait,'model'=>$model]);
     	}else{
               return $this->redirect(['site/login']);
           }

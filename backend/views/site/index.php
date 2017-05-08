@@ -47,7 +47,7 @@ $top_navs = Nodes::find()->where('pid = 0 and display = 1')->orderBy('listorder 
             <li class="dropdown userinfo">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:void(0);">
 
-                    <img  style="height: 41px; width: 41px;"  src="" class="userimg">
+                    <img  style="height: 41px; width: 41px;"  src="/res/images/admin.png" class="userimg">
                     <span class="username"><?= $username ?></span>
                     <b class="caret"></b>
                 </a>
@@ -147,7 +147,7 @@ $top_navs = Nodes::find()->where('pid = 0 and display = 1')->orderBy('listorder 
                     <li class="bread_onnav hide"></li>
                 </ul><!-- .breadcrumb -->
                 <div class="pull-right crumbsbutton">
-                    <a href="http://yuanxiao.bailitop.com/" target="_blank">站点首页</a>
+                    <a href="<?php echo $model->url?>" target="_blank">站点首页</a>
                 </div>
             </div>
             <section id="iframecontent">
