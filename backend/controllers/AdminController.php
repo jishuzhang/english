@@ -28,8 +28,7 @@ class AdminController extends BackendController
 {
 	//管理员首页
 	public function actionIndex()
-	{  
-
+	{
 		//获取当前用户的userid号
 		$userid = Yii::$app->user->identity->userid;
 		//获取该用户对应的角色id号
@@ -38,13 +37,14 @@ class AdminController extends BackendController
 		//$now_role_id = $rows[0]['roleid'];
 		$now_role_name = $rows[0]['username'];
         $query = Admin::find()
-            ->select(['admin.userid',
-			'admin.username',
-			'admin.roleid',
-			'admin.realname',
-			'roles.id',
-			'roles.role_name'])
-            ->innerJoinWith('roles.id');
+            ->select([Yii::$app->components['db']['tablePrefix'].'admin.userid',
+			Yii::$app->components['db']['tablePrefix'].'admin.username',
+			Yii::$app->components['db']['tablePrefix'].'admin.roleid',
+			Yii::$app->components['db']['tablePrefix'].'admin.realname',
+			Yii::$app->components['db']['tablePrefix'].'roles.id',
+			Yii::$app->components['db']['tablePrefix'].'roles.role_name'])
+            ->innerJoinWith('roles');
+            //$query = Admin::getDb()->createCommand('SELECT a.userid,a.username,a.roleid,a.realname,r.id,r.role_name FROM {{%admin}} AS a INNER JOIN {{%roles}} AS r ON a.roleid = r.id');
 			$pagination = new Pagination([
 				'defaultPageSize'=>10,
 				'totalCount' =>$query->count(),

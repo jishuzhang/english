@@ -189,5 +189,8 @@ class Admin extends ActiveRecord implements IdentityInterface
         $this->password_reset_token = null;
     }
 
-
+    public function getroles()
+    {
+        return $this->hasMany(Roles::className(), ['id' => 'roleid']);
+    }
 }
