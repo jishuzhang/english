@@ -1,30 +1,16 @@
-用户表表结构
+安装步骤
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL,
-  `auth_key` varchar(32) NOT NULL,
-  `password_hash` varchar(255) NOT NULL,
-  `password_reset_token` varchar(255) DEFAULT NULL,
-  `email` varchar(255) NOT NULL,
-  `role` smallint(6) NOT NULL DEFAULT '10',
-  `status` smallint(6) NOT NULL DEFAULT '10',
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+配置 host
 
-视频
-英文
-翻译
+前台入口
+    frontend/web/index.php
+后台入口
+   backend/web/index.php
 
-英汉互译
+更新配置文件
+    english\common\config\main-local.php
+        数据库配置
 
-配置
-
-更新项目目录权限
-
-common/config params.php  frontend_url
-
-后台的未登录用户访问权限没有做
+    english\common\config\params.php
+    域名配置
+        

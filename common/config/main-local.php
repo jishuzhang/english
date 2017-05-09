@@ -27,17 +27,11 @@ return [
             //这句一定有，false发送邮件，true只是生成邮件在runtime文件夹下，不发邮件
             'useFileTransport' =>false,
             'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.vip.163.com',  //每种邮箱的host配置不一样
-                'username' => 'bailitop@vip.163.com',
-                'password' => '',
-                'port' => '994',
-                'encryption' => 'ssl',
             ],
 
             'messageConfig'=>[
                 'charset'=>'UTF-8',
-                'from'=>['bailitop@vip.163.com'=>'admin']
+                'from'=>['gun@vip.163.com'=>'admin']
             ],
         ],
     ],

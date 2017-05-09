@@ -1,7 +1,7 @@
 <?php
 //开发环境
 defined('YII_DEBUG') or define('YII_DEBUG', true);
-defined('YII_ENV') or define('YII_ENV', 'dev');
+defined('YII_ENV') or define('YII_ENV', 'prod');
 defined('FRONTEND_PATH') or define('FRONTEND_PATH', str_replace(DIRECTORY_SEPARATOR.'backend'.DIRECTORY_SEPARATOR,DIRECTORY_SEPARATOR.'frontend'.DIRECTORY_SEPARATOR,__DIR__.DIRECTORY_SEPARATOR.'upload'));
 
 //生产环境
