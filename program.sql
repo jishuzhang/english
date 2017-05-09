@@ -29,11 +29,14 @@ CREATE TABLE IF NOT EXISTS `answer_10` (
   `t10Xq29` varchar(255) DEFAULT NULL,
   `t10Xq30` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- 正在导出表  english.answer_10 的数据：0 rows
+-- 正在导出表  english.answer_10 的数据：2 rows
 DELETE FROM `answer_10`;
 /*!40000 ALTER TABLE `answer_10` DISABLE KEYS */;
+INSERT INTO `answer_10` (`id`, `uid`, `username`, `submit_time`, `mark_time`, `m_state`, `m_record`, `t10Xq27`, `t10Xq28`, `t10Xq29`, `t10Xq30`) VALUES
+	(1, 2, '光速机枪阿速', 1494293916, 0, 0, 'a:0:{}', 'aaaaaaaaaaaaaa aaaa', 'aaaaaaaaaa', 'aaaaaaaaaaaaa', 'aaaaaaaaaaaaa'),
+	(2, 2, '光速机枪阿速', 1494294524, 0, 0, 'a:1:{i:0;s:2:"30";}', 'asdfasdfasdfa', '俺的沙发沙发', 'asdfadsfa', '');
 /*!40000 ALTER TABLE `answer_10` ENABLE KEYS */;
 
 
@@ -54,16 +57,18 @@ CREATE TABLE IF NOT EXISTS `answer_11` (
   `t11Xq36` varchar(255) DEFAULT NULL,
   `t11Xq37` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
--- 正在导出表  english.answer_11 的数据：0 rows
+-- 正在导出表  english.answer_11 的数据：6 rows
 DELETE FROM `answer_11`;
 /*!40000 ALTER TABLE `answer_11` DISABLE KEYS */;
 INSERT INTO `answer_11` (`id`, `uid`, `username`, `submit_time`, `mark_time`, `m_state`, `m_record`, `t11Xq31`, `t11Xq32`, `t11Xq33`, `t11Xq34`, `t11Xq35`, `t11Xq36`, `t11Xq37`) VALUES
 	(2, 1, 'admin', 1493975664, 1493975664, 1, 'a:6:{i:0;s:2:"31";i:1;s:2:"32";i:2;s:2:"33";i:3;s:2:"34";i:4;s:2:"35";i:5;s:2:"37";}', '头疼', '不错', 'No way! ', 'Don\'t flatter me.', 'Hope so.', 'aaaaaaaaa', 'I\'m not going.'),
 	(3, 1, 'admin', 1493976844, 1493976844, 1, 'a:6:{i:0;s:2:"31";i:1;s:2:"32";i:2;s:2:"33";i:3;s:2:"35";i:4;s:2:"36";i:5;s:2:"37";}', '头疼', '不错', 'No way! ', 'Don\'t flatter2 me', 'Hope so.', 'Go down to business.', 'I\'m not going.'),
 	(4, 1, 'admin', 1493976996, 1493976996, 1, 'a:4:{i:0;s:2:"33";i:1;s:2:"34";i:2;s:2:"36";i:3;s:2:"37";}', '头疼111', '不错1', 'No way! ', 'Don\'t flatter me.', 'Hope 1so.', 'Go down to business.', 'I\'m not going.'),
-	(5, 1, 'admin', 1493981745, 1493981745, 1, 'a:2:{i:0;s:2:"31";i:1;s:2:"32";}', '', '', '', '', '', '', '');
+	(5, 1, 'admin', 1493981745, 1493981745, 1, 'a:2:{i:0;s:2:"31";i:1;s:2:"32";}', '', '', '', '', '', '', ''),
+	(6, 2, '光速机枪阿苏', 1494206581, 1494206581, 1, 'a:3:{i:0;s:2:"33";i:1;s:2:"36";i:2;s:2:"37";}', '头疼', '不错1', 'No way! ', 'Don\'t flatter2 me', 'Hope 1so.', 'Go down to business.', 'I\'m not going.'),
+	(7, 2, '光速机枪阿速', 1494293616, 1494293616, 1, 'a:2:{i:0;s:2:"33";i:1;s:2:"37";}', '头疼', '不错1', 'No way! ', 'Don\'t flatter2 me', 'Hope 1so.', 'aaaaaaaaa', 'I\'m not going.');
 /*!40000 ALTER TABLE `answer_11` ENABLE KEYS */;
 
 
@@ -132,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `exam_questions` (
   KEY `tid` (`tid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
 
--- 正在导出表  english.exam_questions 的数据：~33 rows (大约)
+-- 正在导出表  english.exam_questions 的数据：~31 rows (大约)
 DELETE FROM `exam_questions`;
 /*!40000 ALTER TABLE `exam_questions` DISABLE KEYS */;
 INSERT INTO `exam_questions` (`id`, `tid`, `q_type`, `q_number`, `q_score`, `q_name`, `q_answer`, `q_answer_code`) VALUES
@@ -191,63 +196,6 @@ DELETE FROM `movies`;
 INSERT INTO `movies` (`id`, `title`, `src`, `ctime`, `description`, `mtime`, `poster`) VALUES
 	(3, '泰坦尼克号0', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1490164888, '《泰坦尼克号》是美国20世纪福克斯公司和派拉蒙影业公司共同出资，于1994年拍摄的一部浪漫的爱情灾难电影，由詹姆斯·卡梅隆创作、编辑、制作、导演及监制，莱昂纳多·迪卡普里奥、凯特·温斯莱特主演。影片于1997年11月1日在东京首映。\r\n影片以1912年泰坦尼克号邮轮在其处女启航时触礁冰山而沉没的事件为背景，描述了处于不同阶层的两个人——穷画家杰克和贵族女露丝抛弃世俗的偏见坠入爱河，最终杰克把生命的机会让给了露丝的感人故事。', 1489830150, 'upload/p.png'),
 	(4, '26个英文字母歌', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1490165584, 'Movie短片1', 1489830150, 'upload/p.png'),
-	(5, '视频2', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片2', 1489830150, 'upload/p.png'),
-	(6, '视频3', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片3', 1489830150, 'upload/p.png'),
-	(7, '视频4', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片4', 1489830150, 'upload/p.png'),
-	(8, '视频5', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片5', 1489830150, 'upload/p.png'),
-	(9, '视频6', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片6', 1489830150, 'upload/p.png'),
-	(10, '视频7', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片7', 1489830150, 'upload/p.png'),
-	(11, '视频8', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片8', 1489830150, 'upload/p.png'),
-	(12, '视频9', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片9', 1489830150, 'upload/p.png'),
-	(13, '视频10', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片10', 1489830150, 'upload/p.png'),
-	(14, '视频11', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片11', 1489830150, 'upload/p.png'),
-	(15, '视频12', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片12', 1489830150, 'upload/p.png'),
-	(16, '视频13', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片13', 1489830150, 'upload/p.png'),
-	(17, '视频14', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片14', 1489830150, 'upload/p.png'),
-	(18, '视频15', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片15', 1489830150, 'upload/p.png'),
-	(20, '视频17', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片17', 1489830150, 'upload/p.png'),
-	(21, '视频18', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片18', 1489830150, 'upload/p.png'),
-	(22, '视频19', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片19', 1489830150, 'upload/p.png'),
-	(23, '视频20', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片20', 1489830150, 'upload/p.png'),
-	(24, '视频21', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片21', 1489830150, 'upload/p.png'),
-	(25, '视频22', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片22', 1489830150, 'upload/p.png'),
-	(26, '视频23', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片23', 1489830150, 'upload/p.png'),
-	(27, '视频24', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片24', 1489830150, 'upload/p.png'),
-	(28, '视频25', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片25', 1489830150, 'upload/p.png'),
-	(29, '视频26', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片26', 1489830150, 'upload/p.png'),
-	(30, '视频27', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片27', 1489830150, 'upload/p.png'),
-	(31, '视频28', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片28', 1489830150, 'upload/p.png'),
-	(32, '视频29', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'Movie短片29', 1489830150, 'upload/p.png'),
-	(33, '视频0', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片0', 1489830150, 'upload/p.png'),
-	(34, '视频1', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片1', 1489830150, 'upload/p.png'),
-	(35, '视频2', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片2', 1489830150, 'upload/p.png'),
-	(36, '视频3', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片3', 1489830150, 'upload/p.png'),
-	(37, '视频4', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片4', 1489830150, 'upload/p.png'),
-	(38, '视频5', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片5', 1489830150, 'upload/p.png'),
-	(39, '视频6', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片6', 1489830150, 'upload/p.png'),
-	(40, '视频7', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片7', 1489830150, 'upload/p.png'),
-	(41, '视频8', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片8', 1489830150, 'upload/p.png'),
-	(42, '视频9', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片9', 1489830150, 'upload/p.png'),
-	(43, '视频10', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片10', 1489830150, 'upload/p.png'),
-	(44, '视频11', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片11', 1489830150, 'upload/p.png'),
-	(45, '视频12', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片12', 1489830150, 'upload/p.png'),
-	(46, '视频13', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片13', 1489830150, 'upload/p.png'),
-	(47, '视频14', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片14', 1489830150, 'upload/p.png'),
-	(48, '视频15', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片15', 1489830150, 'upload/p.png'),
-	(49, '视频16', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片16', 1489830150, 'upload/p.png'),
-	(50, '视频17', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片17', 1489830150, 'upload/p.png'),
-	(51, '视频18', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片18', 1489830150, 'upload/p.png'),
-	(52, '视频19', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片19', 1489830150, 'upload/p.png'),
-	(53, '视频20', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片20', 1489830150, 'upload/p.png'),
-	(54, '视频21', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片21', 1489830150, 'upload/p.png'),
-	(55, '视频22', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片22', 1489830150, 'upload/p.png'),
-	(56, '视频23', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片23', 1489830150, 'upload/p.png'),
-	(57, '视频24', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片24', 1489830150, 'upload/p.png'),
-	(58, '视频25', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片25', 1489830150, 'upload/p.png'),
-	(59, '视频26', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片26', 1489830150, 'upload/p.png'),
-	(60, '视频27', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片27', 1489830150, 'upload/p.png'),
-	(61, '视频28', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片28', 1489830150, 'upload/p.png'),
-	(62, '视频29', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830217, 'Movie短片29', 1489830150, 'upload/p.png'),
 	(63, '千与千寻', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1490176047, 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1489830150, 'upload/p.png'),
 	(64, '千与千寻', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1490426138, 'ffffffffffffffffffffffffffffffffffffffffff', 1490426138, 'upload/p.png'),
 	(65, '测试上传图片', 'http://www.tudou.com/a/a0dlorIShX4/&bid=05&iid=133036775&resourceId=0_05_05_99/v.swf', 1490427571, '哈哈哈哈哈哈哈', 1490509555, 'upload/2017/03/26/bbb78077c86ff78c35de53271cd98589.jpg'),
@@ -258,65 +206,23 @@ INSERT INTO `movies` (`id`, `title`, `src`, `ctime`, `description`, `mtime`, `po
 /*!40000 ALTER TABLE `movies` ENABLE KEYS */;
 
 
--- 导出  表 english.old_answer_1_20170504113459 结构
-CREATE TABLE IF NOT EXISTS `old_answer_1_20170504113459` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` int(10) unsigned DEFAULT '0',
-  `username` char(64) DEFAULT NULL,
-  `submit_time` int(11) DEFAULT NULL,
-  `mark_time` int(11) DEFAULT NULL,
-  `m_state` tinyint(3) unsigned DEFAULT '0',
-  `t1Xq1` varchar(255) DEFAULT NULL,
-  `t1Xq2` varchar(255) DEFAULT NULL,
-  `t1Xq3` varchar(255) DEFAULT NULL,
-  `t1Xq4` varchar(255) DEFAULT NULL,
-  `t1Xq6` varchar(255) DEFAULT NULL,
-  `t1Xq7` varchar(255) DEFAULT NULL,
-  `t1Xq8` varchar(255) DEFAULT NULL,
-  `t1Xq9` varchar(255) DEFAULT NULL,
-  `t1Xq13` varchar(255) DEFAULT NULL,
-  `t1Xq14` varchar(255) DEFAULT NULL,
-  `t1Xq15` varchar(255) DEFAULT NULL,
-  `t1Xq16` varchar(255) DEFAULT NULL,
-  `t1Xq17` varchar(255) DEFAULT NULL,
-  `t1Xq18` varchar(255) DEFAULT NULL,
-  `t1Xq19` varchar(255) DEFAULT NULL,
-  `t1Xq20` varchar(255) DEFAULT NULL,
+-- 导出  表 english.recommend 结构
+CREATE TABLE IF NOT EXISTS `recommend` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` char(255) DEFAULT NULL,
+  `description` text,
+  `url` char(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='推荐位';
 
--- 正在导出表  english.old_answer_1_20170504113459 的数据：5 rows
-DELETE FROM `old_answer_1_20170504113459`;
-/*!40000 ALTER TABLE `old_answer_1_20170504113459` DISABLE KEYS */;
-INSERT INTO `old_answer_1_20170504113459` (`id`, `uid`, `username`, `submit_time`, `mark_time`, `m_state`, `t1Xq1`, `t1Xq2`, `t1Xq3`, `t1Xq4`, `t1Xq6`, `t1Xq7`, `t1Xq8`, `t1Xq9`, `t1Xq13`, `t1Xq14`, `t1Xq15`, `t1Xq16`, `t1Xq17`, `t1Xq18`, `t1Xq19`, `t1Xq20`) VALUES
-	(14, 1, 'admin', 1493862715, 1493862715, 1, '', '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '', '', ''),
-	(11, 1, 'admin', 1493715782, 1493715782, 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-	(12, 1, 'admin', 1493716547, 1493716547, 1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-	(13, 1, 'admin', 1493860484, 1493860484, 1, '', '', '', '', '', '', '', '', '', '', NULL, NULL, NULL, '', '', ''),
-	(10, 1, 'admin', 1493712533, 1493712533, 1, 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you', 'thank you');
-/*!40000 ALTER TABLE `old_answer_1_20170504113459` ENABLE KEYS */;
-
-
--- 导出  表 english.old_answer_8_20170503172506 结构
-CREATE TABLE IF NOT EXISTS `old_answer_8_20170503172506` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `uid` int(10) unsigned DEFAULT '0',
-  `username` char(64) DEFAULT NULL,
-  `submit_time` int(11) DEFAULT NULL,
-  `mark_time` int(11) DEFAULT NULL,
-  `m_state` tinyint(3) unsigned DEFAULT '0',
-  `t8Xq15` varchar(255) DEFAULT NULL,
-  `t8Xq16` varchar(255) DEFAULT NULL,
-  `t8Xq17` varchar(255) DEFAULT NULL,
-  `t8Xq21` varchar(255) DEFAULT NULL,
-  `t8Xq22` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- 正在导出表  english.old_answer_8_20170503172506 的数据：0 rows
-DELETE FROM `old_answer_8_20170503172506`;
-/*!40000 ALTER TABLE `old_answer_8_20170503172506` DISABLE KEYS */;
-/*!40000 ALTER TABLE `old_answer_8_20170503172506` ENABLE KEYS */;
+-- 正在导出表  english.recommend 的数据：~0 rows (大约)
+DELETE FROM `recommend`;
+/*!40000 ALTER TABLE `recommend` DISABLE KEYS */;
+INSERT INTO `recommend` (`id`, `name`, `description`, `url`) VALUES
+	(1, '首页左侧推荐位', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et\r\n                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\r\n                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu\r\n                    fugiat nulla pariatur.', 'http://www.baidu.com'),
+	(2, '首页中间推荐位', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et\r\n                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\r\n                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu\r\n                    fugiat nulla pariatur.', 'http://www.baidu.com'),
+	(3, '首页右侧推荐位', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et\r\n                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\r\n                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu\r\n                    fugiat nulla pariatur.', 'http://www.baidu.com');
+/*!40000 ALTER TABLE `recommend` ENABLE KEYS */;
 
 
 -- 导出  表 english.score 结构
@@ -329,9 +235,9 @@ CREATE TABLE IF NOT EXISTS `score` (
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`),
   KEY `tid` (`tid`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='用户得分记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='用户得分记录表';
 
--- 正在导出表  english.score 的数据：~9 rows (大约)
+-- 正在导出表  english.score 的数据：~13 rows (大约)
 DELETE FROM `score`;
 /*!40000 ALTER TABLE `score` DISABLE KEYS */;
 INSERT INTO `score` (`id`, `uid`, `tid`, `score`, `aid`) VALUES
@@ -348,7 +254,9 @@ INSERT INTO `score` (`id`, `uid`, `tid`, `score`, `aid`) VALUES
 	(14, 1, 11, 90, 2),
 	(15, 1, 11, 91, 3),
 	(16, 1, 11, 13, 4),
-	(17, 1, 11, 4, 5);
+	(17, 1, 11, 4, 5),
+	(18, 2, 11, 85, 6),
+	(19, 2, 11, 82, 7);
 /*!40000 ALTER TABLE `score` ENABLE KEYS */;
 
 
@@ -391,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `translate` (
   KEY `vid` (`vid`),
   KEY `ctime` (`ctime`),
   KEY `utime` (`utime`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='英语台词、汉语译文';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='英语台词、汉语译文';
 
 -- 正在导出表  english.translate 的数据：~3 rows (大约)
 DELETE FROM `translate`;
@@ -416,13 +324,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- 正在导出表  english.user 的数据：~0 rows (大约)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `role`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 'admin', 'HtIUyz96E_Lv0jAeahJ5LEiokX6HVgE0', '$2y$13$IguBq2BXGiTyLghZJNMyq.eS7M7nnE8ZjRUtpbY6dYPSpKTmfe7KO', NULL, '1347230845@qq.com', 10, 10, 1489219254, 1489219254);
+	(1, 'admin', 'HtIUyz96E_Lv0jAeahJ5LEiokX6HVgE0', '$2y$13$IguBq2BXGiTyLghZJNMyq.eS7M7nnE8ZjRUtpbY6dYPSpKTmfe7KO', NULL, '1347230845@qq.com', 10, 10, 1489219254, 1489219254),
+	(2, '光速机枪阿速', 'WMMoyBoO8wF-ro-Z53TwWpbDjBXOaJIr', '$2y$13$RiWfLL/2a1KiCmwRYL.R5OdozLFziBscuSxSoTjBJoM4XeTaFeWkS', NULL, '1051034413@qq.com', 10, 10, 1494204847, 1494228329);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 
@@ -468,24 +377,12 @@ CREATE TABLE IF NOT EXISTS `bl_admin` (
   PRIMARY KEY (`userid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=100 DEFAULT CHARSET=utf8;
 
--- 正在导出表  func_count.bl_admin 的数据：14 rows
+-- 正在导出表  func_count.bl_admin 的数据：8 rows
 DELETE FROM `bl_admin`;
 /*!40000 ALTER TABLE `bl_admin` DISABLE KEYS */;
 INSERT INTO `bl_admin` (`userid`, `username`, `password_hash`, `roleid`, `realname`, `status`, `password_reset_token`, `auth_key`, `created_at`, `updated_at`, `portrait`, `department`) VALUES
 	(1, 'admin', '$2y$13$yztbkH3czQ.gpnA80dTuK.QzfOZ527EZ3/HWKEp8TbYBdW.h008ym', 1, 'admin', 10, NULL, '', '1428369555', '1428369555', 'Uploads/2015/0921/14427995038584.png', '技术'),
-	(57, 'mengbaoqing', '$2y$13$rcLDXI1Ic95JUQRowB3QYOZwPnbqZ8sYtQgyA0CFpzyBtJ3SqJrsW', 1, '孟保青', 10, NULL, '', '', '', 'Uploads/2015/1023/14455655357507.jpg', ''),
-	(40, 'zhangpanlong', '$2y$13$UM1LJ58q7H4Weyd0pfZDLOVne.ehbpLWE.febdjsIMetJJ.rL9dBa', 1, '张攀龙', 10, NULL, '', '', '', NULL, NULL),
-	(55, 'dongxuepeng', '$2y$13$ebxMF8yMQvDuDgSOOGkuaOVsgCUXaQ6J5GR8FEsUVNl3t.2vXdHLO', 1, '董学鹏', 10, NULL, '', '', '', NULL, NULL),
-	(61, 'zhoufu', '$2y$13$FiJbh2kDEN0jktcKDqpOKuIzrwE65l7LKT3tfI.y9ij89v/twQfTS', 1, '周富', 10, NULL, '', '', '', NULL, NULL),
-	(92, 'xujinfa', '$2y$13$ygXHS5iK7c6vHQDbAbp6h.IFGIl4OxvQBQmG0dsjXGDIId54NQwWW', 1, '徐金发', 10, NULL, '', '', '', NULL, NULL),
-	(72, 'baiyu', '$2y$13$jLKRTBYVh40t0KIkXIxY1Oo0vMwoouWrv0dW89/FNnJ3c5MvyfSw6', 1, '白钰', 10, NULL, '', '', '', 'Uploads/2015/0919/14426529281294.jpg', ''),
-	(93, 'sujianhui', '$2y$13$WZbx8HdS/QhNHtIBvdKXT..VHwicdr2LDK0.sI75x3iDoG6AHoj9q', 1, '苏建辉', 10, NULL, '', '', '', '', ''),
-	(94, 'dongfengtao', '$2y$13$L2KtiWNuJSk1KsSB7If0NeDcoMNjRfrtZfNBEkkJ.dO21ppuc3Sza', 1, '董峰涛', 10, NULL, '', '', '', NULL, NULL),
-	(95, 'qijialei', '$2y$13$j.rXFwmrI25F/G0o6mmUZePEkt5Ix0Ogl0KK2qIUGVjLv5NCBTlG6', 1, '齐嘉磊', 10, NULL, '', '', '', NULL, NULL),
-	(96, 'liuxiaojuan', '$2y$13$pEOM9hfvl4wjJ/fgncPqJedqxIzZP6cez97DQxYV7DkonpIGtJ2CS', 1, '刘笑娟', 10, NULL, '', '', '', NULL, NULL),
-	(97, 'chiyuze', '$2y$13$0nA7dcNXkHE9XFGtbDgjxOMBFM2TTm2Wxqqm3alDnTil1aIwZU8I.', 1, '池毓泽', 10, NULL, '', '', '', NULL, NULL),
-	(98, 'zhanglu', '$2y$13$YYKUyJ3YO.n37eiCN9I6VOm8FYvJxrypV7vHbfjVqgHwjtZu2T16y', 1, '张禄', 10, NULL, '', '', '', NULL, NULL),
-	(99, 'zhaohaitao', '$2y$13$wOVrW7X4dMfLVSsmuqRDYO3WHO8tUMbGpZ7a3mMUJQNpJ9NHGabz.', 1, '赵海涛', 10, NULL, '', '', '', NULL, NULL);
+	(93, 'sujianhui', '$2y$13$p8efFCBS7.Aif8CM9eUkdO2CTB3/uhVWks7voJ5E1qCMAnvQ0n/.G', 1, '光速机枪', 10, NULL, '', '', '', '', '');
 /*!40000 ALTER TABLE `bl_admin` ENABLE KEYS */;
 
 
@@ -517,9 +414,9 @@ CREATE TABLE IF NOT EXISTS `bl_logintime` (
   `ip` char(15) NOT NULL COMMENT '登录IP',
   PRIMARY KEY (`id`),
   KEY `uid` (`uid`,`status`,`logintime`)
-) ENGINE=MyISAM AUTO_INCREMENT=65 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
 
--- 正在导出表  func_count.bl_logintime 的数据：64 rows
+-- 正在导出表  func_count.bl_logintime 的数据：66 rows
 DELETE FROM `bl_logintime`;
 /*!40000 ALTER TABLE `bl_logintime` DISABLE KEYS */;
 INSERT INTO `bl_logintime` (`id`, `uid`, `status`, `logintime`, `ip`) VALUES
@@ -586,7 +483,9 @@ INSERT INTO `bl_logintime` (`id`, `uid`, `status`, `logintime`, `ip`) VALUES
 	(61, 93, 1, 1491818984, '192.168.32.100'),
 	(62, 93, 1, 1491824573, '192.168.32.100'),
 	(63, 93, 1, 1493712834, '192.168.32.100'),
-	(64, 93, 1, 1493717074, '192.168.32.100');
+	(64, 93, 1, 1493717074, '192.168.32.100'),
+	(65, 93, 1, 1494229069, '192.168.32.100'),
+	(66, 93, 1, 1494237972, '192.168.32.100');
 /*!40000 ALTER TABLE `bl_logintime` ENABLE KEYS */;
 
 
@@ -600,9 +499,9 @@ CREATE TABLE IF NOT EXISTS `bl_logs` (
   `ip` varchar(15) NOT NULL COMMENT '操作IP',
   `data` text NOT NULL COMMENT '附件操作，比如：modelid,blockid,文章id,等等',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4089 DEFAULT CHARSET=utf8 COMMENT='管理员操作日志';
+) ENGINE=MyISAM AUTO_INCREMENT=4283 DEFAULT CHARSET=utf8 COMMENT='管理员操作日志';
 
--- 正在导出表  func_count.bl_logs 的数据：4,088 rows
+-- 正在导出表  func_count.bl_logs 的数据：4,186 rows
 DELETE FROM `bl_logs`;
 /*!40000 ALTER TABLE `bl_logs` DISABLE KEYS */;
 INSERT INTO `bl_logs` (`id`, `uid`, `m`, `c`, `addtime`, `ip`, `data`) VALUES
@@ -4693,7 +4592,201 @@ INSERT INTO `bl_logs` (`id`, `uid`, `m`, `c`, `addtime`, `ip`, `data`) VALUES
 	(4085, 93, 'nodes', 'index', 1493974285, '192.168.32.100', '1111'),
 	(4086, 93, 'website', 'index', 1493974285, '192.168.32.100', '1111'),
 	(4087, 93, 'nodes', 'index', 1493974286, '192.168.32.100', '1111'),
-	(4088, 93, 'user', 'index', 1493974288, '192.168.32.100', '1111');
+	(4088, 93, 'user', 'index', 1493974288, '192.168.32.100', '1111'),
+	(4089, 93, 'user', 'index', 1494204093, '192.168.32.100', '1111'),
+	(4090, 93, 'user', 'index', 1494204130, '192.168.32.100', '1111'),
+	(4091, 93, 'user', 'index', 1494204134, '192.168.32.100', '1111'),
+	(4092, 93, 'user', 'index', 1494204138, '192.168.32.100', '1111'),
+	(4093, 93, 'user', 'index', 1494204159, '192.168.32.100', '1111'),
+	(4094, 93, 'user', 'index', 1494204163, '192.168.32.100', '1111'),
+	(4095, 93, 'nodes', 'index', 1494204180, '192.168.32.100', '1111'),
+	(4096, 93, 'nodes', 'index', 1494204181, '192.168.32.100', '1111'),
+	(4097, 93, 'website', 'index', 1494204182, '192.168.32.100', '1111'),
+	(4098, 93, 'nodes', 'index', 1494204183, '192.168.32.100', '1111'),
+	(4099, 93, 'nodes', 'index', 1494204184, '192.168.32.100', '1111'),
+	(4100, 93, 'website', 'index', 1494204184, '192.168.32.100', '1111'),
+	(4101, 93, 'admin', 'index', 1494204185, '192.168.32.100', '1111'),
+	(4102, 93, 'website', 'index', 1494204188, '192.168.32.100', '1111'),
+	(4103, 93, 'admin', 'index', 1494204188, '192.168.32.100', '1111'),
+	(4104, 93, 'nodes', 'index', 1494204202, '192.168.32.100', '1111'),
+	(4105, 93, 'nodes', 'index', 1494204204, '192.168.32.100', '1111'),
+	(4106, 93, 'nodes', 'index', 1494204207, '192.168.32.100', '1111'),
+	(4107, 93, 'nodes', 'create', 1494204213, '192.168.32.100', '1111'),
+	(4108, 93, 'nodes', 'create', 1494204247, '192.168.32.100', '1111'),
+	(4109, 93, 'nodes', 'index', 1494204248, '192.168.32.100', '1111'),
+	(4110, 93, 'user', 'index', 1494229130, '192.168.32.100', '1111'),
+	(4111, 93, 'nodes', 'index', 1494236353, '192.168.32.100', '1111'),
+	(4112, 93, 'website', 'index', 1494236353, '192.168.32.100', '1111'),
+	(4113, 93, 'website', 'index', 1494236582, '192.168.32.100', '1111'),
+	(4114, 93, 'admin', 'index', 1494236584, '192.168.32.100', '1111'),
+	(4115, 93, 'website', 'index', 1494236585, '192.168.32.100', '1111'),
+	(4116, 93, 'nodes', 'index', 1494236589, '192.168.32.100', '1111'),
+	(4117, 93, 'website', 'index', 1494236592, '192.168.32.100', '1111'),
+	(4118, 93, 'admin', 'index', 1494236593, '192.168.32.100', '1111'),
+	(4119, 93, 'nodes', 'index', 1494236636, '192.168.32.100', '1111'),
+	(4120, 93, 'nodes', 'index', 1494236638, '192.168.32.100', '1111'),
+	(4121, 93, 'nodes', 'update', 1494236646, '192.168.32.100', '1111'),
+	(4122, 93, 'nodes', 'update', 1494236652, '192.168.32.100', '1111'),
+	(4123, 93, 'nodes', 'index', 1494236653, '192.168.32.100', '1111'),
+	(4124, 93, 'website', 'index', 1494236654, '192.168.32.100', '1111'),
+	(4125, 93, 'website', 'index', 1494236658, '192.168.32.100', '1111'),
+	(4126, 93, 'website', 'index', 1494236678, '192.168.32.100', '1111'),
+	(4127, 93, 'website', 'index', 1494236679, '192.168.32.100', '1111'),
+	(4128, 93, 'user', 'index', 1494236683, '192.168.32.100', '1111'),
+	(4129, 93, 'user', 'index', 1494236685, '192.168.32.100', '1111'),
+	(4130, 93, 'nodes', 'index', 1494236699, '192.168.32.100', '1111'),
+	(4131, 93, 'website', 'index', 1494236699, '192.168.32.100', '1111'),
+	(4132, 93, 'nodes', 'index', 1494236700, '192.168.32.100', '1111'),
+	(4133, 93, 'user', 'index', 1494236875, '192.168.32.100', '1111'),
+	(4134, 93, 'user', 'index', 1494236883, '192.168.32.100', '1111'),
+	(4135, 93, 'user', 'index', 1494236894, '192.168.32.100', '1111'),
+	(4136, 93, 'user', 'index', 1494237074, '192.168.32.100', '1111'),
+	(4137, 93, 'website', 'index', 1494237191, '192.168.32.100', '1111'),
+	(4138, 93, 'nodes', 'index', 1494237192, '192.168.32.100', '1111'),
+	(4139, 93, 'website', 'index', 1494237196, '192.168.32.100', '1111'),
+	(4140, 93, 'nodes', 'index', 1494237199, '192.168.32.100', '1111'),
+	(4141, 93, 'website', 'index', 1494237200, '192.168.32.100', '1111'),
+	(4142, 93, 'nodes', 'index', 1494237201, '192.168.32.100', '1111'),
+	(4143, 93, 'user', 'index', 1494237205, '192.168.32.100', '1111'),
+	(4144, 93, 'user', 'index', 1494237361, '192.168.32.100', '1111'),
+	(4145, 93, 'user', 'index', 1494237387, '192.168.32.100', '1111'),
+	(4146, 93, 'user', 'index', 1494237405, '192.168.32.100', '1111'),
+	(4147, 93, 'user', 'index', 1494238559, '192.168.32.100', '1111'),
+	(4148, 93, 'website', 'index', 1494238563, '192.168.32.100', '1111'),
+	(4149, 93, 'nodes', 'index', 1494238565, '192.168.32.100', '1111'),
+	(4150, 93, 'nodes', 'update', 1494238568, '192.168.32.100', '1111'),
+	(4151, 93, 'nodes', 'index', 1494238570, '192.168.32.100', '1111'),
+	(4152, 93, 'nodes', 'index', 1494238571, '192.168.32.100', '1111'),
+	(4153, 93, 'nodes', 'update', 1494238575, '192.168.32.100', '1111'),
+	(4154, 93, 'nodes', 'update', 1494238578, '192.168.32.100', '1111'),
+	(4155, 93, 'nodes', 'index', 1494238579, '192.168.32.100', '1111'),
+	(4156, 93, 'website', 'index', 1494238584, '192.168.32.100', '1111'),
+	(4157, 93, 'website', 'index', 1494238591, '192.168.32.100', '1111'),
+	(4158, 93, 'admin', 'index', 1494238592, '192.168.32.100', '1111'),
+	(4159, 93, 'admin', 'index', 1494238597, '192.168.32.100', '1111'),
+	(4160, 93, 'admin', 'index', 1494238670, '192.168.32.100', '1111'),
+	(4161, 93, 'admin', 'index', 1494238671, '192.168.32.100', '1111'),
+	(4162, 93, 'admin', 'index', 1494238672, '192.168.32.100', '1111'),
+	(4163, 93, 'nodes', 'index', 1494239058, '192.168.32.100', '1111'),
+	(4164, 93, 'website', 'index', 1494239058, '192.168.32.100', '1111'),
+	(4165, 93, 'admin', 'index', 1494239059, '192.168.32.100', '1111'),
+	(4166, 93, 'admin', 'index', 1494239061, '192.168.32.100', '1111'),
+	(4167, 93, 'admin', 'index', 1494239062, '192.168.32.100', '1111'),
+	(4168, 93, 'admin', 'index', 1494239063, '192.168.32.100', '1111'),
+	(4169, 93, 'user', 'index', 1494290622, '192.168.32.100', '1111'),
+	(4170, 93, 'nodes', 'index', 1494290632, '192.168.32.100', '1111'),
+	(4171, 93, 'nodes', 'index', 1494290634, '192.168.32.100', '1111'),
+	(4172, 93, 'website', 'index', 1494290635, '192.168.32.100', '1111'),
+	(4173, 93, 'nodes', 'index', 1494290635, '192.168.32.100', '1111'),
+	(4174, 93, 'nodes', 'index', 1494290705, '192.168.32.100', '1111'),
+	(4175, 93, 'website', 'index', 1494290706, '192.168.32.100', '1111'),
+	(4176, 93, 'nodes', 'index', 1494290707, '192.168.32.100', '1111'),
+	(4177, 93, 'user', 'index', 1494290709, '192.168.32.100', '1111'),
+	(4178, 93, 'website', 'index', 1494290724, '192.168.32.100', '1111'),
+	(4179, 93, 'admin', 'index', 1494290725, '192.168.32.100', '1111'),
+	(4180, 93, 'admin', 'index', 1494290732, '192.168.32.100', '1111'),
+	(4181, 93, 'admin', 'index', 1494290756, '192.168.32.100', '1111'),
+	(4182, 93, 'admin', 'index', 1494290770, '192.168.32.100', '1111'),
+	(4183, 93, 'admin', 'index', 1494290789, '192.168.32.100', '1111'),
+	(4184, 93, 'admin', 'index', 1494290790, '192.168.32.100', '1111'),
+	(4185, 93, 'admin', 'index', 1494290819, '192.168.32.100', '1111'),
+	(4186, 93, 'admin', 'index', 1494290921, '192.168.32.100', '1111'),
+	(4187, 93, 'admin', 'index', 1494292503, '192.168.32.100', '1111'),
+	(4188, 93, 'admin', 'index', 1494292604, '192.168.32.100', '1111'),
+	(4189, 93, 'admin', 'index', 1494292648, '192.168.32.100', '1111'),
+	(4190, 93, 'admin', 'index', 1494292702, '192.168.32.100', '1111'),
+	(4191, 93, 'admin', 'index', 1494292745, '192.168.32.100', '1111'),
+	(4192, 93, 'admin', 'index', 1494292756, '192.168.32.100', '1111'),
+	(4193, 93, 'admin', 'index', 1494292852, '192.168.32.100', '1111'),
+	(4194, 93, 'roles', 'role_add', 1494292864, '192.168.32.100', '1111'),
+	(4195, 93, 'admin', 'index', 1494292866, '192.168.32.100', '1111'),
+	(4196, 93, 'admin', 'add_admin', 1494292867, '192.168.32.100', '1111'),
+	(4197, 93, 'admin', 'index', 1494292869, '192.168.32.100', '1111'),
+	(4198, 93, 'admin', 'admin_delete', 1494292875, '192.168.32.100', '1111'),
+	(4199, 93, 'admin', 'index', 1494292875, '192.168.32.100', '1111'),
+	(4200, 93, 'admin', 'admin_delete', 1494292877, '192.168.32.100', '1111'),
+	(4201, 93, 'admin', 'index', 1494292877, '192.168.32.100', '1111'),
+	(4202, 93, 'admin', 'admin_delete', 1494292878, '192.168.32.100', '1111'),
+	(4203, 93, 'admin', 'index', 1494292878, '192.168.32.100', '1111'),
+	(4204, 93, 'admin', 'admin_delete', 1494292881, '192.168.32.100', '1111'),
+	(4205, 93, 'admin', 'index', 1494292881, '192.168.32.100', '1111'),
+	(4206, 93, 'admin', 'admin_delete', 1494292882, '192.168.32.100', '1111'),
+	(4207, 93, 'admin', 'index', 1494292882, '192.168.32.100', '1111'),
+	(4208, 93, 'admin', 'admin_delete', 1494292884, '192.168.32.100', '1111'),
+	(4209, 93, 'admin', 'index', 1494292884, '192.168.32.100', '1111'),
+	(4210, 93, 'admin', 'index', 1494292892, '192.168.32.100', '1111'),
+	(4211, 93, 'admin', 'index', 1494292893, '192.168.32.100', '1111'),
+	(4212, 93, 'admin', 'index', 1494292894, '192.168.32.100', '1111'),
+	(4213, 93, 'admin', 'index', 1494292896, '192.168.32.100', '1111'),
+	(4214, 93, 'admin', 'add_admin', 1494292903, '192.168.32.100', '1111'),
+	(4215, 93, 'admin', 'index', 1494292907, '192.168.32.100', '1111'),
+	(4216, 93, 'admin', 'add_admin', 1494292907, '192.168.32.100', '1111'),
+	(4217, 93, 'roles', 'role_manage', 1494292908, '192.168.32.100', '1111'),
+	(4218, 93, 'roles', 'role_set', 1494292911, '192.168.32.100', '1111'),
+	(4219, 93, 'roles', 'role_manage', 1494292931, '192.168.32.100', '1111'),
+	(4220, 93, 'roles', 'role_add', 1494292933, '192.168.32.100', '1111'),
+	(4221, 93, 'roles', 'role_manage', 1494292934, '192.168.32.100', '1111'),
+	(4222, 93, 'admin', 'add_admin', 1494292935, '192.168.32.100', '1111'),
+	(4223, 93, 'admin', 'index', 1494292936, '192.168.32.100', '1111'),
+	(4224, 93, 'admin', 'add_admin', 1494292936, '192.168.32.100', '1111'),
+	(4225, 93, 'roles', 'role_manage', 1494292936, '192.168.32.100', '1111'),
+	(4226, 93, 'roles', 'role_add', 1494292937, '192.168.32.100', '1111'),
+	(4227, 93, 'roles', 'role_manage', 1494292938, '192.168.32.100', '1111'),
+	(4228, 93, 'admin', 'add_admin', 1494292938, '192.168.32.100', '1111'),
+	(4229, 93, 'roles', 'role_manage', 1494292939, '192.168.32.100', '1111'),
+	(4230, 93, 'roles', 'role_add', 1494292941, '192.168.32.100', '1111'),
+	(4231, 93, 'roles', 'role_manage', 1494292942, '192.168.32.100', '1111'),
+	(4232, 93, 'admin', 'add_admin', 1494292942, '192.168.32.100', '1111'),
+	(4233, 93, 'roles', 'role_manage', 1494292943, '192.168.32.100', '1111'),
+	(4234, 93, 'roles', 'role_set', 1494292945, '192.168.32.100', '1111'),
+	(4235, 93, 'roles', 'role_manage', 1494292959, '192.168.32.100', '1111'),
+	(4236, 93, 'admin', 'add_admin', 1494292959, '192.168.32.100', '1111'),
+	(4237, 93, 'admin', 'index', 1494292960, '192.168.32.100', '1111'),
+	(4238, 93, 'admin', 'index', 1494292999, '192.168.32.100', '1111'),
+	(4239, 93, 'admin', 'index', 1494292999, '192.168.32.100', '1111'),
+	(4240, 93, 'admin', 'index', 1494293000, '192.168.32.100', '1111'),
+	(4241, 93, 'admin', 'index', 1494293000, '192.168.32.100', '1111'),
+	(4242, 93, 'admin', 'index', 1494293000, '192.168.32.100', '1111'),
+	(4243, 93, 'admin', 'index', 1494293000, '192.168.32.100', '1111'),
+	(4244, 93, 'admin', 'index', 1494293000, '192.168.32.100', '1111'),
+	(4245, 93, 'admin', 'index', 1494293001, '192.168.32.100', '1111'),
+	(4246, 93, 'admin', 'index', 1494293001, '192.168.32.100', '1111'),
+	(4247, 93, 'admin', 'index', 1494293002, '192.168.32.100', '1111'),
+	(4248, 93, 'admin', 'admin_edit', 1494293012, '192.168.32.100', '1111'),
+	(4249, 93, 'admin', 'admin_edit', 1494293084, '192.168.32.100', '1111'),
+	(4250, 93, 'admin', 'index', 1494293084, '192.168.32.100', '1111'),
+	(4251, 93, 'nodes', 'index', 1494293091, '192.168.32.100', '1111'),
+	(4252, 93, 'website', 'index', 1494293091, '192.168.32.100', '1111'),
+	(4253, 93, 'admin', 'index', 1494293096, '192.168.32.100', '1111'),
+	(4254, 93, 'admin', 'add_admin', 1494293100, '192.168.32.100', '1111'),
+	(4255, 93, 'roles', 'role_manage', 1494293101, '192.168.32.100', '1111'),
+	(4256, 93, 'roles', 'role_add', 1494293102, '192.168.32.100', '1111'),
+	(4257, 93, 'roles', 'role_manage', 1494293102, '192.168.32.100', '1111'),
+	(4258, 93, 'admin', 'add_admin', 1494293102, '192.168.32.100', '1111'),
+	(4259, 93, 'admin', 'index', 1494293103, '192.168.32.100', '1111'),
+	(4260, 93, 'admin', 'index', 1494293103, '192.168.32.100', '1111'),
+	(4261, 93, 'website', 'index', 1494293104, '192.168.32.100', '1111'),
+	(4262, 93, 'nodes', 'index', 1494293105, '192.168.32.100', '1111'),
+	(4263, 93, 'website', 'index', 1494293106, '192.168.32.100', '1111'),
+	(4264, 93, 'nodes', 'index', 1494293107, '192.168.32.100', '1111'),
+	(4265, 93, 'nodes', 'index', 1494293109, '192.168.32.100', '1111'),
+	(4266, 93, 'website', 'index', 1494293111, '192.168.32.100', '1111'),
+	(4267, 93, 'admin', 'index', 1494293112, '192.168.32.100', '1111'),
+	(4268, 93, 'admin', 'add_admin', 1494293113, '192.168.32.100', '1111'),
+	(4269, 93, 'roles', 'role_manage', 1494293114, '192.168.32.100', '1111'),
+	(4270, 93, 'roles', 'role_add', 1494293114, '192.168.32.100', '1111'),
+	(4271, 93, 'roles', 'role_manage', 1494293115, '192.168.32.100', '1111'),
+	(4272, 93, 'admin', 'add_admin', 1494293116, '192.168.32.100', '1111'),
+	(4273, 93, 'admin', 'index', 1494293116, '192.168.32.100', '1111'),
+	(4274, 93, 'website', 'index', 1494293117, '192.168.32.100', '1111'),
+	(4275, 93, 'nodes', 'index', 1494293118, '192.168.32.100', '1111'),
+	(4276, 93, 'website', 'index', 1494293118, '192.168.32.100', '1111'),
+	(4277, 93, 'website', 'index', 1494293122, '192.168.32.100', '1111'),
+	(4278, 93, 'nodes', 'index', 1494293357, '192.168.32.100', '1111'),
+	(4279, 93, 'nodes', 'index', 1494293359, '192.168.32.100', '1111'),
+	(4280, 93, 'nodes', 'create', 1494293363, '192.168.32.100', '1111'),
+	(4281, 93, 'nodes', 'create', 1494293399, '192.168.32.100', '1111'),
+	(4282, 93, 'nodes', 'index', 1494293401, '192.168.32.100', '1111');
 /*!40000 ALTER TABLE `bl_logs` ENABLE KEYS */;
 
 
@@ -4711,9 +4804,9 @@ CREATE TABLE IF NOT EXISTS `bl_nodes` (
   `display` tinyint(5) DEFAULT '1' COMMENT '是否显示。1：是；0：否',
   `img_icon` varchar(45) DEFAULT NULL COMMENT '菜单图标',
   PRIMARY KEY (`nodeid`)
-) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 
--- 正在导出表  func_count.bl_nodes 的数据：32 rows
+-- 正在导出表  func_count.bl_nodes 的数据：33 rows
 DELETE FROM `bl_nodes`;
 /*!40000 ALTER TABLE `bl_nodes` DISABLE KEYS */;
 INSERT INTO `bl_nodes` (`nodeid`, `title`, `pid`, `path`, `m`, `c`, `a`, `data`, `listorder`, `display`, `img_icon`) VALUES
@@ -4723,7 +4816,7 @@ INSERT INTO `bl_nodes` (`nodeid`, `title`, `pid`, `path`, `m`, `c`, `a`, `data`,
 	(6, '系统首页', 2, '0_2', NULL, 'site', 'siteindex', '', 1, 1, 'icon-dashboard'),
 	(7, '个人设置', 2, '0_2', NULL, 'user', 'index', '', 2, 1, 'icon-user'),
 	(8, '基本设置', 3, '0_3', NULL, 'website', 'index', '', 1, 1, 'icon-list-alt'),
-	(9, '权限管理', 3, '0_3', NULL, 'admin', 'index', '', 4, 1, 'icon-cog'),
+	(9, '权限管理', 3, '0_3', '', 'admin', 'index', '', 4, 1, 'icon-cog'),
 	(10, '视频管理', 4, '0_4', '', 'player', 'manage', '', 0, 1, 'icon-edit'),
 	(17, '菜单管理', 5, '0_5', NULL, 'nodes', 'index', '', 1, 1, 'icon-list'),
 	(25, '菜单修改', 17, '0_5_17', NULL, 'nodes', 'update', '', 0, 1, ''),
@@ -4748,7 +4841,9 @@ INSERT INTO `bl_nodes` (`nodeid`, `title`, `pid`, `path`, `m`, `c`, `a`, `data`,
 	(78, '台词管理', 4, '0_4', '', 'dialogue', 'index', '', 0, 1, ''),
 	(80, '考卷管理', 4, '0_4', '', 'exam', 'index', '', 0, 1, ''),
 	(83, '单词管理', 4, '0_4', '', 'word', 'index', '', 0, 1, ''),
-	(84, '成绩管理', 4, '0_4', '', 'score', 'index', '', 0, 1, '');
+	(84, '成绩管理', 4, '0_4', '', 'score', 'index', '', 0, 1, ''),
+	(85, '学生管理', 4, '0_4', '', 'student', 'index', '', 0, 1, ''),
+	(86, '推荐位管理', 4, '0_4', '', 'recommend', 'index', '', 0, 1, '');
 /*!40000 ALTER TABLE `bl_nodes` ENABLE KEYS */;
 
 
@@ -4792,10 +4887,12 @@ CREATE TABLE IF NOT EXISTS `bl_session` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
--- 正在导出表  func_count.bl_session 的数据：8 rows
+-- 正在导出表  func_count.bl_session 的数据：10 rows
 DELETE FROM `bl_session`;
 /*!40000 ALTER TABLE `bl_session` DISABLE KEYS */;
 INSERT INTO `bl_session` (`id`, `expire`, `data`) VALUES
+	('47n49imq5ffqck3cncnc0c6lp5', 1494298312, _binary 0x5F5F666C6173687C613A303A7B7D),
+	('s2nf1ihift1tb9c3u4f927n822', 1494240503, _binary 0x5F5F666C6173687C613A303A7B7D5F5F636170746368612F736974652F636170746368617C733A343A2273616D65223B5F5F636170746368612F736974652F63617074636861636F756E747C693A313B5F5F69647C693A39333B757C613A343A7B733A333A22756964223B693A39333B733A353A22756E616D65223B733A393A2273756A69616E687569223B733A343A22726F6C65223B693A313B733A323A226970223B733A31343A223139322E3136382E33322E313030223B7D),
 	('no1bvpub9msh0o1ifa2h3gbmm7', 1493983220, _binary 0x5F5F666C6173687C613A303A7B7D5F5F69647C693A39333B),
 	('e83hcjccj4or4urb61lps4jh63', 1493807842, _binary 0x5F5F666C6173687C613A303A7B7D5F5F69647C693A39333B),
 	('ch67om21b9fqsq743fvoaupmf1', 1493884880, _binary 0x5F5F666C6173687C613A303A7B7D5F5F69647C693A39333B),
@@ -4824,7 +4921,7 @@ CREATE TABLE IF NOT EXISTS `bl_site` (
 DELETE FROM `bl_site`;
 /*!40000 ALTER TABLE `bl_site` DISABLE KEYS */;
 INSERT INTO `bl_site` (`id`, `name`, `url`, `title`, `keywords`, `description`, `copyright`, `stat`) VALUES
-	(1, '英汉互译', 'http://www.bailitop.com/', '英汉互译', '英汉互译', '英汉互译', '英汉互译', '');
+	(1, '阳光课堂', 'http://e.bailitop.com/', '英汉互译', '英汉互译', '英汉互译', '英汉互译', '');
 /*!40000 ALTER TABLE `bl_site` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

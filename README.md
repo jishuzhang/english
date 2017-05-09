@@ -13,4 +13,26 @@
 
     english\common\config\params.php
     域名配置
-        
+
+
+运行环境
+    php 5.6.22
+    mysql 5.6.17
+
+    nginx 重写
+
+    ################ Yii framework rule #################
+
+        location / {
+            try_files $uri $uri/ /index.php?$args;
+        }
+
+        location ~ /(protected|framework|nbproject|themes/\w+/views|index-test\.php) {
+            deny all;
+            # for production
+            internal;
+            log_not_found off;
+            access_log off;
+        }
+
+        ################ for Yii framework end #################

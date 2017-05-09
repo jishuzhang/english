@@ -10,19 +10,19 @@ $config = [
 ];
 
 if (!YII_ENV_TEST) {
-    // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] =[
-        'class' => 'yii\debug\Module',
-        'allowedIPs'=>array('192.168.32.100','::1','127.0.0.1'),
-    ];
-
-    $config['bootstrap'][] = 'gii';
-    // $config['modules']['gii'] = 'yii\gii\Module';
-    $config['modules']['gii'] = [
-            'class' => 'yii\gii\Module',
-            'allowedIPs'=>array('192.168.32.100','::1','127.0.0.1'),
-        ];
+//    // configuration adjustments for 'dev' environment
+//    $config['bootstrap'][] = 'debug';
+//    $config['modules']['debug'] =[
+//        'class' => 'yii\debug\Module',
+//        'allowedIPs'=>array('192.168.32.100','::1','127.0.0.1'),
+//    ];
+//
+//    $config['bootstrap'][] = 'gii';
+//    // $config['modules']['gii'] = 'yii\gii\Module';
+//    $config['modules']['gii'] = [
+//            'class' => 'yii\gii\Module',
+//            'allowedIPs'=>array('192.168.32.100','::1','127.0.0.1'),
+//        ];
 
 
 }
