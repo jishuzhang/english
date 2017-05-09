@@ -116,10 +116,10 @@ class ExamController extends Controller
         }
 
         $uid = Yii::$app->user->id;
-//        Yii::$app->session->open();
-//        $tid = Yii::$app->session->get('exam_id');
-//        Yii::$app->session->remove('exam_id');
-        $tid = 11;
+        Yii::$app->session->open();
+        $tid = Yii::$app->session->get('exam_id');
+        Yii::$app->session->remove('exam_id');
+
         if(empty($tid))
         {
             return $this->redirect('exam/list');//throw new yii\web\BadRequestHttpException('参数缺失');
@@ -159,7 +159,7 @@ class ExamController extends Controller
             // 汉译英 立即判卷 试卷状态、阅卷时间 可立即得出
             $commonCol['mark_time'] = $test->time_lock == 1 ? time() : 0 ;
             $commonCol['m_state'] = $test->time_lock == 1 ? 1 : 0 ;
-            $commonCol['m_record'] = empty($isRight) ? array() : serialize($isRight);
+            $commonCol['m_record'] = serialize($isRight);
 
             $inserts = array_merge($columns,$commonCol);
             $answerRecord = Yii::$app->english->createCommand()
