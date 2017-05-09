@@ -82,7 +82,7 @@ class StudentController extends Controller
     {
         $user = User::findOne(['id' => $uid]);
         $data = Score::find()->where(['uid' => $uid])->asArray()->orderBy('id DESC,aid DESC');
-        $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '2']);
+        $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
         $model = $data->offset($pages->offset)->limit($pages->limit)->all();
 
         $test = array();

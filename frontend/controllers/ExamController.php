@@ -216,6 +216,40 @@ class ExamController extends Controller
         // show mark
     }
 
+    public function actionScore()
+    {
+        if(!Yii::$app->user->isGuest)
+        {
+            $uid = Yii::$app->user->id;
+            $user = User::findOne(['id' => $uid]);
+            $data = Score::find()->where(['uid' => $uid])->asArray()->orderBy('id DESC,aid DESC');
+            $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
+            $model = $data->offset($pages->offset)->limit($pages->limit)->all();
+
+            $test = array();
+
+            foreach($model as $e){
+
+                if(!isset($test[$e['tid']])){
+                    $test[$e['tid']] = $this->getTestName($e['tid']);
+                }
+
+            }
+
+            return $this->render('view',[
+                'model' => $model,
+                'pages' => $pages,
+                'test' => $test,
+                'user' => $user,
+            ]);
+        }
+
+    }
+
+    protected function getTestName($tid)
+    {
+        return Test::find()->where(['id'=>$tid])->asArray()->one();
+    }
 
     /**
      * 为表名添加前缀

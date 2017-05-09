@@ -43,11 +43,18 @@ AppAsset::register($this);
         $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
     } else {
+
+        $menuItems[] = [
+            'label' => '个人中心',
+            'url' => ['/exam/score']
+        ];
+
         $menuItems[] = [
             'label' => '注销 (' . Yii::$app->user->identity->username . ')',
             'url' => ['/site/logout'],
             'linkOptions' => ['data-method' => 'post']
         ];
+
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],

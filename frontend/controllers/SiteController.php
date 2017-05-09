@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Recommend;
 use Yii;
 use frontend\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -72,7 +73,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $recommend = Recommend::findAll(['id' => [1,2,3]]);
+
+        return $this->render('index',[
+            'recommend' => $recommend
+        ]);
     }
 
     /**
