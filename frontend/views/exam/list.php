@@ -62,7 +62,7 @@ AppAsset::addScript($this,'/js/video.js',View::POS_END);
                             <b><i><?php echo $n+1;?>.</i></b>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<?=Url::to(['exam/show','id'=> $evModel['id']])?>"><?=$evModel['name']?></a>
                         </div>
                         <div class="col-md-3">
-                            试卷类型: <?if($evModel->time_lock == 1):?>
+                            试卷类型: <?php if($evModel->time_lock == 1):?>
                                         汉译英
                                      <?php elseif($evModel->time_lock == 0):?>
                                         英译汉
