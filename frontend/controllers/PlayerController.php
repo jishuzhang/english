@@ -50,6 +50,20 @@ class PlayerController extends Controller
 
     }
 
+    public function beforeAction($action)
+    {
+        parent::beforeAction($action);
+
+        if (in_array($this->action->id, array('show', 'screen', 'signup'))) {
+            if(Yii::$app->user->isGuest)
+            {
+                return $this->redirect(['site/login']);
+            }
+        }
+
+        return true;
+    }
+
     public function actionScreen()
     {
         $videoId = Yii::$app->request->get('videoid');

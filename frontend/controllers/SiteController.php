@@ -215,4 +215,11 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionEdit()
+    {
+        return $this->render('edit',[
+
+        ]);
+    }
 }

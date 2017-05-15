@@ -57,7 +57,7 @@ class ExamController extends Controller
     {
         parent::beforeAction($action);
 
-        if (in_array($this->action->id, array('show', 'mark-paper', 'signup'))) {
+        if (in_array($this->action->id, array('show', 'mark-paper', 'signup','score'))) {
             if(Yii::$app->user->isGuest)
             {
                 return $this->redirect(['site/login']);
@@ -218,31 +218,29 @@ class ExamController extends Controller
 
     public function actionScore()
     {
-        if(!Yii::$app->user->isGuest)
-        {
-            $uid = Yii::$app->user->id;
-            $user = User::findOne(['id' => $uid]);
-            $data = Score::find()->where(['uid' => $uid])->asArray()->orderBy('id DESC,aid DESC');
-            $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
-            $model = $data->offset($pages->offset)->limit($pages->limit)->all();
 
-            $test = array();
+        $uid = Yii::$app->user->id;
+        $user = User::findOne(['id' => $uid]);
+        $data = Score::find()->where(['uid' => $uid])->asArray()->orderBy('id DESC,aid DESC');
+        $pages = new Pagination(['totalCount' =>$data->count(), 'pageSize' => '20']);
+        $model = $data->offset($pages->offset)->limit($pages->limit)->all();
 
-            foreach($model as $e){
+        $test = array();
 
-                if(!isset($test[$e['tid']])){
-                    $test[$e['tid']] = $this->getTestName($e['tid']);
-                }
+        foreach($model as $e){
 
+            if(!isset($test[$e['tid']])){
+                $test[$e['tid']] = $this->getTestName($e['tid']);
             }
 
-            return $this->render('view',[
-                'model' => $model,
-                'pages' => $pages,
-                'test' => $test,
-                'user' => $user,
-            ]);
         }
+
+        return $this->render('view',[
+            'model' => $model,
+            'pages' => $pages,
+            'test' => $test,
+            'user' => $user,
+        ]);
 
     }
 
